@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create date env variable
-        run: echo "DATE=$(echo $date "+%Y-%m-%d")" >> $GITHUB_ENV
+        run: echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
 #      - name: Compile LaTeX file to PDF
 #      - name: Convert PPTX to PDF
 #        run: |
