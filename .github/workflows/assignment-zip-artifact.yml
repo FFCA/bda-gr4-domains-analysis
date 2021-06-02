@@ -20,15 +20,15 @@ jobs:
       - name: Rename files
         run: |
           mv presentation.pdf YYYY-MM-DD-Group-4-Domains-Analysis-Presentation.pdf
-           rsync -Rr . YYYY-MM-DD-Group-4-Domains-Analysis-Source
+          rsync -Rr . YYYY-MM-DD-Group-4-Domains-Analysis-Source
 #         ... YYYY-MM-DD-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: YYYY-MM-DD-Group-4-Domains-Analysis
           path: |
-#            YYYY-MM-DD-Group-4-Domains-Analysis-Presentation.pdf
             YYYY-MM-DD-Group-4-Domains-Analysis-Source
+#           YYYY-MM-DD-Group-4-Domains-Analysis-Presentation.pdf
 #           YYYY-MM-DD-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
           retention-days: 1
 
