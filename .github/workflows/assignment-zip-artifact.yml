@@ -10,10 +10,10 @@ jobs:
   assignment-zip-artifact:
     runs-on: ubuntu-latest
     name: Create ZIP to be handed in
-    env:
-      DATE: $date "+%Y-%m-%d"
     steps:
       - uses: actions/checkout@v2
+      - name: Create date env variable
+        run: echo "DATE=$(echo $date "+%Y-%m-%d")" >> $GITHUB_ENV
 #      - name: Compile LaTeX file to PDF
 #      - name: Convert PPTX to PDF
 #        run: |
@@ -22,7 +22,7 @@ jobs:
 #      - name: Rename files
 #        run: |
 #          mv presentation.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
-#         ... ${{ env.DATE }}-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
+#          ... ${{ env.DATE }}-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
       - name: Zip source code
         uses: montudor/action-zip@v1
         with:
