@@ -10,6 +10,8 @@ jobs:
   assignment-zip-artifact:
     runs-on: ubuntu-latest
     name: Create ZIP to be handed in
+    env:
+      DATE: $date "+%Y-%m-%d"
     steps:
       - uses: actions/checkout@v2
 #      - name: Compile LaTeX file to PDF
@@ -19,20 +21,18 @@ jobs:
 #          unoconv -f pdf presentation.pptx
 #      - name: Rename files
 #        run: |
-#          mv presentation.pdf YYYY-MM-DD-Group-4-Domains-Analysis-Presentation.pdf
-#         ... YYYY-MM-DD-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
+#          mv presentation.pdf $DATE-Group-4-Domains-Analysis-Presentation.pdf
+#         ... $DATE-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
       - name: Zip source code
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r YYYY-MM-DD-Group-4-Domains-Analysis-Source.zip .
+          args: zip -qq -r $DATE-Group-4-Domains-Analysis-Source.zip .
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: YYYY-MM-DD-Group-4-Domains-Analysis
+          name: $DATE-Group-4-Domains-Analysis
           path: |
-            YYYY-MM-DD-Group-4-Domains-Analysis-Source.zip
-#           YYYY-MM-DD-Group-4-Domains-Analysis-Presentation.pdf
-#           YYYY-MM-DD-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
+            $DATE-Group-4-Domains-Analysis-Source.zip
+#           $DATE-Group-4-Domains-Analysis-Presentation.pdf
+#           $DATE-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
           retention-days: 1
-
-# TODO Use actual date instead of YYYY-MM-DD
