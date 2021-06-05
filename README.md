@@ -13,12 +13,12 @@ The LaTeX files for the conceptual documentation can be found [here](./conceptua
 ./conceptual-doc
 ```
 
-## Domain Analysis (Source Code)
+## Domain Analysis (Source Code for Services)
 
-The source code for the domain analysis can be found [here](./src):
+The source code for the domain analysis can be found [here](./services):
 
 ```
-./src
+./services
 ```
 
 ## Workflows
