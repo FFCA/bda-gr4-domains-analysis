@@ -1,0 +1,18 @@
+services:
+  dashboard:
+    container_name: dashboard
+    build:
+      context: ./dashboard/
+    networks:
+      - domain_analysis_network
+    ports:
+      - "8321:80"
+
+networks:
+  domain_analysis_network:
+    name: domain_analysis_network
+
+# TODO Add further services
+
+# docker compose -p "bda_gr4_domain_analysis" up -d
+# TODO doc
