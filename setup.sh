@@ -1,11 +1,12 @@
-csvDir=src/
-csvFile=real_domains.csv
+csvFile=real_domains.csvs
+basename="$(dirname "$0")/"
 
-if [ -e $csvDir$csvFile ]
+if [ -e $basename$csvFile ]
 then
-    echo $csvFile "exists!"
+    echo $basename$csvFile "exists!"
 else
-    echo $csvFile "does not exist in directory" $csvDir
-    echo "Please make sure to download it and store it as" $csvDir$csvFile"!"
+    echo "Failed to find" $basename$csvFile"!"
+    echo "Make sure to download the data and store it as:" $basename$csvFile
+    echo "Please note, that the relative path to the directory this script has been run from was termined."
     echo "In case of questions, check the assignment specification in Moodle."
 fi
