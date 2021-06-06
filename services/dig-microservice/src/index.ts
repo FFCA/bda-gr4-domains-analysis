@@ -1,9 +1,12 @@
 import express from 'express';
 import { exec } from 'child_process';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const host = 'localhost';
-const port = 8088;
+const host = process.env.HOST ?? '0.0.0.0';
+const port = process.env.PORT ? +process.env.PORT : 80;
 
 const jsonDig = (dig: string) => {
     // TODO Implement
