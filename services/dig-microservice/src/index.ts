@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 const host = process.env.HOST ?? '0.0.0.0';
-const port = process.env.PORT ? +process.env.PORT : 80;
+const port = process.env.PORT ? +process.env.PORT : 8088;
 
 const jsonDig = (dig: string) => {
     // TODO Implement
