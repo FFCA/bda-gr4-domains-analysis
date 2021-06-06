@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   dashboard:
     container_name: dashboard
@@ -14,5 +15,6 @@ networks:
 
 # TODO Add further services
 
-# docker compose -p "bda_gr4_domain_analysis" up -d
+# docker-compose -p "bda-gr4-domain-analysis" up -d
 # TODO doc
+# Better image management (no new image with sha only) with "docker-compose" instead of "docker compose" (Docker tool)
