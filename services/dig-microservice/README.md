@@ -6,3 +6,5 @@ y, and to assist persons in obtaining information about or related to a domain n
 es will you use this Data to: (1) allow, enable, or otherwise support the transmission of mass unsolicited, commercial advertising or solicitations via direct mail, e-mail, telephone, or facsimile; or (2) enable high volume, automated, electronic processes that apply to CSC (or its computer systems). CSC reserv
 es the right to terminate your access to the WHOIS database in its sole discretion for any violations by you of these terms of use. CSC reserves the right to modify these terms at any time.
 ```
+
+[comment]: <> (TODO: Add license in package.json)
