@@ -11,7 +11,7 @@ RUN apt-get install -y dnsutils
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm i --only=production
 COPY --from=appbuild /usr/src/app/build ./build
 EXPOSE 8088
 CMD node build/index.js
