@@ -1,1 +1,1 @@
-dig google.com | less
+dig google.com
