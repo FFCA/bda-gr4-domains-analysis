@@ -26,4 +26,4 @@ fi
 
 # Only called if not exited before => setup docker-compose in detached mode
 cd $basename/services
-docker-compose up -d
+docker-compose -p "bda-gr4-domain-analysis" up -d

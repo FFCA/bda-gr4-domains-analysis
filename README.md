@@ -51,18 +51,19 @@ sh path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
 After verifying whether the required data exists, the shell script does nothing else than (in `./services`):
 
 ```shell
-docker-compose up -d
+docker-compose -p "bda-gr4-domain-analysis" up -d
 ```
 
-The `-d` flag is used in order to run in detached mode, but not necessarily required. Of course, in order to set up the
-services, you can run the command above (in `./services`), too.
+Of course, in order to set up the services, you can run the command above (in `./services`), too. The `-d` flag is used
+in order to run in detached mode, but not necessarily required. The flag `-p <name>` is not required either but
+recommended as it is a descriptive compose name.
 
-However, as it requires manual verification of whether the domain data to be analyzed exists (`real_domains.csv` in the root directory of this project, i.e. on the same level as this README-file), we do not recommend this
-approach.
+However, as it requires manual verification of whether the domain data to be analyzed exists (`real_domains.csv` in the
+root directory of this project, i.e. on the same level as this README-file), we do not recommend this approach.
 
 ### Shutdown
 
-In order to shut down the services, navigate to `./services` and run:
+In order to shut down the services and remove their containers, navigate to `./services` and run:
 
 ```
 docker-compose down
