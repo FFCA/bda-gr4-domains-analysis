@@ -3,11 +3,11 @@ csvFile=real_domains$extension
 basename="$(dirname "$0")/"
 
 # Error case: file stated as param exists but is not a csv => exit with information
-if [ -e $1 ] && [ "${1: -4}" != $extension ]; then
+if ! [ -z $1 ] && [ -e $1 ] && [ "${1: -4}" != $extension ]; then
   echo "Given file format is not supported! Please make sure your file ends with" $extension
   exit 1
 # Case: File stated as param is valid csv => copy file to the repository's root dir making sure it is named correctly
-elif [ -e $1 ]; then
+elif ! [ -z $1 ] && [ -e $1 ]; then
   echo "Copying file" $1 "to" $basename$csvFile "(updates existing file)"
   cp $1 $basename$csvFile
 # Case: No or no existing file stated as param but csv could be found at the required location
