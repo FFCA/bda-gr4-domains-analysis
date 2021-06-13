@@ -1,0 +1,22 @@
+<h1 matDialogTitle>
+    <fa-icon [icon]="terminalIcon" class="mr-3"></fa-icon>
+    {{ 'header.action.digMs' | translate }}
+</h1>
+
+<mat-dialog-content>
+    <div class="fit-content" #resultsContainer>
+        <pre *ngFor="let result of dig.results">{{ result | async }}</pre>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <form class="d-flex w-100" (ngSubmit)="dig.dig()">
+        <pre class="my-auto">$ dig </pre>
+        <input
+            [(ngModel)]="dig.currentValue"
+            name="dig-name"
+            autofocus
+            class="flex-grow-1 p-0"
+        />
+    </form>
+</mat-dialog-actions>

@@ -16,3 +16,16 @@ body {
     background-color: #f44336;
     color: white;
 }
+
+.dig-dialog {
+    width: 720px;
+    max-width: 90%;
+    mat-dialog-container {
+        background-color: black;
+
+        &,
+        * {
+            color: white;
+        }
+    }
+}

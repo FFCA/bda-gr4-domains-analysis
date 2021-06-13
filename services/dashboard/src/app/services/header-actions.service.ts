@@ -4,6 +4,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
+import { DigDialogComponent } from '../components/dig-dialog/dig-dialog.component';
 
 /**
  * Action item including styling/descriptive properties to be displayed.
@@ -42,7 +43,11 @@ export class HeaderActionsService {
             faIcon: faTerminal,
             translationKey: 'header.action.digMs',
             color: 'primary',
-            onClick: () => console.log("to be implemented"),
+            onClick: () => {
+                this.dialog.open(DigDialogComponent, {
+                    panelClass: 'dig-dialog',
+                });
+            },
         },
     ].map((a) => {
         return {

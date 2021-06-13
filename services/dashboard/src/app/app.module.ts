@@ -13,6 +13,7 @@ import { SidenavContentComponent } from './components/sidenav-content/sidenav-co
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { ErrorService } from './services/error.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DigDialogComponent } from './components/dig-dialog/dig-dialog.component';
 
 /**
  * @param http Http Client
@@ -32,6 +33,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         HeaderComponent,
         SidenavContentComponent,
         ErrorDialogComponent,
+        DigDialogComponent,
     ],
     imports: [
         BrowserModule,
