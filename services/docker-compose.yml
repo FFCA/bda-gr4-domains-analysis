@@ -1,9 +1,19 @@
 version: "3.8"
 services:
+  dig_ms:
+    container_name: bda_gr4_dig_ms
+    build:
+      context: dig-microservice/
+    networks:
+      - domain_analysis_network_gr4
+    restart:
+      on-failure
   dashboard:
     container_name: bda_gr4_dashboard
     build:
       context: ./dashboard/
+    depends_on:
+      - dig_ms
     networks:
       - domain_analysis_network_gr4
     ports:
