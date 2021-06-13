@@ -27,7 +27,7 @@ export class DigService {
      */
     $dig(): Observable<DigResponse> | undefined {
         if (this.currentValue.trim()) {
-            const who = this.currentValue.trim().split('\\s')[0]; // TODO: Snackbar if space?
+            const who = this.currentValue.trim();
             this.currentValue = '';
             return this.http.get<DigResponse>(environment.digApi + who);
         } else return undefined;
