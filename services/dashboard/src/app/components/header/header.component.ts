@@ -1,6 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 import { HeaderActionsService } from '../../services/header-actions.service';
 
+/**
+ * The application's header component.
+ */
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
