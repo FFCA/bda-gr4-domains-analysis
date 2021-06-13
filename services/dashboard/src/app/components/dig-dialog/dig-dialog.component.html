@@ -3,9 +3,9 @@
     {{ 'header.action.digMs' | translate }}
 </h1>
 
-<mat-dialog-content>
+<mat-dialog-content #container>
     <div class="fit-content">
-        <ng-container *ngFor="let result of dig.results">
+        <ng-container *ngFor="let result of requests">
             <ng-container *ngIf="result | async as result">
                 <pre class="terminal-green mb-0"
                     >dig {{ result.digged }} ({{ result.timestamp }})</pre
@@ -17,10 +17,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <form class="d-flex w-100" (ngSubmit)="dig.dig()">
+    <form class="d-flex w-100" (ngSubmit)="dig()">
         <pre class="my-auto terminal-green">$ dig </pre>
         <input
-            [(ngModel)]="dig.currentValue"
+            [(ngModel)]="digService.currentValue"
             name="dig-name"
             autofocus
             class="flex-grow-1 p-0"

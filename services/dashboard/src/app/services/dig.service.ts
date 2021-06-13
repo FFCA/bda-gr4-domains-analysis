@@ -2,26 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-/**
- * Dig response as returned from the dig microservice.
- */
-type DigResponse = {
-    /**
-     * Dig answer.
-     */
-    answer: string;
-
-    /**
-     * URL/IP that has been digged.
-     */
-    digged: string;
-
-    /**
-     * Timestamp of the response.
-     */
-    timestamp: Date;
-};
+import { DigResponse } from '../model/api/dig-response';
 
 /**
  * Service to be used for communicating with the dig microservice.
@@ -36,27 +17,19 @@ export class DigService {
     currentValue: string = 'example.com';
 
     /**
-     * List of all dig requests/results.
-     */
-    results: Observable<DigResponse>[] = [];
-
-    /**
      * @param http Injected HTTP client.
      */
     constructor(private readonly http: HttpClient) {}
 
     /**
-     * Performs a request to the dig service using the first part before a white space of {{ currentValue }}.
-     * Afterwards, the request is pushed to {{ results }} and {{ currentValue }} is reset.
+     * Performs a request to the dig service using the first part before a white space of {{ currentValue }} if
+     * {{ currentValue }} is not empty. Afterwards, {{ currentValue }} is reset.
      */
-    dig(): void {
+    $dig(): Observable<DigResponse> | undefined {
         if (this.currentValue.trim()) {
             const who = this.currentValue.trim().split('\\s')[0]; // TODO: Snackbar if space?
             this.currentValue = '';
-            this.results.push(
-                this.http.get<DigResponse>(environment.digApi + who)
-            ); // TODO change i.o. to not perform again
-            if (this.results.length > 20) this.results.pop();
-        }
+            return this.http.get<DigResponse>(environment.digApi + who);
+        } else return undefined;
     }
 }
