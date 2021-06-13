@@ -16,12 +16,20 @@ export class ErrorDialogComponent {
     readonly errorMessage: string;
 
     /**
-     * Initializes the message to be displayed with the error message/title on which of the named values exists
+     * Initializes the message to be displayed with the error message/name/title based on which of the named values exists
      * (error itself is the fallback).
      *
      * @param error Injected error data to be displayed.
      */
     constructor(@Inject(MAT_DIALOG_DATA) error: any) {
-        this.errorMessage = error.message ?? error.title ?? error;
+        this.errorMessage = '';
+
+        for (const e of [error.title, error.name, error.message, error.error]) {
+            if (e && typeof e === 'string' && e.trim()) {
+                this.errorMessage += e + '\n';
+            }
+        }
+
+        if (!this.errorMessage.trim()) this.errorMessage = error;
     }
 }
