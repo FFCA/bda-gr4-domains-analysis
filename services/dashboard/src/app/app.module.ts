@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from './modules/material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavContentComponent } from './components/sidenav-content/sidenav-content.component';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { ErrorService } from './services/error.service';
 
 /**
  * @param http Http Client
@@ -24,7 +26,12 @@ const HttpLoaderFactory = (http: HttpClient) => {
  * Central app module.
  */
 @NgModule({
-    declarations: [AppComponent, HeaderComponent, SidenavContentComponent],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        SidenavContentComponent,
+        ErrorDialogComponent,
+    ],
     imports: [
         BrowserModule,
         FormsModule,
@@ -39,7 +46,12 @@ const HttpLoaderFactory = (http: HttpClient) => {
         }),
         MaterialModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: ErrorHandler,
+            useClass: ErrorService,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

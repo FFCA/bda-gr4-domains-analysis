@@ -1,0 +1,19 @@
+<div mat-dialog-title class="background-warn">
+    <div class="title-content text-center d-flex flex-column">
+        <div class="error-icon-wrapper">
+            <mat-icon [inline]="true"> error_outline </mat-icon>
+        </div>
+        {{ 'dialog.error.title' | translate }}
+    </div>
+</div>
+
+<mat-dialog-content>
+    <p>{{ 'dialog.error.message' | translate }}</p>
+    <pre class="p-3">{{ errorMessage }}</pre>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="warn">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

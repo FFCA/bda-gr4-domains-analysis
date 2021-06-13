@@ -1,8 +1,17 @@
 {
+    "general": {
+        "close": "Schließen"
+    },
     "header": {
         "appTitle": "Gruppe 04 - Domain Analyse",
         "action": {
             "language": "Sprachauswahl"
+        }
+    },
+    "dialog": {
+        "error": {
+            "title": "Ups, es ist etwas schiefgelaufen...",
+            "message": "Der folgende Fehler trat unerwarteterweise auf:"
         }
     }
 }

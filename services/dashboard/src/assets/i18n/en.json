@@ -1,8 +1,17 @@
 {
+    "general": {
+        "close": "Close"
+    },
     "header": {
         "appTitle": "Group 04 - Domain Analysis",
         "action": {
             "language": "Language selection"
+        }
+    },
+    "dialog": {
+        "error": {
+            "title": "Oops, something happened...",
+            "message": "The following error occurred unexpectedly:"
         }
     }
 }
