@@ -17,6 +17,10 @@
         }
     },
     "snackbar": {
-        "illegalDigChar": "Command includes invalid character ('{{ illegal }}')"
+        "dig": {
+            "illegalDigChar": "Command includes invalid character ('{{ illegal }}').",
+            "illegalLeading": "Illegal leading character. Must be lowercase letter or number.",
+            "illegalTrailing": "Illegal trailing character. Must be lowercase letter or number."
+        }
     }
 }

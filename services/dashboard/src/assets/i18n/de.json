@@ -17,6 +17,10 @@
         }
     },
     "snackbar": {
-        "illegalDigChar": "Befehl enthält ungültiges Zeichen ('{{ illegal }}')"
+        "dig": {
+            "illegalDigChar": "Befehl enthält ungültiges Zeichen ('{{ illegal }}').",
+            "illegalLeading": "Ungültiges erstes Zeichen. Gültig sind Kleinbuchstaben und Ziffern.",
+            "illegalTrailing": "Ungültiges letztes Zeichen. Gültig sind Kleinbuchstaben und Ziffern."
+        }
     }
 }

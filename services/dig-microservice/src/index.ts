@@ -20,11 +20,15 @@ const jsonDig = (dig: string) => {
  * @return Message concerning illegal character or undefined if no illegal character has been found.
  */
 const invalidMsg = (value: string): string | undefined => {
-    const regex = /[a-z0-9.:-_]/;
+    const regex = /[a-z0-9.:\-_]/;
     const chars = [...value.trim()];
     const illegalChar = chars.find((c) => !c.match(regex));
     if (illegalChar) {
-        return `Character '${illegalChar}' does not match ${regex} and is thus not considered to be secure.\nCommand will not be executed`;
+        return `Character '${illegalChar}' does not match ${regex} and is thus not considered to be secure.\nCommand will not be executed.`;
+    } else if (!value.charAt(0).match(/[a-z0-9]/)) {
+        return 'String does not start with number/letter and is thus not considered to be secure.\nCommand will not be executed.';
+    } else if (!chars[chars.length - 1].match(/[a-z0-9]/)) {
+        return 'String does not end with number/letter and is thus not considered to be secure.\nCommand will not be executed.';
     } else return undefined;
 };
 
