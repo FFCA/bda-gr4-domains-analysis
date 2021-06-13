@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidenavContentComponent } from './components/sidenav-content/sidenav-content.component';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { ErrorService } from './services/error.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 /**
  * @param http Http Client
@@ -45,6 +46,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
             },
         }),
         MaterialModule,
+        FontAwesomeModule,
     ],
     providers: [
         {
