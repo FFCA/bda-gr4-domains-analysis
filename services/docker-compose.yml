@@ -20,7 +20,3 @@ networks:
     name: domain_analysis_network_gr4
 
 # TODO Add further services
-
-# docker-compose -p "bda-gr4-domain-analysis" up -d
-# TODO doc
-# Better image management (no new image with sha only) with "docker-compose" instead of "docker compose" (Docker tool)
