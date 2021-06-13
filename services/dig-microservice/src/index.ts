@@ -9,23 +9,32 @@ const host = process.env.HOST ?? '0.0.0.0';
 const port = process.env.PORT ? +process.env.PORT : 8088;
 
 const jsonDig = (dig: string) => {
-    // TODO Implement
-    return 'This string will be converted to json:' + dig;
+    // TODO Implement?
+    return dig;
 };
 
+/**
+ * Starts the application at the specified host/port.
+ */
 app.listen(port, host, () => {
-    console.log(`Server is running at ${host}:${port}`);
+    console.log(`Dig-microservice is running at ${host}:${port}`);
 
-    app.get('/dig', (req, res) => {
-        // if (!req.query.ip) {
-        //     const msg = 'Request is lackig from the required parameter `ip`.';
-        //     res.status(422).send(msg);
-        // } else {
-        exec('dig google.com', (error, stdout, stderr) => {
-            if (stdout) res.send(!req.query.raw ? jsonDig(stdout) : stdout);
-            else if (stderr) res.status(500).send(stderr);
-            if (error !== null) res.status(500).send(error);
+    // TODO: Add optional params, i.e. flags?
+
+    /**
+     * On requesting the service using /<dig>, a dig request with the given
+     * param is performed and, if valid, the result is sent back.
+     */
+    app.get('/:dig', (req, res) => {
+        exec(`dig ${req.params.dig}`, (error, stdout, stderr) => {
+            if (stdout) {
+                res.send({
+                    answer: !req.query.raw ? jsonDig(stdout) : stdout,
+                    digged: req.params.dig,
+                    timestamp: new Date(),
+                });
+            } else if (stderr) res.status(500).send(stderr);
+            else if (error !== null) res.status(500).send(error);
         });
-        // }
     });
 });
