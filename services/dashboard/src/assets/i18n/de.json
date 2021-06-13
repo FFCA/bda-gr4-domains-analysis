@@ -5,7 +5,8 @@
     "header": {
         "appTitle": "Gruppe 04 - Domain Analyse",
         "action": {
-            "language": "Sprachauswahl"
+            "language": "Sprachauswahl",
+            "digMs": "Dig-Terminal"
         }
     },
     "dialog": {

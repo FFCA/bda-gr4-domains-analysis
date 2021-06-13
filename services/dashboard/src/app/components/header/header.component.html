@@ -21,7 +21,15 @@
                 [matTooltip]="action.translationKey | translate"
                 (click)="action.onClick()"
             >
-                <mat-icon> {{ 'language' }}</mat-icon>
+                <mat-icon *ngIf="action.icon; else faIcon">
+                    {{ action.icon }}
+                </mat-icon>
+                <ng-template #faIcon>
+                    <fa-icon
+                        *ngIf="action.faIcon"
+                        [icon]="action.faIcon"
+                    ></fa-icon>
+                </ng-template>
             </button>
         </div>
     </mat-toolbar-row>

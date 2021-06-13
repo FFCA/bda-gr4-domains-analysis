@@ -5,7 +5,8 @@
     "header": {
         "appTitle": "Group 04 - Domain Analysis",
         "action": {
-            "language": "Language selection"
+            "language": "Language selection",
+            "digMs": "Dig terminal"
         }
     },
     "dialog": {

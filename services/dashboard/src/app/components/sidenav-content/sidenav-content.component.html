@@ -6,7 +6,17 @@
         [ngClass]="action.color"
         (click)="action.onClick()"
     >
-        <mat-icon class="mr-2">{{ action.icon }}</mat-icon>
+        <mat-icon *ngIf="action.icon; else faIcon" class="mr-2">
+            {{ action.icon }}
+        </mat-icon>
+        <ng-template #faIcon>
+            <fa-icon
+                *ngIf="action.faIcon"
+                [icon]="action.faIcon"
+                class="mr-2"
+            ></fa-icon>
+        </ng-template>
+
         {{ action.translationKey | translate }}
     </a>
 </mat-nav-list>
