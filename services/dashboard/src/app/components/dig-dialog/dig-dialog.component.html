@@ -4,14 +4,21 @@
 </h1>
 
 <mat-dialog-content>
-    <div class="fit-content" #resultsContainer>
-        <pre *ngFor="let result of dig.results">{{ result | async }}</pre>
+    <div class="fit-content">
+        <ng-container *ngFor="let result of dig.results">
+            <ng-container *ngIf="result | async as result">
+                <pre class="terminal-green mb-0"
+                    >dig {{ result.digged }} ({{ result.timestamp }})</pre
+                >
+                <pre>{{ result.answer }}</pre>
+            </ng-container>
+        </ng-container>
     </div>
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <form class="d-flex w-100" (ngSubmit)="dig.dig()">
-        <pre class="my-auto">$ dig </pre>
+        <pre class="my-auto terminal-green">$ dig </pre>
         <input
             [(ngModel)]="dig.currentValue"
             name="dig-name"
