@@ -1,6 +1,7 @@
 {
     "general": {
-        "close": "Close"
+        "close": "Close",
+        "deleteHistory": "Delete history"
     },
     "header": {
         "appTitle": "Group 04 - Domain Analysis",

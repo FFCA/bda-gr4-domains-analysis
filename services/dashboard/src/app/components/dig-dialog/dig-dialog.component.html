@@ -1,14 +1,27 @@
-<h1 matDialogTitle>
-    <fa-icon [icon]="terminalIcon" class="mr-3"></fa-icon>
-    {{ 'header.action.digMs' | translate }}
-</h1>
+<div matDialogTitle class="d-flex">
+    <h1 class="flex-grow-1">
+        <fa-icon [icon]="terminalIcon" class="mr-3"></fa-icon>
+        {{ 'header.action.digMs' | translate }}
+    </h1>
+    <button
+        mat-icon-button
+        [matTooltip]="'general.deleteHistory' | translate"
+        [disabled]="!requests.length"
+        (click)="requests = []"
+    >
+        <mat-icon>delete_outline</mat-icon>
+    </button>
+    <button mat-icon-button [matTooltip]="'general.close' | translate">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
 
 <mat-dialog-content #container>
     <div class="content" (click)="input.focus()">
         <ng-container *ngFor="let result of requests">
             <ng-container *ngIf="result | async as result">
-                <pre class="terminal-green mb-0"
-                    >dig {{ result.digged }} ({{ result.timestamp }})</pre
+                <pre class="terminal-green mb-0">
+dig {{ result.digged }} ({{ result.timestamp }})</pre
                 >
                 <pre>{{ result.answer }}</pre>
             </ng-container>

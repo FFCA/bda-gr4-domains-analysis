@@ -7,6 +7,10 @@
     color: #00ff00;
 }
 
+:disabled * {
+    color: darkgrey;
+}
+
 form {
     &,
     * {
@@ -18,5 +22,6 @@ form {
         background-color: transparent;
         border: none;
         outline: none;
+        width: 0;
     }
 }
