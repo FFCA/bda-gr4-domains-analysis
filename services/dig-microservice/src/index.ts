@@ -27,6 +27,7 @@ app.listen(port, host, () => {
      */
     app.get('/:dig', (req, res) => {
         exec(`dig ${req.params.dig}`, (error, stdout, stderr) => {
+            console.log('processing: ' + req.params.dig);
             if (stdout) {
                 res.send({
                     answer: !req.query.raw ? jsonDig(stdout) : stdout,
