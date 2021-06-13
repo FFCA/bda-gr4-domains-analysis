@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { I18nService } from '../../services/i18n.service';
+import { HeaderActionsService } from '../../services/header-actions.service';
 
 @Component({
     selector: 'app-header',
@@ -12,8 +12,10 @@ export class HeaderComponent {
      */
     isScrolled: boolean = false;
 
-    // TODO temporary solution => use logic of new service unifying actions and remove here
-    constructor(readonly i18n: I18nService) {}
+    /**
+     * @param actions Inejcted header actions service.
+     */
+    constructor(readonly actions: HeaderActionsService) {}
 
     /**
      * Sets {{ isScrolled }} based on the current page scrolling any time a scroll event is emitted.

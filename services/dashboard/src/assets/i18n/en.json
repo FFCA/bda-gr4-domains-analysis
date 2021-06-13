@@ -1,7 +1,7 @@
 {
     "header": {
         "appTitle": "Group 04 - Domain Analysis",
-        "actions": {
+        "action": {
             "language": "Language selection"
         }
     }
