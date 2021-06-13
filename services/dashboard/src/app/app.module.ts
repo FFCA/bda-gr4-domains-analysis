@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MaterialModule } from './modules/material.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,6 +27,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
                 deps: [HttpClient],
             },
         }),
+        MaterialModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
