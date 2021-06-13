@@ -14,5 +14,8 @@
             "title": "Oops, something happened...",
             "message": "The following error occurred unexpectedly:"
         }
+    },
+    "snackbar": {
+        "illegalDigChar": "Command includes invalid character ('{{ illegal }}')"
     }
 }

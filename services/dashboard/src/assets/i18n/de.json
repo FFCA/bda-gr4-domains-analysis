@@ -14,5 +14,8 @@
             "title": "Ups, es ist etwas schiefgelaufen...",
             "message": "Der folgende Fehler trat unerwarteterweise auf:"
         }
+    },
+    "snackbar": {
+        "illegalDigChar": "Befehl enthält ungültiges Zeichen ('{{ illegal }}')"
     }
 }
