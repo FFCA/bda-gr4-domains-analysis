@@ -10,7 +10,7 @@ itself.
 ### The easiest way: All-in-one shell script
 
 In order to make this tool as easily usable as possible, there is a shell script for both managing the required data (
-parsed domain data (`real_domains.csv`)) and starting all services (`docker-compose`). This file can be
+parsed domain data (`real_domains.csv`) and starting all services (`docker-compose`). This file can be
 found [here](./setup.sh).
 
 _**Note:** the `sh` command can only be run in a Linux-based terminal. However, if you are using Windows, you can use
