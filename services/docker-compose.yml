@@ -1,17 +1,23 @@
 version: "3.8"
 services:
   dashboard:
-    container_name: dashboard
+    container_name: bda_gr4_dashboard
     build:
       context: ./dashboard/
     networks:
-      - domain_analysis_network
+      - domain_analysis_network_gr4
     ports:
       - "8321:80"
+  database:
+    container_name: bda_gr4_database
+    build:
+      context: ./postgres-db/
+    networks:
+      - domain_analysis_network_gr4
 
 networks:
-  domain_analysis_network:
-    name: domain_analysis_network
+  domain_analysis_network_gr4:
+    name: domain_analysis_network_gr4
 
 # TODO Add further services
 
