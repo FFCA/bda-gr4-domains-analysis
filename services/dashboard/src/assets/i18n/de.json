@@ -1,3 +1,8 @@
 {
-    "hello": "Hallo"
+    "header": {
+        "appTitle": "Gruppe 04 - Domain Analyse",
+        "actions": {
+            "language": "Sprachauswahl"
+        }
+    }
 }

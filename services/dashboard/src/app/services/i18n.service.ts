@@ -73,4 +73,12 @@ export class I18nService {
                     .includes(l)
             );
     }
+
+    // TODO: Remove
+    mockLanguageSwitch() {
+        this.currentLanguage =
+            this.currentLanguageIso2 === 'en'
+                ? this.supportedLanguages[1]
+                : this.supportedLanguages[0];
+    }
 }
