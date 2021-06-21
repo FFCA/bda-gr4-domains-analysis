@@ -24,6 +24,15 @@ services:
       context: ./postgres-db/
     networks:
       - domain_analysis_network_gr4
+  spark:
+    container_name: bda_gr4_spark
+    ports:
+      - "8888:8888"
+    build:
+      context: ./pyspark-analyse/
+    depends_on:
+      - database
+    # TODO: rename pyspark dir as soon as it is safe regarding merge conflicts
 
 networks:
   domain_analysis_network_gr4:
