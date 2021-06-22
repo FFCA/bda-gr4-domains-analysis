@@ -28,6 +28,8 @@ services:
     container_name: bda_gr4_spark
     ports:
       - "8888:8888"
+    networks:
+      - domain_analysis_network_gr4
     build:
       context: ./pyspark-analyse/
     depends_on:
