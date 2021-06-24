@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 /**
  * Module to be used for exporting Angular Material components to be used in this application.
@@ -17,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     imports: [CommonModule],
     exports: [
         MatButtonModule,
+        MatCardModule,
         MatDialogModule,
         MatIconModule,
         MatListModule,

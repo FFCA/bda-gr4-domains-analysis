@@ -22,5 +22,12 @@
             "illegalLeading": "Illegal leading character. Must be lowercase letter or number.",
             "illegalTrailing": "Illegal trailing character. Must be lowercase letter or number."
         }
+    },
+    "dashboard": {
+        "chart": {
+            "meta": {
+                "nth": "Chart {{ n }}"
+            }
+        }
     }
 }

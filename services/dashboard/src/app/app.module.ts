@@ -14,6 +14,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
 import { ErrorService } from './services/error.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DigDialogComponent } from './components/dialogs/dig-dialog/dig-dialog.component';
+import {ChartsModule} from "ng2-charts";
+import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
 
 /**
  * @param http Http Client
@@ -34,6 +36,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         SidenavContentComponent,
         ErrorDialogComponent,
         DigDialogComponent,
+        DashboardMainComponent,
     ],
     imports: [
         BrowserModule,
@@ -49,6 +52,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         }),
         MaterialModule,
         FontAwesomeModule,
+        ChartsModule,
     ],
     providers: [
         {

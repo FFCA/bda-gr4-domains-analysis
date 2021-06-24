@@ -22,5 +22,12 @@
             "illegalLeading": "Ungültiges erstes Zeichen. Gültig sind Kleinbuchstaben und Ziffern.",
             "illegalTrailing": "Ungültiges letztes Zeichen. Gültig sind Kleinbuchstaben und Ziffern."
         }
+    },
+    "dashboard": {
+        "chart": {
+            "meta": {
+                "nth": "Diagramm {{ n }}"
+            }
+        }
     }
 }
