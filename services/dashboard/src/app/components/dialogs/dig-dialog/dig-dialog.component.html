@@ -11,7 +11,11 @@
     >
         <mat-icon>delete_outline</mat-icon>
     </button>
-    <button mat-icon-button [matTooltip]="'general.close' | translate">
+    <button
+        mat-icon-button
+        [matTooltip]="'general.close' | translate"
+        mat-dialog-close
+    >
         <mat-icon>close</mat-icon>
     </button>
 </div>
