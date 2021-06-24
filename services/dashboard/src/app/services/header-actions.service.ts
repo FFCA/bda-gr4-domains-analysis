@@ -4,7 +4,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
-import { DigDialogComponent } from '../components/dig-dialog/dig-dialog.component';
+import { DigDialogComponent } from '../components/dialogs/dig-dialog/dig-dialog.component';
 
 /**
  * Action item including styling/descriptive properties to be displayed.

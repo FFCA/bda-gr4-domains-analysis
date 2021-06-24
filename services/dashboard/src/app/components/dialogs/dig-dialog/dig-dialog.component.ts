@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { DigService } from '../../services/dig.service';
+import { DigService } from '../../../services/dig.service';
 import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DigResponse } from '../../model/api/dig-response';
+import { DigResponse } from '../../../model/api/dig-response';
 
 /**
  * Component mocking a terminal for performing dig requests.
