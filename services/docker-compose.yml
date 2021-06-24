@@ -17,7 +17,7 @@ services:
     networks:
       - domain_analysis_network_gr4
     ports:
-      - "8321:80"
+      - 8321:80
   database:
     container_name: bda_gr4_database
     build:
@@ -27,7 +27,7 @@ services:
   spark:
     container_name: bda_gr4_spark
     ports:
-      - "8888:8888"
+      - 8888:8888
     networks:
       - domain_analysis_network_gr4
     build:
@@ -36,6 +36,8 @@ services:
       - database
     environment:
       - JUPYTER_ENABLE_LAB=1
+    volumes:
+      - ../data:/home/jovyan/work/data
     # TODO: rename pyspark dir as soon as it is safe regarding merge conflicts
 
 networks:
