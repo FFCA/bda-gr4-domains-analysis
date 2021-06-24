@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DigDialogComponent } from './components/dialogs/dig-dialog/dig-dialog.component';
 import {ChartsModule} from "ng2-charts";
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { LanguageSelectionDialogComponent } from './components/dialogs/language-selection-dialog/language-selection-dialog.component';
 
 /**
  * @param http Http Client
@@ -37,6 +38,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         ErrorDialogComponent,
         DigDialogComponent,
         DashboardMainComponent,
+        LanguageSelectionDialogComponent,
     ],
     imports: [
         BrowserModule,

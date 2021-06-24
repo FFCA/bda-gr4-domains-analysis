@@ -13,8 +13,8 @@ export class I18nService {
      * List of all available languages.
      */
     readonly supportedLanguages: Language[] = [
-        new Language('en', 'English'),
-        new Language('de', 'Deutsch'),
+        new Language('en', 'English', 'flag-icon-gb'),
+        new Language('de', 'Deutsch', 'flag-icon-de'),
     ];
 
     /**
@@ -35,7 +35,7 @@ export class I18nService {
             (l) =>
                 l.iso2 ===
                 (this.supportedUserLanguageIso2 ?? this.translate.defaultLang)
-        ) as Language;
+        )!;
     }
 
     /**
@@ -72,13 +72,5 @@ export class I18nService {
                     .map((supported) => supported.iso2)
                     .includes(l)
             );
-    }
-
-    // TODO: Remove
-    mockLanguageSwitch() {
-        this.currentLanguage =
-            this.currentLanguageIso2 === 'en'
-                ? this.supportedLanguages[1]
-                : this.supportedLanguages[0];
     }
 }

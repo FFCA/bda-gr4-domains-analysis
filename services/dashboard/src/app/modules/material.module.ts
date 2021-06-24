@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { MatRippleModule } from '@angular/material/core';
 
 /**
  * Module to be used for exporting Angular Material components to be used in this application.
@@ -22,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
         MatDialogModule,
         MatIconModule,
         MatListModule,
+        MatRippleModule,
         MatSidenavModule,
         MatSnackBarModule,
         MatToolbarModule,
