@@ -1,9 +1,25 @@
 version: "3.8"
 services:
+  database:
+    container_name: bda_gr4_database
+    build:
+      context: ./postgres-db/
+    networks:
+      - domain_analysis_network_gr4
   dig_ms:
     container_name: bda_gr4_dig_ms
     build:
-      context: dig-microservice/
+      context: ./dig-microservice/
+    networks:
+      - domain_analysis_network_gr4
+    restart:
+      on-failure
+  statistics_server:
+    container_name: bda_gr4_statistics_server
+    build:
+      context: ./statistics-service
+    depends_on:
+      - database
     networks:
       - domain_analysis_network_gr4
     restart:
@@ -18,12 +34,6 @@ services:
       - domain_analysis_network_gr4
     ports:
       - 8321:80
-  database:
-    container_name: bda_gr4_database
-    build:
-      context: ./postgres-db/
-    networks:
-      - domain_analysis_network_gr4
   spark:
     container_name: bda_gr4_spark
     ports:
