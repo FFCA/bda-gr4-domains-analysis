@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import Db from './helpers/db-connection';
+import statisticsRoutes from './routes/statistics.routes';
 
 // TODO Dockerize
 
@@ -34,8 +35,11 @@ const port = process.env.PORT ? +process.env.PORT : 8089;
 const connect = (attempt = 0) => {
     Db.connect()
         .then(async () => {
-            console.log("Hello Statistics World!");
-            console.log((await Db.executeQuery("select * from domain")).rows)
+            console.log('Successfully connected to DB');
+            statisticsRoutes(app);
+            app.listen(port, host, () => {
+                console.log(`Server is running at ${host}:${port}`);
+            });
         })
         .catch((err) => {
             console.error(err);
