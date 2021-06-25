@@ -2,10 +2,24 @@ import express from 'express';
 import { exec } from 'child_process';
 import dotenv from 'dotenv';
 
+/**
+ * Loads the dotenv config on initially loading this file.
+ */
 dotenv.config();
 
+/**
+ * Express application.
+ */
 const app = express();
+
+/**
+ * Host the application is to be run on.
+ */
 const host = process.env.HOST ?? '0.0.0.0';
+
+/**
+ * Port the application is to be run on.
+ */
 const port = process.env.PORT ? +process.env.PORT : 8088;
 
 const jsonDig = (dig: string) => {
