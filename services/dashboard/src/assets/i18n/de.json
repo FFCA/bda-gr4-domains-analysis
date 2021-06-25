@@ -21,6 +21,14 @@
             "illegalDigChar": "Befehl enthält ungültiges Zeichen ('{{ illegal }}').",
             "illegalLeading": "Ungültiges erstes Zeichen. Gültig sind Kleinbuchstaben und Ziffern.",
             "illegalTrailing": "Ungültiges letztes Zeichen. Gültig sind Kleinbuchstaben und Ziffern."
+        },
+        "languageSwitched": "Die Sprache wurde erfolgreich gewechselt."
+    },
+    "dashboard": {
+        "chart": {
+            "meta": {
+                "nth": "Diagramm {{ n }}"
+            }
         }
     }
 }

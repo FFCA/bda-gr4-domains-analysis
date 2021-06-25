@@ -5,11 +5,11 @@ export class Language {
     /**
      * @param iso2 Iso code of the language
      * @param name The language's name (native language)
-     * @param englishName The language's name (english)
+     * @param iconName Icon class name of the flag to be displayed (flag-icon-css).
      */
     constructor(
         readonly iso2: string,
         readonly name: string,
-        readonly englishName?: string
+        readonly iconName: string
     ) {}
 }

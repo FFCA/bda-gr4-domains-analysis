@@ -5,6 +5,10 @@ import { faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { DigDialogComponent } from '../components/dialogs/dig-dialog/dig-dialog.component';
+import { LanguageSelectionDialogComponent } from '../components/dialogs/language-selection-dialog/language-selection-dialog.component';
+import { Language } from '../model/internal/language';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Action item including styling/descriptive properties to be displayed.
@@ -37,7 +41,32 @@ export class HeaderActionsService {
             icon: 'language',
             translationKey: 'header.action.language',
             color: 'primary',
-            onClick: () => this.i18n.mockLanguageSwitch(),
+            onClick: () => {
+                this.dialog
+                    .open(LanguageSelectionDialogComponent)
+                    .afterClosed()
+                    .subscribe((selection: Language) => {
+                        if (
+                            selection &&
+                            selection.iso2 !== this.i18n.currentLanguageIso2
+                        ) {
+                            this.i18n.currentLanguage = selection;
+                            const [close, info] = [
+                                'general.close',
+                                'snackbar.languageSwitched',
+                            ];
+                            this.translate
+                                .get([close, info])
+                                .subscribe((translation) => {
+                                    this.snackbar.open(
+                                        translation[info],
+                                        translation[close],
+                                        { duration: 2000 }
+                                    );
+                                });
+                        }
+                    });
+            },
         },
         {
             faIcon: faTerminal,
@@ -69,11 +98,15 @@ export class HeaderActionsService {
      * @param media Media Matcher to be used in order to initialize the service's mobile query.
      * @param i18n Injected i18n service.
      * @param dialog Injected Material dialog service.
+     * @param snackbar Injected Material snackbar service.
+     * @param translate Injected translation service.
      */
     constructor(
         media: MediaMatcher,
         private readonly i18n: I18nService,
-        private readonly dialog: MatDialog
+        private readonly dialog: MatDialog,
+        private readonly snackbar: MatSnackBar,
+        private readonly translate: TranslateService
     ) {
         // See bootstrap breakpoints
         this.mobileQuery = media.matchMedia('(max-width: 576px)');
