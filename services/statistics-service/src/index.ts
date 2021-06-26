@@ -1,9 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import Db from './helpers/db-connection';
-import statisticsRoutes from './routes/statistics.routes';
-
-// TODO Dockerize
+import http from 'http';
+import { initializeSockets } from './helpers/socket-management';
 
 /**
  * Loads the dotenv config on initially loading this file.
@@ -11,9 +10,9 @@ import statisticsRoutes from './routes/statistics.routes';
 dotenv.config();
 
 /**
- * Express application.
+ * Express based http application server.
  */
-const app = express();
+const httpServer = http.createServer(express());
 
 /**
  * Host the application is to be run on.
@@ -28,7 +27,7 @@ const port = process.env.PORT ? +process.env.PORT : 8089;
 /**
  * Initialization function for connecting to the database and initializing the
  * Express application. In case of an connection error, this function is recursively
- * called (5 total attempts to connect)
+ * called. (5 total attempts to connect)
  *
  * @param attempt nr. of attempt (default = 0)
  */
@@ -38,8 +37,9 @@ const connect = (attempt = 0) => {
             console.log('Successfully connected to DB');
             await Db.registerNotificationListener((n) => console.log(n));
             console.log('Successfully registered DB notifications listener');
-            statisticsRoutes(app);
-            await app.listen(port, host);
+            initializeSockets(httpServer);
+            console.log('Successfully initialized socket communication logic');
+            await httpServer.listen(port, host);
             console.log(`Server is running at ${host}:${port}`);
         })
         .catch((err) => {
