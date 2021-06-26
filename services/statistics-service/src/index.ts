@@ -36,10 +36,11 @@ const connect = (attempt = 0) => {
     Db.connect()
         .then(async () => {
             console.log('Successfully connected to DB');
+            await Db.registerNotificationListener((n) => console.log(n));
+            console.log('Successfully registered DB notifications listener');
             statisticsRoutes(app);
-            app.listen(port, host, () => {
-                console.log(`Server is running at ${host}:${port}`);
-            });
+            await app.listen(port, host);
+            console.log(`Server is running at ${host}:${port}`);
         })
         .catch((err) => {
             console.error(err);

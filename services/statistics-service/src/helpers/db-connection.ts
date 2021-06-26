@@ -1,4 +1,4 @@
-import { Client, ClientConfig, QueryResult } from 'pg';
+import { Client, ClientConfig, Notification, QueryResult } from 'pg';
 import dotenv from 'dotenv';
 
 /**
@@ -27,6 +27,19 @@ class DbConnection {
     connect(): Promise<void> {
         this.client = new Client(this.config);
         return this.client.connect();
+    }
+
+    /**
+     * Initializes a listener for "watch_domain" and sets the function to be executed
+     * in case of insertions, updates or deletions.
+     *
+     * @param notificationFn
+     */
+    async registerNotificationListener(
+        notificationFn: (notification: Notification) => void
+    ): Promise<void> {
+        await this.client.query('LISTEN watch_domain');
+        this.client.on('notification', notificationFn);
     }
 
     /**
