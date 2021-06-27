@@ -11,7 +11,8 @@ export class StatisticsService {
 
     // TODO: Implement/Add documentation
 
-    setupSocketConnection() {
+    setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
+        this.socket.on('db-change', (msg) => console.log(msg));
     }
 }

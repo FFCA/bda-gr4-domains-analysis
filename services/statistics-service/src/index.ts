@@ -2,7 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import Db from './helpers/db-connection';
 import http from 'http';
-import { initializeSockets } from './helpers/socket-management';
+import {
+    initializeSockets,
+    handleDbChanges,
+} from './helpers/socket-management';
 
 /**
  * Loads the dotenv config on initially loading this file.
@@ -35,12 +38,12 @@ const connect = (attempt = 0) => {
     Db.connect()
         .then(async () => {
             console.log('Successfully connected to DB');
-            await Db.registerNotificationListener((n) => console.log(n));
-            console.log('Successfully registered DB notifications listener');
             initializeSockets(httpServer);
             console.log('Successfully initialized socket communication logic');
+            await Db.registerNotificationListener(handleDbChanges);
+            console.log('Successfully registered DB notifications listener');
             await httpServer.listen(port, host);
-            console.log(`Server is running at ${host}:${port}`);
+            console.log(`Server is running at ${host}:${port}\n`);
         })
         .catch((err) => {
             console.error(err);
