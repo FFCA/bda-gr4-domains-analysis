@@ -2,13 +2,16 @@
 
 CREATE TABLE domain
 (
-    id                SERIAL PRIMARY KEY,
-    top_level_domain  VARCHAR(255) UNIQUE NOT NULL,
+    top_level_domain  VARCHAR(255) PRIMARY KEY,
     mx_record         VARCHAR(255)[] NULL,
-    a_record          VARCHAR(255)[] NULL,
-    -- TODO: Discuss VARCHAR/TEXT and insertion in general
-    a_record_checked  TEXT[] NULL,
-    mx_record_checked TEXT[] NULL,
+    a_record          VARCHAR(255)[] NULL
+);
+
+CREATE TABLE domain_enhanced
+(
+    top_level_domain  VARCHAR(255) REFERENCES domain(top_level_domain) PRIMARY KEY,
+    a_record_checked  VARCHAR(255)[] NULL,
+    mx_record_checked VARCHAR(255)[] NULL,
     redirection       VARCHAR(255) NULL,
     status_code       VARCHAR(255) NULL
 );
