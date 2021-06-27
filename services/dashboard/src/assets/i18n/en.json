@@ -1,0 +1,34 @@
+{
+    "general": {
+        "close": "Close",
+        "deleteHistory": "Delete history"
+    },
+    "header": {
+        "appTitle": "Group 04 - Domain Analysis",
+        "action": {
+            "language": "Language selection",
+            "digMs": "Dig terminal"
+        }
+    },
+    "dialog": {
+        "error": {
+            "title": "Oops, something happened...",
+            "message": "The following error occurred unexpectedly:"
+        }
+    },
+    "snackbar": {
+        "dig": {
+            "illegalDigChar": "Command includes invalid character ('{{ illegal }}').",
+            "illegalLeading": "Illegal leading character. Must be lowercase letter or number.",
+            "illegalTrailing": "Illegal trailing character. Must be lowercase letter or number."
+        },
+        "languageSwitched": "The language has been switched successfully."
+    },
+    "dashboard": {
+        "chart": {
+            "meta": {
+                "nth": "Chart {{ n }}"
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.content {
+    width: fit-content;
+    min-width: 100%;
+}
+
+.terminal-green {
+    color: #00ff00;
+}
+
+:disabled * {
+    color: darkgrey;
+}
+
+form {
+    &,
+    * {
+        font-size: large;
+        font-family: monospace;
+    }
+
+    input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        width: 0;
+    }
+}

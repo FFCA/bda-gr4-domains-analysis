@@ -1,4 +1,21 @@
-`whois` will not be used:
+# Dig Microservice
+
+## How to use?
+
+This service allows performing `dig`-requests through `http`. It does only provide one endpoint and can be queried as
+follows:
+
+`/<what to dig>` which will simply perform a `dig` request and return a result object containing the following
+information:
+
+- `answer`: Answer for the executed command
+- `digged`: URL/IP that has been digged, i.e. the request param
+- `timestamp`: Timestamp of the result
+
+## Why not `whois`?
+
+Since this service is primarily intended to be used for automized Big Data Analytics, `whois` will not be used for legal
+reasons:
 
 ```
 NOTICE: You are not authorized to access or query our WHOIS database through the use of high-volume, automated, electronic processes or for the purpose or purposes of using the data in any manner that violates these terms of use. The Data in the CSC WHOIS database is provided by CSC for information purposes onl
@@ -8,3 +25,23 @@ es the right to terminate your access to the WHOIS database in its sole discreti
 ```
 
 [comment]: <> (TODO: Add license in package.json)
+
+## Technical information
+
+### Run this application
+
+`dig` requires Linux which is why this service should preferably be run in the dedicated Docker container with all
+required tools are installed (
+see [root README](../../README.md)). Using the `docker compose` of this project, the container is not accessible from
+the outside. However, you can use the [dashboard's](../dashboard/README.md) dig terminal to test this service or start
+another container with a mapped port (`-p <your port>:8088`).
+
+### Commands for developing
+
+The following commands are useful for developers.
+
+- For starting the app in dev mode, run `npm run start:dev`
+- For manual building, run: `npm run build`
+- For starting the build application, run: `npm run start:prod`
+
+However, if you are using Windows, the application will not run due to lack of `dig`.

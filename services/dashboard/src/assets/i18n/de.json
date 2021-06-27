@@ -1,0 +1,34 @@
+{
+    "general": {
+        "close": "Schließen",
+        "deleteHistory": "Historie löschen"
+    },
+    "header": {
+        "appTitle": "Gruppe 04 - Domain Analyse",
+        "action": {
+            "language": "Sprachauswahl",
+            "digMs": "Dig-Terminal"
+        }
+    },
+    "dialog": {
+        "error": {
+            "title": "Ups, es ist etwas schiefgelaufen...",
+            "message": "Der folgende Fehler trat unerwarteterweise auf:"
+        }
+    },
+    "snackbar": {
+        "dig": {
+            "illegalDigChar": "Befehl enthält ungültiges Zeichen ('{{ illegal }}').",
+            "illegalLeading": "Ungültiges erstes Zeichen. Gültig sind Kleinbuchstaben und Ziffern.",
+            "illegalTrailing": "Ungültiges letztes Zeichen. Gültig sind Kleinbuchstaben und Ziffern."
+        },
+        "languageSwitched": "Die Sprache wurde erfolgreich gewechselt."
+    },
+    "dashboard": {
+        "chart": {
+            "meta": {
+                "nth": "Diagramm {{ n }}"
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<h1 matDialogTitle>{{ 'header.action.language' | translate }}</h1>
+
+<mat-dialog-content>
+    <div
+        *ngFor="let language of i18n.supportedLanguages"
+        [mat-dialog-close]="language"
+        [class.selected]="i18n.currentLanguageIso2 === language.iso2"
+        class="d-flex language mx-n2"
+        mat-ripple
+    >
+        <div
+            class="flag-icon-background m-2 flag-icon-squared {{
+                language.iconName
+            }}"
+        ></div>
+        <div class="my-auto flex-grow-1">
+            {{ language.name }}
+        </div>
+        <mat-icon class="my-auto m-2" color="primary">
+            {{
+                i18n.currentLanguageIso2 === language.iso2
+                    ? 'check_circle'
+                    : 'panorama_fish_eye'
+            }}
+        </mat-icon>
+    </div>
+</mat-dialog-content>
