@@ -49,6 +49,7 @@ services:
       - JUPYTER_ENABLE_LAB=1
     volumes:
       - ../data:/home/jovyan/work/data
+      - ./pyspark-analyse/notebooks:/home/jovyan/work/notebooks
     # TODO: rename pyspark dir as soon as it is safe regarding merge conflicts
 
 networks:
