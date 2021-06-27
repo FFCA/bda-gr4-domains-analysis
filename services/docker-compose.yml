@@ -6,6 +6,8 @@ services:
       context: ./postgres-db/
     networks:
       - domain_analysis_network_gr4
+    volumes:
+      - ./postgres-db/postgres-data:/var/lib/postgresql/data
   dig_ms:
     container_name: bda_gr4_dig_ms
     build:
