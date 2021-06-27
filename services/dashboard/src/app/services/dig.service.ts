@@ -3,8 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DigResponse } from '../model/api/dig-response';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { LocalizedSnackbarService } from './localized-snackbar.service';
 
 /**
  * Service to be used for communicating with the dig microservice.
@@ -20,13 +19,11 @@ export class DigService {
 
     /**
      * @param http Injected HTTP client.
-     * @param snackbar Injected snackbar service.
-     * @param translate Injected translation service.
+     * @param snackbar Injected localized snackbar service.
      */
     constructor(
         private readonly http: HttpClient,
-        private readonly snackbar: MatSnackBar,
-        private readonly translate: TranslateService
+        private readonly snackbar: LocalizedSnackbarService
     ) {}
 
     /**
@@ -57,10 +54,10 @@ export class DigService {
      * @private
      */
     private openSnackbar(translationKey: string, params?: any): void {
-        this.snackbar.open(
-            this.translate.instant('snackbar.dig.' + translationKey, params),
-            this.translate.instant('general.close'),
-            { duration: 4000 }
+        this.snackbar.showSnackbar(
+            'snackbar.dig.' + translationKey,
+            params,
+            4000
         );
     }
 }

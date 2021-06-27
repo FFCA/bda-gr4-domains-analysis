@@ -66,7 +66,7 @@ export class I18nService {
             navigator.language,
         ]
             .filter((l) => !!l)
-            .map((l) => (l as string).split('-')[0])
+            .map((l) => l!.split('-')[0])
             .find((l) =>
                 this.supportedLanguages
                     .map((supported) => supported.iso2)

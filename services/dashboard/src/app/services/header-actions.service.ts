@@ -7,8 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DigDialogComponent } from '../components/dialogs/dig-dialog/dig-dialog.component';
 import { LanguageSelectionDialogComponent } from '../components/dialogs/language-selection-dialog/language-selection-dialog.component';
 import { Language } from '../model/internal/language';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalizedSnackbarService } from './localized-snackbar.service';
 
 /**
  * Action item including styling/descriptive properties to be displayed.
@@ -51,19 +51,8 @@ export class HeaderActionsService {
                             selection.iso2 !== this.i18n.currentLanguageIso2
                         ) {
                             this.i18n.currentLanguage = selection;
-                            const [close, info] = [
-                                'general.close',
-                                'snackbar.languageSwitched',
-                            ];
-                            this.translate
-                                .get([close, info])
-                                .subscribe((translation) => {
-                                    this.snackbar.open(
-                                        translation[info],
-                                        translation[close],
-                                        { duration: 2000 }
-                                    );
-                                });
+                            const msgKey = 'snackbar.languageSwitched';
+                            this.snackbar.showSnackbar(msgKey);
                         }
                     });
             },
@@ -98,14 +87,14 @@ export class HeaderActionsService {
      * @param media Media Matcher to be used in order to initialize the service's mobile query.
      * @param i18n Injected i18n service.
      * @param dialog Injected Material dialog service.
-     * @param snackbar Injected Material snackbar service.
+     * @param snackbar Injected localized snackbar service.
      * @param translate Injected translation service.
      */
     constructor(
         media: MediaMatcher,
         private readonly i18n: I18nService,
         private readonly dialog: MatDialog,
-        private readonly snackbar: MatSnackBar,
+        private readonly snackbar: LocalizedSnackbarService,
         private readonly translate: TranslateService
     ) {
         // See bootstrap breakpoints
