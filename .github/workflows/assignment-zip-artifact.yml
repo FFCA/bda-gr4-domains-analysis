@@ -26,8 +26,8 @@ jobs:
 #          unoconv -f pdf presentation.pptx
       - name: Rename files
         run: |
-#          mv presentation.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
           mv conceptual-doc/main.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
+#          mv presentation.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
       - name: Zip source code
         uses: montudor/action-zip@v1
         with:
