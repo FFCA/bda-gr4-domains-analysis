@@ -28,6 +28,13 @@
         "chart": {
             "meta": {
                 "nth": "Diagramm {{ n }}"
+            },
+            "general": {
+                "number": "Anzahl"
+            },
+            "mxTop10": {
+                "title": "Meistverbreitete MX-Records (Top 10)",
+                "record": "MX-Record"
             }
         }
     }

@@ -6,6 +6,26 @@ import { Label } from 'ng2-charts';
  */
 export class DomainAnalysisChart {
     /**
+     * @param x X-axis label to be set.
+     * @param y Y-axis label to be set.
+     * @return default chart options with labels.
+     */
+    static defaultOptionsWithLabels(x: string, y: string): any {
+        return {
+            responsive: true,
+            scales: {
+                xAxes: [{ scaleLabel: { display: true, labelString: x } }],
+                yAxes: [
+                    {
+                        ticks: { beginAtZero: true, autoSkip: false },
+                        scaleLabel: { display: true, labelString: y },
+                    },
+                ],
+            },
+        };
+    }
+
+    /**
      * @param data Datasets to be displayed.
      * @param titleKey Translation key of the chart title.
      * @param type Chart type.
@@ -14,11 +34,11 @@ export class DomainAnalysisChart {
      * @param showLabels True if labels are to be shown, false if not.
      */
     constructor(
-        readonly data: ChartDataSets[],
-        readonly titleKey: string,
-        readonly type: ChartType,
-        readonly labels: Label[],
-        readonly options: ChartOptions,
-        readonly showLabels: boolean
+        public data: ChartDataSets[],
+        public titleKey: string,
+        public type: ChartType,
+        public labels: Label[],
+        public options: ChartOptions,
+        public showLabels: boolean
     ) {}
 }

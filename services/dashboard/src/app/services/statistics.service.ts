@@ -2,44 +2,57 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { Socket } from 'socket.io-client/build/socket';
+import { DomainAnalysisChart } from '../model/internal/domain-analysis-chart';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StatisticsService {
-    socket!: Socket;
+    private socket!: Socket;
 
     // TODO: Implement/Add documentation
 
-    private readonly defaultOptions = {
-        responsive: true,
-        scales: {
-            yAxes: [
-                {
-                    ticks: { beginAtZero: true, autoSkip: false },
-                    scaleLabel: { display: true, labelString: 'Some Y-Label' },
-                },
-            ],
-            xAxes: [
-                { scaleLabel: { display: true, labelString: 'Some X-Label' } },
-            ],
-        },
-    };
+    private mxCountGlobalData!: DomainAnalysisChart;
 
-    mxCountGlobalData: any = {
-        titleKey: 'async top 10 MX-records chart',
-        data: [],
-        labels: [],
-        type: 'bar',
-        showLabels: false,
-        options: this.defaultOptions,
-    };
+    charts: DomainAnalysisChart[] = [];
 
-    setupSocketConnection(): void {
+    /**
+     * @param translate Injected translate service.
+     */
+    constructor(private readonly translate: TranslateService) {
+        translate.onLangChange.subscribe(() => {
+            this.initCharts();
+            if (!this.socket) this.setupSocketConnection();
+        });
+    }
+
+    private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
         this.socket.on('watch_mx_count_global', (data) => {
-            this.mxCountGlobalData.data = [{ data: data.map((d: any) => d.count) }];
+            this.mxCountGlobalData.data = [
+                { data: data.map((d: any) => d.count) },
+            ];
             this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
         });
+    }
+
+    private initCharts(): void {
+        this.initMxGlobalData();
+        this.charts = [this.mxCountGlobalData];
+    }
+
+    private initMxGlobalData(): void {
+        this.mxCountGlobalData = {
+            titleKey: 'dashboard.chart.mxTop10.title',
+            data: [],
+            labels: [],
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.mxTop10.record'),
+                this.translate.instant('dashboard.chart.general.number')
+            ),
+        };
     }
 }
