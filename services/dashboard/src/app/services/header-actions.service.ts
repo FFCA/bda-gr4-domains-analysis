@@ -9,6 +9,7 @@ import { LanguageSelectionDialogComponent } from '../components/dialogs/language
 import { Language } from '../model/internal/language';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalizedSnackbarService } from './localized-snackbar.service';
+import { StatisticsService } from './statistics.service';
 
 /**
  * Action item including styling/descriptive properties to be displayed.
@@ -41,31 +42,13 @@ export class HeaderActionsService {
             icon: 'language',
             translationKey: 'header.action.language',
             color: 'primary',
-            onClick: () => {
-                this.dialog
-                    .open(LanguageSelectionDialogComponent)
-                    .afterClosed()
-                    .subscribe((selection: Language) => {
-                        if (
-                            selection &&
-                            selection.iso2 !== this.i18n.currentLanguageIso2
-                        ) {
-                            this.i18n.currentLanguage = selection;
-                            const msgKey = 'snackbar.languageSwitched';
-                            this.snackbar.showSnackbar(msgKey);
-                        }
-                    });
-            },
+            onClick: () => this.onLanguageClicked(),
         },
         {
             faIcon: faTerminal,
             translationKey: 'header.action.digMs',
             color: 'primary',
-            onClick: () => {
-                this.dialog.open(DigDialogComponent, {
-                    panelClass: 'dig-dialog',
-                });
-            },
+            onClick: () => this.onDigMsClicked(),
         },
     ].map((a) => {
         return {
@@ -88,6 +71,7 @@ export class HeaderActionsService {
      * @param i18n Injected i18n service.
      * @param dialog Injected Material dialog service.
      * @param snackbar Injected localized snackbar service.
+     * @param statistics Injected statistics service.
      * @param translate Injected translation service.
      */
     constructor(
@@ -95,6 +79,7 @@ export class HeaderActionsService {
         private readonly i18n: I18nService,
         private readonly dialog: MatDialog,
         private readonly snackbar: LocalizedSnackbarService,
+        private readonly statistics: StatisticsService,
         private readonly translate: TranslateService
     ) {
         // See bootstrap breakpoints
@@ -108,5 +93,36 @@ export class HeaderActionsService {
         if (!this.mobileQuery.matches) {
             this.isSidebarOpened = false;
         }
+    }
+
+    /**
+     * Opens a dig terminal (dialog).
+     * @private
+     */
+    private onDigMsClicked(): void {
+        this.dialog.open(DigDialogComponent, {
+            panelClass: 'dig-dialog',
+        });
+    }
+
+    /**
+     * Opens a language selection dialog and sets the selected language if the dialog is
+     * closed with the selection and the selection is not the currently used language.
+     * @private
+     */
+    private onLanguageClicked(): void {
+        this.dialog
+            .open(LanguageSelectionDialogComponent)
+            .afterClosed()
+            .subscribe((selection: Language) => {
+                if (
+                    selection &&
+                    selection.iso2 !== this.i18n.currentLanguageIso2
+                ) {
+                    this.i18n.currentLanguage = selection;
+                    const msgKey = 'snackbar.languageSwitched';
+                    this.snackbar.showSnackbar(msgKey);
+                }
+            });
     }
 }
