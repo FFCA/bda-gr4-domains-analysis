@@ -19,6 +19,7 @@ import { DashboardMainComponent } from './components/dashboard-main/dashboard-ma
 import { LanguageSelectionDialogComponent } from './components/dialogs/language-selection-dialog/language-selection-dialog.component';
 import { StatisticsService } from './services/statistics.service';
 import { ChartCardComponent } from './components/dashboard-main/chart-card/chart-card.component';
+import { NoConnectionComponent } from './components/dialogs/no-connection/no-connection.component';
 
 /**
  * @param http Http Client
@@ -42,6 +43,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         DashboardMainComponent,
         LanguageSelectionDialogComponent,
         ChartCardComponent,
+        NoConnectionComponent,
     ],
     imports: [
         BrowserModule,

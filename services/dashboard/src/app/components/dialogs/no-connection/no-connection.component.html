@@ -1,0 +1,18 @@
+<div mat-dialog-title class='background-primary'>
+    <div class="title-content text-center d-flex flex-column">
+        <div class="error-icon-wrapper">
+            <mat-icon [inline]="true"> miscellaneous_services </mat-icon>
+        </div>
+        {{ 'dialog.noConnection.title' | translate }}
+    </div>
+</div>
+
+<mat-dialog-content>
+    <p>{{ 'dialog.noConnection.message' | translate }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="primary">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

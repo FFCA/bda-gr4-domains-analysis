@@ -17,6 +17,10 @@
         "error": {
             "title": "Oops, something happened...",
             "message": "The following error occurred unexpectedly:"
+        },
+        "noConnection": {
+            "title": "Check your services",
+            "message": "The statistics service could not be reached within the last five seconds. Please make sure it is up and running. This client should then connect automatically. If successfully connected, a green icon will be displayed in the header/sidenav."
         }
     },
     "snackbar": {

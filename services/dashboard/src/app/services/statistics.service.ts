@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { Socket } from 'socket.io-client/build/socket';
 import { DomainAnalysisChart } from '../model/internal/domain-analysis-chart';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NoConnectionComponent } from '../components/dialogs/no-connection/no-connection.component';
 
 @Injectable({
     providedIn: 'root',
@@ -16,11 +18,16 @@ export class StatisticsService {
     // TODO: Implement/Add documentation
 
     private mxCountGlobalData!: DomainAnalysisChart;
+    private aCountGlobalData!: DomainAnalysisChart;
 
     /**
+     * @param dialog Injected Material dialog service.
      * @param translate Injected translate service.
      */
-    constructor(private readonly translate: TranslateService) {
+    constructor(
+        private readonly dialog: MatDialog,
+        private readonly translate: TranslateService
+    ) {
         translate.onLangChange.subscribe(() => {
             this.initCharts();
             if (!this.socket) this.setupSocketConnection();
@@ -40,6 +47,23 @@ export class StatisticsService {
             this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
             this.mxCountGlobalData.hasData = data.length;
         });
+
+        this.socket.on('disconnect', () => this.displayConnectionDialog());
+
+        this.displayConnectionDialog();
+
+        // TODO: handle one - n "no data" => add dialog?
+    }
+
+    private displayConnectionDialog(): void {
+        setTimeout(() => {
+            if (!this.isConnected) {
+                this.dialog
+                    .open(NoConnectionComponent)
+                    .afterClosed()
+                    .subscribe(() => this.displayConnectionDialog());
+            }
+        }, 5000);
     }
 
     private initCharts(): void {
