@@ -78,7 +78,7 @@ END;
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS $$
+CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS $$ -- TODO: Exclude localhost ?
 DECLARE
 BEGIN
 NOTIFY
