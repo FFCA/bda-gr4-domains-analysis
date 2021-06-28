@@ -81,6 +81,7 @@ export class DashboardMainComponent implements OnInit {
             labels: [],
             type: 'scatter',
             showLabels: false,
+            hasData: true,
             options: {
                 responsive: true,
                 scales: {
@@ -126,6 +127,7 @@ export class DashboardMainComponent implements OnInit {
             labels: [],
             type: 'scatter',
             showLabels: true,
+            hasData: true,
             options: {
                 responsive: true,
                 scales: {
@@ -150,6 +152,7 @@ export class DashboardMainComponent implements OnInit {
                     ),
                 },
             ],
+            hasData: true,
             labels: ['quick', 'brown', 'fox'],
             type: 'doughnut',
             showLabels: true,
@@ -170,13 +173,12 @@ export class DashboardMainComponent implements OnInit {
             labels: ['quick', 'brown', 'fox'],
             type: 'pie',
             showLabels: true,
+            hasData: true,
             options: { responsive: true },
         };
     }
 
     private get exampleDynamicData(): DomainAnalysisChart {
-        // TODO: Use socket.io?
-
         const data = {
             data: Array.from({ length: 10 }, () =>
                 Math.floor(Math.random() * 20)
@@ -200,6 +202,7 @@ export class DashboardMainComponent implements OnInit {
             data: [data],
             labels: this.labels,
             type: 'line',
+            hasData: true,
             showLabels: false,
             options: this.defaultOptions,
         };
@@ -219,6 +222,7 @@ export class DashboardMainComponent implements OnInit {
             labels: ['quick', 'brown', 'fox'],
             type: 'polarArea',
             showLabels: true,
+            hasData: true,
             options: { responsive: true },
         };
     }
@@ -242,6 +246,7 @@ export class DashboardMainComponent implements OnInit {
             ],
             labels: this.labels,
             type: 'bar',
+            hasData: true,
             showLabels: true,
             options: this.defaultOptions,
         };
@@ -261,6 +266,7 @@ export class DashboardMainComponent implements OnInit {
             labels: this.labels,
             type: 'bar',
             showLabels: false,
+            hasData: true,
             options: this.defaultOptions,
         };
     }
@@ -294,6 +300,7 @@ export class DashboardMainComponent implements OnInit {
             labels: this.labels,
             type: 'line',
             showLabels: true,
+            hasData: true,
             options: this.defaultOptions,
         };
     }
@@ -313,6 +320,7 @@ export class DashboardMainComponent implements OnInit {
                 },
             ],
             labels: this.labels,
+            hasData: true,
             type: 'line',
             showLabels: false,
             options: this.defaultOptions,

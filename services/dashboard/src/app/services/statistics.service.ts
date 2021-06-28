@@ -34,6 +34,7 @@ export class StatisticsService {
                 { data: data.map((d: any) => d.count) },
             ];
             this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
+            this.mxCountGlobalData.hasData = data.length;
         });
     }
 
@@ -49,6 +50,7 @@ export class StatisticsService {
             labels: [],
             type: 'bar',
             showLabels: false,
+            hasData: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant('dashboard.chart.mxTop10.record'),
                 this.translate.instant('dashboard.chart.general.number')

@@ -30,7 +30,8 @@
                 "nth": "Diagramm {{ n }}"
             },
             "general": {
-                "number": "Anzahl"
+                "number": "Anzahl",
+                "noData": "Keine Daten"
             },
             "mxTop10": {
                 "title": "Meistverbreitete MX-Records (Top 10)",

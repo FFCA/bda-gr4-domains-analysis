@@ -2,6 +2,7 @@
     <mat-card-content class="d-flex flex-column">
         <canvas
             baseChart
+            *ngIf="chart.hasData; else emptyChart"
             [datasets]="chart.data"
             [legend]="chart.showLabels"
             [labels]="chart.labels"
@@ -14,5 +15,22 @@
             <b> {{ 'dashboard.chart.meta.nth' | translate: { n: nr } }}: </b>
             {{ chart.titleKey | translate }}
         </h4>
+
+        <ng-template #emptyChart>
+            <div
+                class="w-100 d-flex no-data-info"
+                [style.height.px]="self.offsetWidth * 0.5"
+                #self
+            >
+                <div class="m-auto text-center">
+                    <mat-icon [inline]="true" class="mb-n3">
+                        bar_chart
+                    </mat-icon>
+                    <h3 class="m-0">
+                        {{ 'dashboard.chart.general.noData' | translate }}
+                    </h3>
+                </div>
+            </div>
+        </ng-template>
     </mat-card-content>
 </mat-card>

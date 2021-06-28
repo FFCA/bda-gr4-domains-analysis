@@ -32,6 +32,7 @@ export class DomainAnalysisChart {
      * @param labels Chart labels to be displayed.
      * @param options Further chart configurations.
      * @param showLabels True if labels are to be shown, false if not.
+     * @param hasData True if the chart data is ont empty
      */
     constructor(
         public data: ChartDataSets[],
@@ -39,6 +40,7 @@ export class DomainAnalysisChart {
         public type: ChartType,
         public labels: Label[],
         public options: ChartOptions,
-        public showLabels: boolean
+        public showLabels: boolean,
+        public hasData: boolean
     ) {}
 }
