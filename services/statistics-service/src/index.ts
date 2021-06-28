@@ -28,33 +28,17 @@ const host = process.env.HOST ?? '0.0.0.0';
 const port = process.env.PORT ? +process.env.PORT : 8089;
 
 /**
- * Initialization function for connecting to the database and initializing the
- * Express application. In case of an connection error, this function is recursively
- * called. (5 total attempts to connect)
- *
- * @param attempt nr. of attempt (default = 0)
+ * Connects to the database, initializes sockets and notification listeners and, eventually,
+ * starts the server at the specified host/port.
  */
-const connect = (attempt = 0) => {
-    Db.connect()
-        .then(async () => {
-            console.log('Successfully connected to DB');
-            initializeSockets(httpServer);
-            console.log('Successfully initialized socket communication logic');
-            await initializeNotificationListeners();
+Db.connect().then(() => {
+    console.log('Successfully connected to DB');
+    initializeSockets(httpServer).then(() => {
+        console.log('Successfully initialized socket communication logic');
+        initializeNotificationListeners().then(() => {
             console.log('Successfully registered DB notifications listeners');
-            await httpServer.listen(port, host);
+            httpServer.listen(port, host);
             console.log(`Server is running at ${host}:${port}\n`);
-        })
-        .catch((err) => {
-            console.error(err);
-            if (attempt++ < 5) {
-                console.log(`Reconnecting to DB in 5s...(try ${attempt}/5)`);
-                setTimeout(() => connect(attempt), 5000);
-            } else console.log('Failed too often. Giving up.');
         });
-};
-
-/**
- * Connect to the database and initialize the application.
- */
-connect();
+    });
+});
