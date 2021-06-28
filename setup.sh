@@ -31,3 +31,10 @@ fi
 # Only called if not exited before => setup docker-compose in detached mode
 cd $basename/services
 docker compose -p "bda-gr4-domain-analysis" up -d
+sleep 2s
+docker logs bda_gr4_spark # TODO: extract token/URL only?
+echo
+echo " ----------------"
+echo
+echo "The output above contains a link to open our notebooks (http://127.0.0.1:8888/lab?token=<token>) with <token> being your personal access token."
+echo "Furthermore, the dashboard should be running on localhost:8321 by now."
