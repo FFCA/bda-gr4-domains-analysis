@@ -61,8 +61,8 @@ LANGUAGE plpgsql;
 CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS $$
 DECLARE
 BEGIN
-PERFORM
-pg_notify('watch_mx_count_global', TG_TABLE_NAME);
+NOTIFY
+watch_mx_count_global;
 RETURN NULL;
 END;
 $$

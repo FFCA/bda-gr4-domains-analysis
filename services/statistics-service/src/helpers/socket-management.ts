@@ -1,13 +1,17 @@
 import { Server } from 'http';
 import { Socket } from 'socket.io';
-import { Notification } from 'pg';
 import Db from './db-connection';
 import { DomainAnalysisEvent } from '../model/domain-analysis-event';
+import { performance } from 'perf_hooks';
 
 // TODO: Add documentation
 // TODO: Continue with db implementation
 
 let io: any;
+
+const emitTimeout = 2000;
+const notificationTsMap = new Map<DomainAnalysisEvent, number>();
+const emitMap = new Map<DomainAnalysisEvent, number>();
 
 const onSocketConnected = async (socket: Socket): Promise<void> => {
     console.log('A client connected');
@@ -32,6 +36,30 @@ const sendMxRecordCountData = async (
     );
 };
 
+const patientlyEmitAfterTimeout = (
+    event: DomainAnalysisEvent,
+    emitFn: () => void
+) => {
+    const now = performance.now();
+    notificationTsMap.set(event, now);
+
+    const patientEmitCore = () => {
+        const now = performance.now();
+        setTimeout(() => {
+            if (
+                !emitMap.get(event) ||
+                now - emitMap.get(event)! > emitTimeout
+            ) {
+                emitMap.set(event, now);
+                if (notificationTsMap.get(event)! > now) patientEmitCore();
+                else emitFn();
+            }
+        }, emitTimeout);
+    };
+
+    patientEmitCore();
+};
+
 export const initializeSockets = (httpServer: Server) => {
     io = require('socket.io')(httpServer);
     io.on('connection', onSocketConnected);
@@ -40,11 +68,16 @@ export const initializeSockets = (httpServer: Server) => {
 export const initializeNotificationListeners = async (): Promise<void> => {
     await Db.registerNotificationListener(
         DomainAnalysisEvent.A_COUNT_GLOBAL,
-        onARecordCountChanged
+        () => onARecordCountChanged()
     );
 
     await Db.registerNotificationListener(
         DomainAnalysisEvent.MX_COUNT_GLOBAL,
-        sendMxRecordCountData
+        // TODO: Batch insert and notification payload?
+        () => {
+            patientlyEmitAfterTimeout(DomainAnalysisEvent.MX_COUNT_GLOBAL, () =>
+                sendMxRecordCountData()
+            );
+        }
     );
 };
