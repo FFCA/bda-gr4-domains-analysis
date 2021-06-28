@@ -9,7 +9,9 @@
         "action": {
             "language": "Language selection",
             "digMs": "Dig terminal"
-        }
+        },
+        "connected": "Connected to statistics-service",
+        "connectedShort": "Connected"
     },
     "dialog": {
         "error": {

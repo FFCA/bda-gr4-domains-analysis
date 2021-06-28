@@ -9,7 +9,9 @@
         "action": {
             "language": "Sprachauswahl",
             "digMs": "Dig-Terminal"
-        }
+        },
+        "connected": "Mit Statistik-Service verbunden",
+        "connectedShort": "Verbunden"
     },
     "dialog": {
         "error": {

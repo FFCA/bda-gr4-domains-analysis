@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { HeaderActionsService } from '../../services/header-actions.service';
+import { StatisticsService } from '../../services/statistics.service';
 
 /**
  * The application's header component.
@@ -16,9 +17,13 @@ export class HeaderComponent {
     isScrolled: boolean = false;
 
     /**
-     * @param actions Inejcted header actions service.
+     * @param actions Injected header actions service.
+     * @param statistics Injected statistics service.
      */
-    constructor(readonly actions: HeaderActionsService) {}
+    constructor(
+        readonly actions: HeaderActionsService,
+        readonly statistics: StatisticsService
+    ) {}
 
     /**
      * Sets {{ isScrolled }} based on the current page scrolling any time a scroll event is emitted.

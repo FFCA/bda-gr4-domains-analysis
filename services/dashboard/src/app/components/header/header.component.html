@@ -17,7 +17,16 @@
             </span>
         </div>
 
-        <div class="flex-grow-0 d-none d-sm-inline">
+        <div class="flex-grow-0 d-none d-sm-flex">
+            <div
+                id="connected-icon"
+                class="d-flex"
+                [matTooltip]="'header.connected' | translate"
+                *ngIf='statistics.isConnected'
+            >
+                <mat-icon class="color-green m-auto">check_circle</mat-icon>
+            </div>
+
             <button
                 *ngFor="let action of actions.actionItems"
                 mat-icon-button

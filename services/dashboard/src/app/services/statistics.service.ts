@@ -9,13 +9,13 @@ import { TranslateService } from '@ngx-translate/core';
     providedIn: 'root',
 })
 export class StatisticsService {
+    charts: DomainAnalysisChart[] = [];
+
     private socket!: Socket;
 
     // TODO: Implement/Add documentation
 
     private mxCountGlobalData!: DomainAnalysisChart;
-
-    charts: DomainAnalysisChart[] = [];
 
     /**
      * @param translate Injected translate service.
@@ -25,6 +25,10 @@ export class StatisticsService {
             this.initCharts();
             if (!this.socket) this.setupSocketConnection();
         });
+    }
+
+    get isConnected(): boolean {
+        return this.socket?.connected;
     }
 
     private setupSocketConnection(): void {

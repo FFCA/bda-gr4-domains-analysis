@@ -1,4 +1,12 @@
 <mat-nav-list>
+    <ng-container *ngIf="statistics.isConnected">
+        <a mat-list-item disabled class="color-green">
+            <mat-icon class="mr-2"> check_circle </mat-icon>
+            {{ 'header.connectedShort' | translate }}
+        </a>
+        <mat-divider></mat-divider>
+    </ng-container>
+
     <a
         mat-list-item
         *ngFor="let action of actions.actionItems"
