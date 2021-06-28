@@ -13,46 +13,45 @@ const emitTimeout = 2000;
 const notificationTsMap = new Map<DomainAnalysisEvent, number>();
 const emitMap = new Map<DomainAnalysisEvent, number>();
 
+const eventQueryMap = new Map<DomainAnalysisEvent, string>([
+    [DomainAnalysisEvent.MX_COUNT_GLOBAL, 'top_10_mx_global'],
+    [DomainAnalysisEvent.A_COUNT_GLOBAL, 'top_10_a_global'],
+]);
+
 const onSocketConnected = async (socket: Socket): Promise<void> => {
     console.log('A client connected');
-    await sendMxRecordCountData(socket);
+
+    await Promise.all(
+        [...eventQueryMap.keys()].map(async (k) => {
+            await emitEventData(k, socket);
+        })
+    );
+
     socket.on('disconnect', () => console.log('A client disconnected'));
 };
 
-const onARecordCountChanged = (): void => {
-    console.log("a-record changes...");
-};
-
-const sendMxRecordCountData = async (
+const emitEventData = async (
+    event: DomainAnalysisEvent,
     emitPlatform: Socket = io
 ): Promise<void> => {
-    const query = `SELECT * 
-                    FROM mx_record_count_global
-                    ORDER BY count DESC
-                    LIMIT 10`;
-    emitPlatform.emit(
-        DomainAnalysisEvent.MX_COUNT_GLOBAL,
-        (await Db.executeQuery(query)).rows
-    );
+    const query = `SELECT * FROM ${eventQueryMap.get(event)}()`;
+    emitPlatform.emit(event, (await Db.executeQuery(query)).rows);
 };
 
-const patientlyEmitAfterTimeout = (
-    event: DomainAnalysisEvent,
-    emitFn: () => void
-) => {
+const patientlyEmitAfterTimeout = (event: DomainAnalysisEvent) => {
     const now = performance.now();
     notificationTsMap.set(event, now);
 
     const patientEmitCore = () => {
         const now = performance.now();
-        setTimeout(() => {
+        setTimeout(async () => {
             if (
                 !emitMap.get(event) ||
                 now - emitMap.get(event)! > emitTimeout
             ) {
                 emitMap.set(event, now);
                 if (notificationTsMap.get(event)! > now) patientEmitCore();
-                else emitFn();
+                else await emitEventData(event);
             }
         }, emitTimeout);
     };
@@ -60,24 +59,20 @@ const patientlyEmitAfterTimeout = (
     patientEmitCore();
 };
 
-export const initializeSockets = (httpServer: Server) => {
+export const initializeSockets = async (httpServer: Server): Promise<void> => {
     io = require('socket.io')(httpServer);
-    io.on('connection', onSocketConnected);
+    io.on('connection', await onSocketConnected);
 };
 
 export const initializeNotificationListeners = async (): Promise<void> => {
     await Db.registerNotificationListener(
         DomainAnalysisEvent.A_COUNT_GLOBAL,
-        () => onARecordCountChanged()
+        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.A_COUNT_GLOBAL)
     );
 
     await Db.registerNotificationListener(
         DomainAnalysisEvent.MX_COUNT_GLOBAL,
         // TODO: Batch insert and notification payload?
-        () => {
-            patientlyEmitAfterTimeout(DomainAnalysisEvent.MX_COUNT_GLOBAL, () =>
-                sendMxRecordCountData()
-            );
-        }
+        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.MX_COUNT_GLOBAL)
     );
 };
