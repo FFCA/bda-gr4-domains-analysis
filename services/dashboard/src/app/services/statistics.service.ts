@@ -46,11 +46,11 @@ export class StatisticsService {
     private initMxGlobalData(): void {
         this.mxCountGlobalData = {
             titleKey: 'dashboard.chart.mxTop10.title',
-            data: [],
-            labels: [],
+            data: this.mxCountGlobalData?.data ?? [],
+            labels: this.mxCountGlobalData?.labels ?? [],
+            hasData: !!this.mxCountGlobalData?.data?.length,
             type: 'bar',
             showLabels: false,
-            hasData: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant('dashboard.chart.mxTop10.record'),
                 this.translate.instant('dashboard.chart.general.number')
