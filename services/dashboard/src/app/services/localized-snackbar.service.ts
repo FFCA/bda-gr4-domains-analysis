@@ -34,7 +34,6 @@ export class LocalizedSnackbarService {
     ): void {
         const [close, info] = [closeKey, infoKey];
         const config = { duration };
-        console.log(params)
         this.translate.get([close, info], params).subscribe((translation) => {
             this.snackbar.open(translation[info], translation[close], config);
         });
