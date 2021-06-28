@@ -96,25 +96,15 @@ LANGUAGE plpgsql;
 --     FOR EACH ROW EXECUTE PROCEDURE notify_domain();
 
 CREATE TRIGGER insert_a_global_count_trigger
-    AFTER INSERT
-    ON a_record_count_global
+    AFTER INSERT OR
+UPDATE OR
+DELETE
+ON a_record_count_global
     FOR EACH ROW EXECUTE PROCEDURE notify_a_count_global();
 
 CREATE TRIGGER insert_mx_global_count_trigger
-    AFTER INSERT
-    ON mx_record_count_global
+    AFTER INSERT OR
+UPDATE OR
+DELETE
+ON mx_record_count_global
     FOR EACH ROW EXECUTE PROCEDURE notify_mx_count_global();
-
-
-
--- TODO Add update / delete for each (?)
-
--- CREATE TRIGGER update_trigger
---     AFTER UPDATE
---     ON domain
---     FOR EACH ROW EXECUTE PROCEDURE notify_domain();
---
--- CREATE TRIGGER delete_trigger
---     AFTER DELETE
---     ON domain
---     FOR EACH ROW EXECUTE PROCEDURE notify_domain();
