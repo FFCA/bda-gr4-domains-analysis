@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { TranslateService } from '@ngx-translate/core';
+import { StatisticsService } from '../../services/statistics.service';
 
 // TODO: Rm? Extract?
 type BdaChart = {
@@ -18,7 +19,7 @@ type BdaChart = {
     templateUrl: './dashboard-main.component.html',
     styleUrls: ['./dashboard-main.component.scss'],
 })
-export class DashboardMainComponent {
+export class DashboardMainComponent implements OnInit {
     // TODO: take real data / add documentation / move to sub-components?
     // TODO: Use magic grid and option to make diagrams smaller/bigger?
 
@@ -46,9 +47,13 @@ export class DashboardMainComponent {
     };
 
     /**
-     * @param translate Injected translation service
+     * @param statistics Injected statistics service.
+     * @param translate Injected translation service.
      */
-    constructor(private readonly translate: TranslateService) {}
+    constructor(
+        readonly statistics: StatisticsService,
+        private readonly translate: TranslateService
+    ) {}
 
     ngOnInit(): void {
         this.charts.push(

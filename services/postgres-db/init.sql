@@ -38,11 +38,31 @@ CREATE TABLE domain_enhanced -- TODO: new table to be used / adjusted
 
 -- Creation of notification function:
 
-CREATE FUNCTION notify_trigger() RETURNS trigger AS $$
+CREATE FUNCTION notify_domain() RETURNS trigger AS $$
 DECLARE
 BEGIN
-  PERFORM
+PERFORM
 pg_notify('watch_domain', TG_TABLE_NAME);
+RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_a_count_global() RETURNS trigger AS $$
+DECLARE
+BEGIN
+PERFORM
+pg_notify('watch_a_count_global', TG_TABLE_NAME);
+RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS $$
+DECLARE
+BEGIN
+PERFORM
+pg_notify('watch_mx_count_global', TG_TABLE_NAME);
 RETURN NULL;
 END;
 $$
@@ -50,17 +70,31 @@ LANGUAGE plpgsql;
 
 -- Creation of triggers:
 
-CREATE TRIGGER insert_trigger
+CREATE TRIGGER insert_domain_trigger
     AFTER INSERT
     ON domain
-    FOR EACH ROW EXECUTE PROCEDURE notify_trigger();
+    FOR EACH ROW EXECUTE PROCEDURE notify_domain();
 
-CREATE TRIGGER update_trigger
-    AFTER UPDATE
-    ON domain
-    FOR EACH ROW EXECUTE PROCEDURE notify_trigger();
+CREATE TRIGGER insert_a_global_count_trigger
+    AFTER INSERT
+    ON a_record_count_global
+    FOR EACH ROW EXECUTE PROCEDURE notify_a_count_global();
 
-CREATE TRIGGER delete_trigger
-    AFTER DELETE
-    ON domain
-    FOR EACH ROW EXECUTE PROCEDURE notify_trigger();
+CREATE TRIGGER insert_mx_global_count_trigger
+    AFTER INSERT
+    ON mx_record_count_global
+    FOR EACH ROW EXECUTE PROCEDURE notify_mx_count_global();
+
+
+
+-- TODO Add update / delete for each (?)
+
+-- CREATE TRIGGER update_trigger
+--     AFTER UPDATE
+--     ON domain
+--     FOR EACH ROW EXECUTE PROCEDURE notify_domain();
+--
+-- CREATE TRIGGER delete_trigger
+--     AFTER DELETE
+--     ON domain
+--     FOR EACH ROW EXECUTE PROCEDURE notify_domain();

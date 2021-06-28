@@ -33,12 +33,14 @@ class DbConnection {
      * Initializes a listener for "watch_domain" and sets the function to be executed
      * in case of insertions, updates or deletions.
      *
-     * @param notificationFn
+     * @param channel Channel to subscribe to.
+     * @param notificationFn Function to be executed in case of a notification on the subscribed channel.
      */
     async registerNotificationListener(
-        notificationFn: (notification: Notification) => void
+        channel: string,
+        notificationFn: () => void
     ): Promise<void> {
-        await this.client.query('LISTEN watch_domain');
+        await this.client.query(`LISTEN ${channel}`);
         this.client.on('notification', notificationFn);
     }
 

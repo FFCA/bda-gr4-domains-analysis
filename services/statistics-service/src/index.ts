@@ -4,7 +4,7 @@ import Db from './helpers/db-connection';
 import http from 'http';
 import {
     initializeSockets,
-    handleDbChanges,
+    initializeNotificationListeners,
 } from './helpers/socket-management';
 
 /**
@@ -40,8 +40,8 @@ const connect = (attempt = 0) => {
             console.log('Successfully connected to DB');
             initializeSockets(httpServer);
             console.log('Successfully initialized socket communication logic');
-            await Db.registerNotificationListener(handleDbChanges);
-            console.log('Successfully registered DB notifications listener');
+            await initializeNotificationListeners();
+            console.log('Successfully registered DB notifications listeners');
             await httpServer.listen(port, host);
             console.log(`Server is running at ${host}:${port}\n`);
         })
