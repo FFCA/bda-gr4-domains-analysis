@@ -17,6 +17,9 @@ mat-toolbar {
     #app-title {
         white-space: nowrap;
         text-overflow: ellipsis;
+        #subtitle {
+            font-size: 14px;
+        }
     }
 
     .header-content {

@@ -4,7 +4,8 @@
         "deleteHistory": "Historie löschen"
     },
     "header": {
-        "appTitle": "Gruppe 04 - Domain Analyse",
+        "appTitle": "Domain-Analyse-Dashboard",
+        "appSubtitle": "HTW Berlin - Big Data Analytics - Gruppe 04",
         "action": {
             "language": "Sprachauswahl",
             "digMs": "Dig-Terminal"
