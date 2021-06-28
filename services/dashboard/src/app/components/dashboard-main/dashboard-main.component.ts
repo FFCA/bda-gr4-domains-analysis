@@ -1,18 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
 import { TranslateService } from '@ngx-translate/core';
 import { StatisticsService } from '../../services/statistics.service';
-
-// TODO: Rm? Extract?
-type BdaChart = {
-    data: ChartDataSets[];
-    titleKey: string;
-    type: ChartType;
-    labels: Label[];
-    options: ChartOptions;
-    showLabels: boolean;
-};
+import { DomainAnalysisChart } from '../../model/internal/domain-analysis-chart';
 
 @Component({
     selector: 'app-dashboard-main',
@@ -26,7 +15,7 @@ export class DashboardMainComponent implements OnInit {
     /**
      * Charts to be displayed.
      */
-    readonly charts: BdaChart[] = [];
+    readonly charts: DomainAnalysisChart[] = [];
 
     private readonly labels =
         'The quick brown fox jumps over the lazy dog'.split(/\s/);
@@ -71,7 +60,7 @@ export class DashboardMainComponent implements OnInit {
         this.charts.sort((a, b) => (Math.random() > 0.5 ? -1 : 1));
     }
 
-    private get exampleScatter(): BdaChart {
+    private get exampleScatter(): DomainAnalysisChart {
         return {
             titleKey: 'Some customized scatter',
             data: [
@@ -106,7 +95,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleScatterMulti(): BdaChart {
+    private get exampleScatterMulti(): DomainAnalysisChart {
         return {
             titleKey:
                 'Some customized (more or less) default scatter with multiple datasets',
@@ -151,7 +140,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleDoughnut(): BdaChart {
+    private get exampleDoughnut(): DomainAnalysisChart {
         return {
             titleKey: 'Some doughnut chart. Hmmmmm doughnuts...',
             data: [
@@ -168,7 +157,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get examplePie(): BdaChart {
+    private get examplePie(): DomainAnalysisChart {
         return {
             titleKey: 'Some pie chart',
             data: [
@@ -185,7 +174,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleDynamicData(): BdaChart {
+    private get exampleDynamicData(): DomainAnalysisChart {
         // TODO: Use socket.io?
 
         const data = {
@@ -216,7 +205,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get examplePolar(): BdaChart {
+    private get examplePolar(): DomainAnalysisChart {
         return {
             titleKey: 'Some pretty interesting polar chart',
             data: [
@@ -234,7 +223,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleMultiBar(): BdaChart {
+    private get exampleMultiBar(): DomainAnalysisChart {
         return {
             titleKey: 'Some chart with multiple bars',
             data: [
@@ -258,7 +247,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleBar(): BdaChart {
+    private get exampleBar(): DomainAnalysisChart {
         return {
             titleKey: 'Some bar chart',
             data: [
@@ -276,7 +265,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleMultiLine(): BdaChart {
+    private get exampleMultiLine(): DomainAnalysisChart {
         return {
             titleKey: 'Multiple lines (definitely crossing at "fox")',
             data: [
@@ -309,7 +298,7 @@ export class DashboardMainComponent implements OnInit {
         };
     }
 
-    private get exampleLine(): BdaChart {
+    private get exampleLine(): DomainAnalysisChart {
         return {
             titleKey: 'Some interesting line chart in HTW color',
             data: [

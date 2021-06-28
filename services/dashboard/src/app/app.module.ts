@@ -18,6 +18,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
 import { LanguageSelectionDialogComponent } from './components/dialogs/language-selection-dialog/language-selection-dialog.component';
 import { StatisticsService } from './services/statistics.service';
+import { ChartCardComponent } from './components/dashboard-main/chart-card/chart-card.component';
 
 /**
  * @param http Http Client
@@ -40,6 +41,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         DigDialogComponent,
         DashboardMainComponent,
         LanguageSelectionDialogComponent,
+        ChartCardComponent,
     ],
     imports: [
         BrowserModule,
