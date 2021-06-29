@@ -36,6 +36,12 @@ CREATE TABLE domain_enhanced -- TODO: new table to be used / adjusted
     status_code       VARCHAR(255) NULL
 );
 
+CREATE TABLE exception_message
+(
+    id INTEGER NOT NULL, -- PRIMARY KEY,
+    exception     VARCHAR(255) NOT NULL
+);
+
 -- TODO describe
 
 CREATE FUNCTION top_10_mx_global()
