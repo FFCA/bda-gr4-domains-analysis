@@ -37,6 +37,8 @@ services:
       - domain_analysis_network_gr4
     ports:
       - 8321:80
+    restart:
+      on-failure
   spark:
     container_name: bda_gr4_spark
     ports:
