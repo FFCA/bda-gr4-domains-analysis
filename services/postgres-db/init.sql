@@ -17,19 +17,19 @@ CREATE TABLE domain_enhanced_based_on_existing_data
 
 CREATE TABLE a_record_count_global
 (
-    a_record VARCHAR(255) NOT NULL -- PRIMARY KEY,
+    a_record VARCHAR(255) NOT NULL, -- PRIMARY KEY,
     count    INTEGER NOT NULL
 );
 
 CREATE TABLE mx_record_count_global
 (
-    mx_record VARCHAR(255) NOT NULL -- PRIMARY KEY,
+    mx_record VARCHAR(255) NOT NULL, -- PRIMARY KEY,
     count     INTEGER NOT NULL
 );
 
 CREATE TABLE domain_enhanced -- TODO: new table to be used / adjusted
 (
-    top_level_domain  VARCHAR(255) NOT NULL -- REFERENCES domain (top_level_domain) PRIMARY KEY,
+    top_level_domain  VARCHAR(255) NOT NULL, -- REFERENCES domain (top_level_domain) PRIMARY KEY,
     a_record_checked  VARCHAR(255)[] NULL,
     mx_record_checked VARCHAR(255)[] NULL,
     redirection       VARCHAR(255) NULL,
