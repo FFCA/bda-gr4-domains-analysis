@@ -1,4 +1,4 @@
-import { Client, ClientConfig, Notification, QueryResult } from 'pg';
+import { Client, ClientConfig, QueryResult } from 'pg';
 import dotenv from 'dotenv';
 
 /**

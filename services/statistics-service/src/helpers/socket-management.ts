@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import { Socket } from 'socket.io';
 import Db from './db-connection';
-import { DomainAnalysisEvent } from '../model/domain-analysis-event';
+import { DomainAnalysisEvent } from 'domain-analysis-types';
 import { performance } from 'perf_hooks';
 
 // TODO: Add documentation

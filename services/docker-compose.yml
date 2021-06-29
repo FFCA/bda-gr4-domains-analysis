@@ -19,7 +19,8 @@ services:
   statistics_service:
     container_name: bda_gr4_statistics_service
     build:
-      context: ./statistics-service
+      dockerfile: /statistics-service/Dockerfile
+      context: .
     depends_on:
       - database
     networks:
