@@ -48,13 +48,13 @@ bash path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
 
 ### Manual verification and execution of commands
 
-After verifying whether the required data exists, the shell script does nothing else than (in `./services`):
+After verifying whether the required data exists, the shell script does nothing else than (in `./src/services`):
 
 ```shell
 docker compose -p "bda-gr4-domain-analysis" up -d
 ```
 
-Of course, in order to set up the services, and a network through which they are interacting, you can run the command above (in `./services`), too. The `-d` flag is used
+Of course, in order to set up the services, and a network through which they are interacting, you can run the command above (in `./src/services`), too. The `-d` flag is used
 in order to run in detached mode, but not necessarily required. The flag `-p <name>` is not required either but
 recommended as it is a descriptive project name.
 
@@ -63,7 +63,7 @@ root directory of this project, i.e. on the same level as this README-file), we 
 
 ### Shutdown
 
-In order to shut down the services and remove their containers/network, navigate to `./services` and run:
+In order to shut down the services and remove their containers/network, navigate to `./src/services` and run:
 
 ```shell
 docker compose -p "bda-gr4-domain-analysis" down
@@ -79,7 +79,7 @@ The LaTeX files for the conceptual documentation can be found [here (./conceptua
 
 ### Domain Analysis (Source Code for Services)
 
-The source code for the domain analysis can be found [here (./services)](./services):
+The source code for the domain analysis can be found [here (./src/services)](./src/services):
 
 ### Workflows
 

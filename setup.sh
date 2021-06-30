@@ -29,7 +29,7 @@ fi
 # TODO adjust README concerning path
 
 # Only called if not exited before => setup docker-compose in detached mode
-cd $basename/services
+cd $basename/src/services
 docker compose -p "bda-gr4-domain-analysis" up -d
 sleep 2s
 docker logs bda_gr4_spark # TODO: extract token/URL only?
