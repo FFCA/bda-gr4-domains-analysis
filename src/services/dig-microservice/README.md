@@ -32,7 +32,7 @@ es the right to terminate your access to the WHOIS database in its sole discreti
 
 `dig` requires Linux which is why this service should preferably be run in the dedicated Docker container with all
 required tools are installed (
-see [root README](../../README.md)). Using the `docker compose` of this project, the container is not accessible from
+see [root README](../../README.md)). Using the `docker-compose` of this project, the container is not accessible from
 the outside. However, you can use the [dashboard's](../dashboard/README.md) dig terminal to test this service or start
 another container with a mapped port (`-p <your port>:8088`).
 
