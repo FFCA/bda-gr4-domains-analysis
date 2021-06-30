@@ -33,16 +33,6 @@ CREATE TABLE exception_message
     exception VARCHAR(255) NOT NULL
 );
 
-INSERT INTO exception_message (id, exception)
-VALUES (0, 'No Error'),
-       (1, 'NXDomain'),
-       (2, 'No Answer'),
-       (3, 'No Nameservers'),
-       (4, 'Timeout'),
-       (5, 'Connection Error'),
-       (6, 'Read Timeout'),
-       (7, 'Too Many Redirects');
-
 CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adjusted
 (
     top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
@@ -59,7 +49,19 @@ CREATE TABLE domain_redirection
     status_code      VARCHAR(255) NULL
 );
 
--- TODO describe
+-- Insertion of pre-defined values (caught errors):
+
+INSERT INTO exception_message (id, exception)
+VALUES (0, 'No Error'),
+       (1, 'NXDomain'),
+       (2, 'No Answer'),
+       (3, 'No Nameservers'),
+       (4, 'Timeout'),
+       (5, 'Connection Error'),
+       (6, 'Read Timeout'),
+       (7, 'Too Many Redirects');
+
+-- Creation of functions to be used in order to minimize the queries to be written:
 
 CREATE FUNCTION top_10_mx_global()
     RETURNS SETOF mx_record_count_global
