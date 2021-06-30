@@ -54,6 +54,13 @@ CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adj
     mx_record_checked_error INTEGER NOT NULL REFERENCES exception_message (id)
 );
 
+CREATE TABLE domain_redirection
+(
+    top_level_domain VARCHAR(255) PRIMARY KEY,
+    redirection      VARCHAR(255) NULL,
+    status_code      VARCHAR(255) NULL
+);
+
 -- TODO describe
 
 CREATE FUNCTION top_10_mx_global()
