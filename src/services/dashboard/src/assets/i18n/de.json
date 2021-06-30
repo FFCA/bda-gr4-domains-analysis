@@ -43,6 +43,10 @@
             "mxTop10": {
                 "title": "Meistverbreitete MX-Records (Top 10)",
                 "record": "MX-Record"
+            },
+            "aTop10": {
+                "title": "Meistverbreitete A-Records (Top 10)",
+                "record": "A-Record"
             }
         }
     }

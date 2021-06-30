@@ -63,6 +63,16 @@ VALUES (0, 'No Error'),
 
 -- Creation of functions to be used in order to minimize the queries to be written:
 
+CREATE FUNCTION domain_count()
+    RETURNS INTEGER
+AS
+$$
+BEGIN
+    RETURN (SELECT COUNT(*) FROM domain);
+END;
+$$
+    LANGUAGE plpgsql;
+
 CREATE FUNCTION top_10_mx_global()
     RETURNS SETOF mx_record_count_global
 AS
@@ -85,15 +95,16 @@ $$
 
 -- Creation of notification function:
 
--- CREATE FUNCTION notify_domain() RETURNS trigger AS $$
--- DECLARE
--- BEGIN
--- PERFORM
--- pg_notify('watch_domain', TG_TABLE_NAME);
--- RETURN NULL;
--- END;
--- $$
--- LANGUAGE plpgsql;
+CREATE FUNCTION notify_domain_count() RETURNS trigger AS
+$$
+DECLARE
+BEGIN
+    NOTIFY
+        watch_domain_count;
+    RETURN NULL;
+END;
+$$
+    LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_a_count_global() RETURNS trigger AS
 $$
@@ -119,12 +130,15 @@ $$
 
 -- Creation of triggers:
 
--- CREATE TRIGGER insert_domain_trigger
---     AFTER INSERT
---     ON domain
---     FOR EACH ROW EXECUTE PROCEDURE notify_domain();
+CREATE TRIGGER domain_count_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON domain
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_domain_count();
 
-CREATE TRIGGER insert_a_global_count_trigger
+CREATE TRIGGER a_global_count_trigger
     AFTER INSERT OR
         UPDATE OR
         DELETE
@@ -132,7 +146,7 @@ CREATE TRIGGER insert_a_global_count_trigger
     FOR EACH ROW
 EXECUTE PROCEDURE notify_a_count_global();
 
-CREATE TRIGGER insert_mx_global_count_trigger
+CREATE TRIGGER mx_global_count_trigger
     AFTER INSERT OR
         UPDATE OR
         DELETE

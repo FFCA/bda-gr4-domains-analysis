@@ -40,13 +40,15 @@ export class StatisticsService {
 
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
-        this.socket.on('watch_mx_count_global', (data) => {
-            this.mxCountGlobalData.data = [
-                { data: data.map((d: any) => d.count) },
-            ];
-            this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
-            this.mxCountGlobalData.hasData = data.length;
-        });
+        this.socket.on('watch_mx_count_global', (data) =>
+            this.onMxCountTriggered(data)
+        );
+        this.socket.on('watch_a_count_global', (data) =>
+            this.onACountTriggered(data)
+        );
+        this.socket.on('watch_domain_count', (data) =>
+            this.onDomainCountTriggered(data)
+        );
 
         this.socket.on('disconnect', () => this.displayConnectionDialog());
 
@@ -68,7 +70,25 @@ export class StatisticsService {
 
     private initCharts(): void {
         this.initMxGlobalData();
-        this.charts = [this.mxCountGlobalData];
+        this.initAGlobalData();
+        this.charts = [this.mxCountGlobalData, this.aCountGlobalData];
+    }
+
+    private onDomainCountTriggered(data: any): void {
+      // TODO implement
+        console.log(data);
+    }
+
+    private onMxCountTriggered(data: any): void {
+        this.mxCountGlobalData.data = [{ data: data.map((d: any) => d.count) }];
+        this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
+        this.mxCountGlobalData.hasData = data.length;
+    }
+
+    private onACountTriggered(data: any): void {
+        this.aCountGlobalData.data = [{ data: data.map((d: any) => d.count) }];
+        this.aCountGlobalData.labels = data.map((d: any) => d.a_record);
+        this.aCountGlobalData.hasData = data.length;
     }
 
     private initMxGlobalData(): void {
@@ -81,6 +101,21 @@ export class StatisticsService {
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant('dashboard.chart.mxTop10.record'),
+                this.translate.instant('dashboard.chart.general.number')
+            ),
+        };
+    }
+
+    private initAGlobalData(): void {
+        this.aCountGlobalData = {
+            titleKey: 'dashboard.chart.aTop10.title',
+            data: this.aCountGlobalData?.data ?? [],
+            labels: this.aCountGlobalData?.labels ?? [],
+            hasData: !!this.aCountGlobalData?.data?.length,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.aTop10.record'),
                 this.translate.instant('dashboard.chart.general.number')
             ),
         };

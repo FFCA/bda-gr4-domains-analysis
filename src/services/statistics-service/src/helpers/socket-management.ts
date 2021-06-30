@@ -1,7 +1,7 @@
 import { Server } from 'http';
 import { Socket } from 'socket.io';
 import Db from './db-connection';
-import { DomainAnalysisEvent } from 'domain-analysis-types';
+import { DomainAnalysisEvent, getDbFunctions } from 'domain-analysis-types';
 import { performance } from 'perf_hooks';
 
 // TODO: Add documentation
@@ -12,11 +12,7 @@ let io: any;
 const emitTimeout = 2000;
 const notificationTsMap = new Map<DomainAnalysisEvent, number>();
 const emitMap = new Map<DomainAnalysisEvent, number>();
-
-const eventQueryMap = new Map<DomainAnalysisEvent, string>([
-    [DomainAnalysisEvent.MX_COUNT_GLOBAL, 'top_10_mx_global'],
-    [DomainAnalysisEvent.A_COUNT_GLOBAL, 'top_10_a_global'],
-]);
+const eventQueryMap = getDbFunctions();
 
 const onSocketConnected = async (socket: Socket): Promise<void> => {
     console.log('A client connected');
@@ -75,4 +71,11 @@ export const initializeNotificationListeners = async (): Promise<void> => {
         // TODO: Batch insert and notification payload?
         () => patientlyEmitAfterTimeout(DomainAnalysisEvent.MX_COUNT_GLOBAL)
     );
+
+    await Db.registerNotificationListener(
+        DomainAnalysisEvent.DOMAIN_COUNT,
+        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.DOMAIN_COUNT)
+    );
+
+    // TODO Loop
 };
