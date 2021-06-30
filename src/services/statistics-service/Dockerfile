@@ -19,9 +19,9 @@ RUN npm run build
 
 FROM node:16-alpine
 WORKDIR /usr/src/app/shared-node-modules/domain-analysis-types
-COPY --from=appbuild /usr/src/app/shared-node-modules/domain-analysis-types/domain-analysis-types-*.tgz .
+COPY --from=appbuild /usr/src/app/shared-node-modules/domain-analysis-types/domain-analysis-types-*.tgz ./
 WORKDIR /usr/src/app/services/statistics-service
-COPY --from=appbuild /usr/src/app/services/statistics-service/package*.json .
+COPY --from=appbuild /usr/src/app/services/statistics-service/package*.json ./
 RUN npm ci --only=production
 COPY --from=appbuild /usr/src/app/services/statistics-service/build ./build
 EXPOSE 8089
