@@ -20,7 +20,7 @@
         },
         "noConnection": {
             "title": "Prüfe Deine Services",
-            "message": "Der Statistik-Service konnte innerhalb der letzten fünf Sekunden nicht erreicht werden. Bitte vergewissere Dich, dass dieser verfügbar ist. Danach sollte sich dieser Client automatisch verbinden. Sobald erfolgreich eine Verbindung hergestellt werden konnte, wird ein grünes Icon im Header/der seitlichen Navigationsleiste angezeigt."
+            "message": "Der Statistik-Service konnte innerhalb der letzten fünf Sekunden nicht erreicht werden oder die Verbindung wurde gerade getrennt. Bitte vergewissere Dich, dass dieser verfügbar ist. Danach sollte sich dieser Client automatisch verbinden. Sobald erfolgreich eine Verbindung hergestellt werden konnte, wird ein grünes Icon im Header/der seitlichen Navigationsleiste angezeigt."
         }
     },
     "snackbar": {
