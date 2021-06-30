@@ -31,10 +31,9 @@ fi
 # Only called if not exited before => setup docker-compose in detached mode
 cd $basename/src/services
 docker compose -p "bda-gr4-domain-analysis" up -d
-sleep 2s
-docker logs bda_gr4_spark # TODO: extract token/URL only?
 echo
 echo " ----------------"
 echo
-echo "The output above contains a link to open our notebooks (http://127.0.0.1:8888/lab?token=<token>) with <token> being your personal access token."
-echo "Furthermore, the dashboard should be running on localhost:8321 by now."
+echo "The services should be running by now. Here's what you can do now:"
+echo " - open http://localhost:8321 in order to access the dashboard"
+echo " - open http://localhost:8888/lab?token=token4711 in order to access the Notebooks (with 'token4711' being your personal access token)"
