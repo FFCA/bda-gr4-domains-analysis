@@ -42,6 +42,17 @@ CREATE TABLE exception_message
     exception     VARCHAR(255) NOT NULL
 );
 
+INSERT INTO
+    exception_message (id, exception)
+VALUES
+    (1, 'NXDomain'),
+    (2, 'No Answer'),
+    (3, 'No Nameservers'),
+    (4, 'Timeout'),
+    (5, 'Connection Error'),
+    (6, 'Read Timeout'),
+    (7, 'Too Many Redirects');
+
 -- TODO describe
 
 CREATE FUNCTION top_10_mx_global()
