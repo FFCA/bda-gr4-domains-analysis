@@ -47,16 +47,13 @@ services:
     networks:
       - domain_analysis_network_gr4
     build:
-      context: ./pyspark-analyse/
+      context: pyspark/
     depends_on:
       - database
     volumes:
       - ../../data:/home/jovyan/work/data
-      - ./pyspark-analyse/notebooks:/home/jovyan/work/notebooks
-    # TODO: rename pyspark dir as soon as it is safe regarding merge conflicts
+      - ./pyspark/notebooks:/home/jovyan/work/notebooks
 
 networks:
   domain_analysis_network_gr4:
     name: domain_analysis_network_gr4
-
-# TODO Add further services

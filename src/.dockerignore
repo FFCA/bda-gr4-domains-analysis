@@ -1,6 +1,6 @@
 services/dig-microservice
 services/postgres-db
-services/pyspark-analyse
+services/pyspark
 
 services/dashboard/node_modules/
 services/dashboard/dist/
