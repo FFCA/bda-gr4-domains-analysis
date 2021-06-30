@@ -14,5 +14,7 @@
         "moduleResolution": "Node",
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["./src"]
+    "include": [
+      "./src"
+    ]
 }

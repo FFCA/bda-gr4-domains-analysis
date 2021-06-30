@@ -2,8 +2,8 @@
     "name": "domain-analysis-types",
     "version": "1.0.0",
     "description": "Package containing project-related types relevant for multiple services.",
-    "main": "./lib/cjs/index.js",
-    "module": "./lib/esm/index.js",
+    "main": "lib/cjs/index.js",
+    "module": "lib/esm/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepare": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"

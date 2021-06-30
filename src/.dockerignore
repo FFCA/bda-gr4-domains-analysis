@@ -1,0 +1,15 @@
+services/dig-microservice
+services/postgres-db
+services/pyspark-analyse
+
+services/dashboard/node_modules/
+services/dashboard/dist/
+services/dashboard/.idea/
+
+services/statistics-service/node_modules/
+services/statistics-service/build/
+services/statistics-service/.idea/
+
+shared-node-modules/domain-analysis-types/node_modules/
+shared-node-modules/domain-analysis-types/lib/
+shared-node-modules/domain-analysis-types/.idea/

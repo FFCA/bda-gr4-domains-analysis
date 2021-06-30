@@ -12,7 +12,7 @@
     "author": "Lucas Larisch",
     "license": "ISC",
     "dependencies": {
-        "domain-analysis-types": "file:../domain-analysis-types/domain-analysis-types-1.0.0.tgz",
+        "domain-analysis-types": "file:../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "http": "^0.0.1-security",
