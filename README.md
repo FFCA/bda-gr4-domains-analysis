@@ -13,13 +13,13 @@ In order to make this tool as easily usable as possible, there is a shell script
 parsed domain data (`real_domains.csv`) and starting all services (`docker-compose`). This file can be
 found [here](./setup.sh).
 
-_**Note:** the `sh` command can only be run in a Linux-based terminal. However, if you are using Windows, you can use
+_**Note:** the `bash` command can only be run in a Linux-based terminal. However, if you are using Windows, you can use
 your Git Bash._
 
 #### Called without param
 
 ```shell
-sh setup.sh
+bash setup.sh
 ```
 
 In this case, it is obligatory to have stored the required data in the root directory already (e.g. by having run the
@@ -28,7 +28,7 @@ command presented below some time before).
 #### Called with file path
 
 ```shell
-sh setup.sh path/to/your/downloaded/file/data.csv
+bash setup.sh path/to/your/downloaded/file/data.csv
 ```
 
 In this case, after checking whether the file exists and whether it is a `.csv` file, it will be copied to the required
@@ -42,8 +42,8 @@ In the examples above, the commands were intended to be run from the root direct
 anywhere else:
 
 ```shell
-sh path/to/your/repo/setup.sh 
-sh path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
+bash path/to/your/repo/setup.sh 
+bash path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
 ```
 
 ### Manual verification and execution of commands
