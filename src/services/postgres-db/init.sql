@@ -33,25 +33,23 @@ CREATE TABLE exception_message
     exception VARCHAR(255) NOT NULL
 );
 
-INSERT INTO
-    exception_message (id, exception)
-VALUES
-    (0, 'No Error'),
-    (1, 'NXDomain'),
-    (2, 'No Answer'),
-    (3, 'No Nameservers'),
-    (4, 'Timeout'),
-    (5, 'Connection Error'),
-    (6, 'Read Timeout'),
-    (7, 'Too Many Redirects');
+INSERT INTO exception_message (id, exception)
+VALUES (0, 'No Error'),
+       (1, 'NXDomain'),
+       (2, 'No Answer'),
+       (3, 'No Nameservers'),
+       (4, 'Timeout'),
+       (5, 'Connection Error'),
+       (6, 'Read Timeout'),
+       (7, 'Too Many Redirects');
 
 CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adjusted
 (
     top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     a_record_checked        VARCHAR(255)[] NULL,
-    a_record_checked_error  INTEGER NOT NULL REFERENCES exception_message (id),
+    a_record_checked_error  INTEGER        NOT NULL REFERENCES exception_message (id),
     mx_record_checked       VARCHAR(255)[] NULL,
-    mx_record_checked_error INTEGER NOT NULL REFERENCES exception_message (id)
+    mx_record_checked_error INTEGER        NOT NULL REFERENCES exception_message (id)
 );
 
 CREATE TABLE domain_redirection
@@ -65,21 +63,23 @@ CREATE TABLE domain_redirection
 
 CREATE FUNCTION top_10_mx_global()
     RETURNS SETOF mx_record_count_global
-AS $$
+AS
+$$
 BEGIN
-RETURN QUERY SELECT * FROM mx_record_count_global ORDER BY count DESC LIMIT 10;
+    RETURN QUERY SELECT * FROM mx_record_count_global ORDER BY count DESC LIMIT 10;
 END;
 $$
-LANGUAGE plpgsql;
+    LANGUAGE plpgsql;
 
 CREATE FUNCTION top_10_a_global()
     RETURNS SETOF a_record_count_global
-AS $$
+AS
+$$
 BEGIN
-RETURN QUERY SELECT * FROM a_record_count_global ORDER BY count DESC LIMIT 10;
+    RETURN QUERY SELECT * FROM a_record_count_global ORDER BY count DESC LIMIT 10;
 END;
 $$
-LANGUAGE plpgsql;
+    LANGUAGE plpgsql;
 
 -- Creation of notification function:
 
@@ -93,25 +93,27 @@ LANGUAGE plpgsql;
 -- $$
 -- LANGUAGE plpgsql;
 
-CREATE FUNCTION notify_a_count_global() RETURNS trigger AS $$
+CREATE FUNCTION notify_a_count_global() RETURNS trigger AS
+$$
 DECLARE
 BEGIN
-NOTIFY
-watch_a_count_global;
-RETURN NULL;
+    NOTIFY
+        watch_a_count_global;
+    RETURN NULL;
 END;
 $$
-LANGUAGE plpgsql;
+    LANGUAGE plpgsql;
 
-CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS $$ -- TODO: Exclude localhost ?
+CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS
+$$ -- TODO: Exclude localhost ?
 DECLARE
 BEGIN
-NOTIFY
-watch_mx_count_global;
-RETURN NULL;
+    NOTIFY
+        watch_mx_count_global;
+    RETURN NULL;
 END;
 $$
-LANGUAGE plpgsql;
+    LANGUAGE plpgsql;
 
 -- Creation of triggers:
 
@@ -122,14 +124,16 @@ LANGUAGE plpgsql;
 
 CREATE TRIGGER insert_a_global_count_trigger
     AFTER INSERT OR
-UPDATE OR
-DELETE
-ON a_record_count_global
-    FOR EACH ROW EXECUTE PROCEDURE notify_a_count_global();
+        UPDATE OR
+        DELETE
+    ON a_record_count_global
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_a_count_global();
 
 CREATE TRIGGER insert_mx_global_count_trigger
     AFTER INSERT OR
-UPDATE OR
-DELETE
-ON mx_record_count_global
-    FOR EACH ROW EXECUTE PROCEDURE notify_mx_count_global();
+        UPDATE OR
+        DELETE
+    ON mx_record_count_global
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_mx_count_global();
