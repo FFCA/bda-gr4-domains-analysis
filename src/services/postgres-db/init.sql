@@ -2,14 +2,14 @@
 
 CREATE TABLE domain
 (
-    top_level_domain VARCHAR(255) NOT NULL, -- PRIMARY KEY,
+    top_level_domain VARCHAR(255) PRIMARY KEY,
     mx_record        VARCHAR(255)[] NULL,
     a_record         VARCHAR(255)[] NULL
 );
 
 CREATE TABLE domain_enhanced_based_on_existing_data
 (
-    top_level_domain VARCHAR(255) NOT NULL, -- REFERENCES domain (top_level_domain) PRIMARY KEY,
+    top_level_domain  VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     a_record_count    INTEGER NOT NULL,
     mx_record_count   INTEGER NOT NULL,
     mx_uses_localhost BOOLEAN NOT NULL
@@ -17,34 +17,26 @@ CREATE TABLE domain_enhanced_based_on_existing_data
 
 CREATE TABLE a_record_count_global
 (
-    a_record VARCHAR(255) NOT NULL, -- PRIMARY KEY,
+    a_record VARCHAR(255) PRIMARY KEY,
     count    INTEGER NOT NULL
 );
 
 CREATE TABLE mx_record_count_global
 (
-    mx_record VARCHAR(255) NOT NULL, -- PRIMARY KEY,
+    mx_record VARCHAR(255) PRIMARY KEY,
     count     INTEGER NOT NULL
-);
-
-CREATE TABLE domain_enhanced -- TODO: new table to be used / adjusted
-(
-    top_level_domain  VARCHAR(255) NOT NULL, -- REFERENCES domain (top_level_domain) PRIMARY KEY,
-    a_record_checked  VARCHAR(255)[] NULL,
-    mx_record_checked VARCHAR(255)[] NULL,
-    redirection       VARCHAR(255) NULL,
-    status_code       VARCHAR(255) NULL
 );
 
 CREATE TABLE exception_message
 (
-    id INTEGER NOT NULL, -- PRIMARY KEY,
-    exception     VARCHAR(255) NOT NULL
+    id        INTEGER PRIMARY KEY,
+    exception VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
     exception_message (id, exception)
 VALUES
+    (0, 'No Error'),
     (1, 'NXDomain'),
     (2, 'No Answer'),
     (3, 'No Nameservers'),
@@ -52,6 +44,15 @@ VALUES
     (5, 'Connection Error'),
     (6, 'Read Timeout'),
     (7, 'Too Many Redirects');
+
+CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adjusted
+(
+    top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
+    a_record_checked        VARCHAR(255)[] NULL,
+    a_record_checked_error  INTEGER NOT NULL REFERENCES exception_message (id),
+    mx_record_checked       VARCHAR(255)[] NULL,
+    mx_record_checked_error INTEGER NOT NULL REFERENCES exception_message (id)
+);
 
 -- TODO describe
 
