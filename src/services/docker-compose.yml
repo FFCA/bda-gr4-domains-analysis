@@ -53,6 +53,7 @@ services:
     volumes:
       - ../../data:/home/jovyan/work/data
       - ./pyspark/notebooks:/home/jovyan/work/notebooks
+      - ./pyspark/README.ipynb:/home/jovyan/work/README.ipynb
 
 networks:
   domain_analysis_network_gr4:
