@@ -32,7 +32,7 @@ fi
 cd $basename/src/services
 docker-compose -p "bda-gr4-domain-analysis" up -d
 echo
-echo " ----------------"
+echo "----------------"
 echo
 echo "The services should be running by now. Here's what you can do now:"
 echo " - open http://localhost:8321 in order to access the dashboard"
