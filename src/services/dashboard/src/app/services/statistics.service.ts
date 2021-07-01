@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NoConnectionComponent } from '../components/dialogs/no-connection/no-connection.component';
 import { DomainAnalysisKpi } from '../model/internal/domain-analysis-kpi';
+import { DomainAnalysisEvent } from 'domain-analysis-types';
 
 @Injectable({
     providedIn: 'root',
@@ -45,14 +46,17 @@ export class StatisticsService {
 
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
-        this.socket.on('watch_mx_count_global', (data) =>
-            this.onMxCountTriggered(data)
+
+        this.socket.on(DomainAnalysisEvent.DOMAIN_COUNT, (data) =>
+            this.onDomainCountTriggered(data)
         );
-        this.socket.on('watch_a_count_global', (data) =>
+
+        this.socket.on(DomainAnalysisEvent.A_COUNT_GLOBAL, (data) =>
             this.onACountTriggered(data)
         );
-        this.socket.on('watch_domain_count', (data) =>
-            this.onDomainCountTriggered(data)
+
+        this.socket.on(DomainAnalysisEvent.MX_COUNT_GLOBAL, (data) =>
+            this.onMxCountTriggered(data)
         );
 
         this.socket.on('disconnect', () => this.displayConnectionDialog());

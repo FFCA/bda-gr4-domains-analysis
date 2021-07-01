@@ -29,6 +29,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
+    "domain-analysis-types": "file:../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz",
     "flag-icon-css": "^3.5.0",
     "ng2-charts": "^2.4.2",
     "rxjs": "~6.6.0",
