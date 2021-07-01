@@ -2,9 +2,15 @@ import { DomainAnalysisEvent } from './model/domain-analysis-event';
 import {
     getDbFunctions,
     getDbFunctionByEvent,
-} from './functions/get-db-function';
+    getAllEvents,
+} from './functions/get-data';
 
 /**
  * All classes/enums exported by this package.
  */
-export { DomainAnalysisEvent, getDbFunctions, getDbFunctionByEvent };
+export {
+    DomainAnalysisEvent,
+    getDbFunctions,
+    getDbFunctionByEvent,
+    getAllEvents,
+};

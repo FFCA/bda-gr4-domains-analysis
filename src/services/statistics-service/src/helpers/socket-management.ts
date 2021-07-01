@@ -1,7 +1,11 @@
 import { Server } from 'http';
 import { Socket } from 'socket.io';
 import Db from './db-connection';
-import { DomainAnalysisEvent, getDbFunctions } from 'domain-analysis-types';
+import {
+    DomainAnalysisEvent,
+    getDbFunctions,
+    getAllEvents,
+} from 'domain-analysis-types';
 import { performance } from 'perf_hooks';
 
 // TODO: Add documentation
@@ -61,21 +65,11 @@ export const initializeSockets = async (httpServer: Server): Promise<void> => {
 };
 
 export const initializeNotificationListeners = async (): Promise<void> => {
-    await Db.registerNotificationListener(
-        DomainAnalysisEvent.A_COUNT_GLOBAL,
-        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.A_COUNT_GLOBAL)
+    await Promise.all(
+        getAllEvents().map(async (event) => {
+            await Db.registerNotificationListener(event, () =>
+                patientlyEmitAfterTimeout(event)
+            );
+        })
     );
-
-    await Db.registerNotificationListener(
-        DomainAnalysisEvent.MX_COUNT_GLOBAL,
-        // TODO: Batch insert and notification payload?
-        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.MX_COUNT_GLOBAL)
-    );
-
-    await Db.registerNotificationListener(
-        DomainAnalysisEvent.DOMAIN_COUNT,
-        () => patientlyEmitAfterTimeout(DomainAnalysisEvent.DOMAIN_COUNT)
-    );
-
-    // TODO Loop
 };

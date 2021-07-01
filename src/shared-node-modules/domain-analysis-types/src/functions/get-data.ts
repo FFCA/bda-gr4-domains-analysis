@@ -13,3 +13,7 @@ export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string => {
 export const getDbFunctions = (): Map<DomainAnalysisEvent, string> => {
     return eventQueryMap;
 };
+
+export const getAllEvents = (): DomainAnalysisEvent[] => {
+    return [...eventQueryMap.keys()];
+};
