@@ -44,9 +44,19 @@ CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adj
 
 CREATE TABLE domain_redirection
 (
-    top_level_domain VARCHAR(255) PRIMARY KEY,
+    top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     redirection      VARCHAR(255) NULL,
     status_code      VARCHAR(255) NULL
+);
+
+CREATE TABLE soa
+(
+    top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
+    mname            VARCHAR(255)   NULL,
+    refresh          INTEGER        NULL,
+    minimum          INTEGER        NULL,
+    nameservers      VARCHAR(255)[] NULL,
+    nameserver_error INTEGER        NOT NULL REFERENCES exception_message (id)
 );
 
 -- Insertion of pre-defined values (caught errors):
@@ -60,6 +70,7 @@ VALUES (0, 'No Error'),
        (5, 'Connection Error'),
        (6, 'Read Timeout'),
        (7, 'Too Many Redirects');
+-- TODO Generic error
 
 -- Creation of functions to be used in order to minimize the queries to be written:
 
