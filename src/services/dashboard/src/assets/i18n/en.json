@@ -32,14 +32,16 @@
         "languageSwitched": "The language has been switched successfully."
     },
     "dashboard": {
+        "general": {
+            "nthKpi": "KPI {{ n }}",
+            "nthChart": "Chart {{ n }}",
+            "number": "Number",
+            "noData": "No data"
+        },
+        "kpi": {
+            "totalDomains": "Total number of parsed domains"
+        },
         "chart": {
-            "meta": {
-                "nth": "Chart {{ n }}"
-            },
-            "general": {
-                "number": "Number",
-                "noData": "No data"
-            },
             "mxTop10": {
                 "title": "Most common MX-records (Top 10)",
                 "record": "MX-record"

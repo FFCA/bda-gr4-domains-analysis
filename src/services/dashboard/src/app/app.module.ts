@@ -20,6 +20,7 @@ import { LanguageSelectionDialogComponent } from './components/dialogs/language-
 import { StatisticsService } from './services/statistics.service';
 import { ChartCardComponent } from './components/dashboard-main/chart-card/chart-card.component';
 import { NoConnectionComponent } from './components/dialogs/no-connection/no-connection.component';
+import { KpiCardComponent } from './components/dashboard-main/kpi-card/kpi-card.component';
 
 /**
  * @param http Http Client
@@ -44,6 +45,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
         LanguageSelectionDialogComponent,
         ChartCardComponent,
         NoConnectionComponent,
+        KpiCardComponent,
     ],
     imports: [
         BrowserModule,

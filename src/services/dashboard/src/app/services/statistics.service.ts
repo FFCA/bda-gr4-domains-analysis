@@ -6,12 +6,14 @@ import { DomainAnalysisChart } from '../model/internal/domain-analysis-chart';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NoConnectionComponent } from '../components/dialogs/no-connection/no-connection.component';
+import { DomainAnalysisKpi } from '../model/internal/domain-analysis-kpi';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StatisticsService {
     charts: DomainAnalysisChart[] = [];
+    kpis: DomainAnalysisKpi[] = [];
 
     private socket!: Socket;
 
@@ -19,6 +21,8 @@ export class StatisticsService {
 
     private mxCountGlobalData!: DomainAnalysisChart;
     private aCountGlobalData!: DomainAnalysisChart;
+
+    private domainCount!: DomainAnalysisKpi;
 
     /**
      * @param dialog Injected Material dialog service.
@@ -28,6 +32,7 @@ export class StatisticsService {
         private readonly dialog: MatDialog,
         private readonly translate: TranslateService
     ) {
+        this.initKpis();
         translate.onLangChange.subscribe(() => {
             this.initCharts();
             if (!this.socket) this.setupSocketConnection();
@@ -68,6 +73,11 @@ export class StatisticsService {
         }, 5000);
     }
 
+    private initKpis(): void {
+        this.domainCount = { translationKey: 'dashboard.kpi.totalDomains' };
+        this.kpis = [this.domainCount];
+    }
+
     private initCharts(): void {
         this.initMxGlobalData();
         this.initAGlobalData();
@@ -75,8 +85,7 @@ export class StatisticsService {
     }
 
     private onDomainCountTriggered(data: any): void {
-      // TODO implement
-        console.log(data);
+        this.domainCount.value = data[0].domain_count;
     }
 
     private onMxCountTriggered(data: any): void {
@@ -101,7 +110,7 @@ export class StatisticsService {
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant('dashboard.chart.mxTop10.record'),
-                this.translate.instant('dashboard.chart.general.number')
+                this.translate.instant('dashboard.general.number')
             ),
         };
     }
@@ -116,7 +125,7 @@ export class StatisticsService {
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant('dashboard.chart.aTop10.record'),
-                this.translate.instant('dashboard.chart.general.number')
+                this.translate.instant('dashboard.general.number')
             ),
         };
     }
