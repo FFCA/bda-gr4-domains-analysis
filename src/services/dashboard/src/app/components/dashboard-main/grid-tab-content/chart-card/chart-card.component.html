@@ -5,14 +5,14 @@
                 <button
                     *ngFor="let size of sizes"
                     [matTooltip]="
-                        (chart.Size === size
+                        (chart.size === size
                             ? 'dashboard.general.size.changeTo'
                             : 'dashboard.general.size.current'
                         ) | translate: { size: size }
                     "
-                    [color]="chart.Size === size ? 'accent' : 'primary'"
+                    [color]="chart.size === size ? 'accent' : 'primary'"
                     mat-icon-button
-                    (click)="chart.Size = size"
+                    (click)="chart.size = size"
                 >
                     {{ size }}
                 </button>

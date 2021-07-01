@@ -131,6 +131,7 @@ export class StatisticsService {
             data: this.mxCountGlobalData?.data ?? [],
             labels: this.mxCountGlobalData?.labels ?? [],
             hasData: !!this.mxCountGlobalData?.data?.length,
+            size: this.aCountGlobalData?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
@@ -146,6 +147,7 @@ export class StatisticsService {
             data: this.aCountGlobalData?.data ?? [],
             labels: this.aCountGlobalData?.labels ?? [],
             hasData: !!this.aCountGlobalData?.data?.length,
+            size: this.aCountGlobalData?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
