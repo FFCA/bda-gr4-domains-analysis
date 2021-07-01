@@ -8,13 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { NoConnectionComponent } from '../components/dialogs/no-connection/no-connection.component';
 import { DomainAnalysisKpi } from '../model/internal/domain-analysis-kpi';
 import { DomainAnalysisEvent } from 'domain-analysis-types';
+import { DisplayedTab } from '../model/internal/displayed-tab';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StatisticsService {
-    charts: DomainAnalysisChart[] = [];
-    kpis: DomainAnalysisKpi[] = [];
+    displayedTabs: DisplayedTab[] = [];
+    private tab0Descriptive!: DisplayedTab;
 
     private socket!: Socket;
 
@@ -33,6 +34,7 @@ export class StatisticsService {
         private readonly dialog: MatDialog,
         private readonly translate: TranslateService
     ) {
+        this.initTabs();
         this.initKpis();
         translate.onLangChange.subscribe(() => {
             this.initCharts();
@@ -77,15 +79,34 @@ export class StatisticsService {
         }, 5000);
     }
 
+    private initTabs(): void {
+        this.tab0Descriptive = {
+            kpis: [],
+            charts: [],
+            tabKey: 'dashboard.tab.descriptive',
+            tabExplanationKey: 'dashboard.tabExplanation.descriptive', // TODO Add explanation
+        };
+
+        // TODO: Rm duplication
+        this.displayedTabs = [
+            this.tab0Descriptive,
+            this.tab0Descriptive,
+            this.tab0Descriptive,
+        ];
+    }
+
     private initKpis(): void {
         this.domainCount = { translationKey: 'dashboard.kpi.totalDomains' };
-        this.kpis = [this.domainCount];
+        this.tab0Descriptive.kpis = [this.domainCount];
     }
 
     private initCharts(): void {
         this.initMxGlobalData();
         this.initAGlobalData();
-        this.charts = [this.mxCountGlobalData, this.aCountGlobalData];
+        this.tab0Descriptive.charts = [
+            this.mxCountGlobalData,
+            this.aCountGlobalData,
+        ];
     }
 
     private onDomainCountTriggered(data: any): void {

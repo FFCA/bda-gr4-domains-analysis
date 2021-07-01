@@ -1,17 +1,60 @@
-<div class="row">
-    <div
-        class="col-xl-4 col-lg-6"
-        *ngFor="let kpi of statistics.kpis; index as index"
+<mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab
+        *ngFor="let tab of statistics.displayedTabs; index as tabIndex"
+        label="{{ tabIndex + 1 }}) {{ tab.tabKey | translate }}"
     >
-        <app-kpi-card [kpi]="kpi" [nr]="index + 1"></app-kpi-card>
-    </div>
-    <div
-        class="col-xl-6"
-        *ngFor="let chart of statistics.charts; index as index"
-    >
-        <app-chart-card [chart]="chart" [nr]="index + 1"></app-chart-card>
-    </div>
+        <div class="container-fluid">
+            <div class="d-flex mt-3">
+                <mat-icon class="mr-2">info_outline</mat-icon>
+                <div>{{ tab.tabExplanationKey | translate }}</div>
+            </div>
+            <div class="row pb-1">
+                <div
+                    class="col-xl-4 col-lg-6"
+                    *ngFor="let kpi of tab.kpis; index as index"
+                >
+                    <app-kpi-card [kpi]="kpi" [nr]="index + 1"></app-kpi-card>
+                </div>
+                <div
+                    class="col-xl-6"
+                    *ngFor="let chart of tab.charts; index as index"
+                >
+                    <app-chart-card
+                        [chart]="chart"
+                        [nr]="index + 1"
+                    ></app-chart-card>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="ml-auto">
+                <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="navigateToIndex(tabIndex - 1)"
+                    [disabled]="tabIndex === 0"
+                    [matTooltip]="'dashboard.general.previousTab' | translate"
+                >
+                    <mat-icon>arrow_back_ios_new</mat-icon>
+                </button>
+                <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="navigateToIndex(tabIndex + 1)"
+                    [disabled]="
+                        tabIndex === statistics.displayedTabs.length - 1
+                    "
+                    [matTooltip]="'dashboard.general.nextTab' | translate"
+                >
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
 
+<!-- TODO: Rm examples -->
+<div class="row">
     <div *ngFor="let chart of charts" class="col-xl-6">
         <app-chart-card [chart]="chart" [nr]="123"></app-chart-card>
     </div>

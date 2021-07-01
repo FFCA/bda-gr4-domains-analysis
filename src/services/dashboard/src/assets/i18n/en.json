@@ -36,7 +36,15 @@
             "nthKpi": "KPI {{ n }}",
             "nthChart": "Chart {{ n }}",
             "number": "Number",
-            "noData": "No data"
+            "noData": "No data",
+            "previousTab": "Previous tab",
+            "nextTab": "Next tab"
+        },
+        "tab": {
+            "descriptive": "Descriptive data"
+        },
+        "tabExplanation": {
+            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
         },
         "kpi": {
             "totalDomains": "Total number of parsed domains"

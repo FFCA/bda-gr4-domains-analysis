@@ -36,7 +36,12 @@
             "nthKpi": "Kennzahl {{ n }}",
             "nthChart": "Diagramm {{ n }}",
             "number": "Anzahl",
-            "noData": "Keine Daten"
+            "noData": "Keine Daten",
+            "previousTab": "Vorheriger Tab",
+            "nextTab": "Nächster Tab"
+        },
+        "tab": {
+            "descriptive": "Deskriptive Daten"
         },
         "kpi": {
             "totalDomains": "Anzahl eingelesener Domains"

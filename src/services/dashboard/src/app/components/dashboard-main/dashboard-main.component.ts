@@ -3,6 +3,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { StatisticsService } from '../../services/statistics.service';
 import { DomainAnalysisChart } from '../../model/internal/domain-analysis-chart';
 
+/**
+ * Project's main component listing tabbed charts and KPIs.
+ */
 @Component({
     selector: 'app-dashboard-main',
     templateUrl: './dashboard-main.component.html',
@@ -16,6 +19,11 @@ export class DashboardMainComponent implements OnInit {
      * Charts to be displayed.
      */
     readonly charts: DomainAnalysisChart[] = [];
+
+    /**
+     * The selected tab index.
+     */
+    selectedIndex = 0;
 
     private readonly labels =
         'The quick brown fox jumps over the lazy dog'.split(/\s/);
@@ -58,6 +66,14 @@ export class DashboardMainComponent implements OnInit {
             this.exampleScatterMulti
         );
         this.charts.sort((a, b) => (Math.random() > 0.5 ? -1 : 1));
+    }
+
+    /**
+     * Sets the {{ selectedIndex }} to the given number smoothly scrolls to the top.
+     */
+    navigateToIndex(index: number): void {
+        this.selectedIndex = index;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     private get exampleScatter(): DomainAnalysisChart {
