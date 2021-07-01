@@ -38,4 +38,4 @@ echo "The services should be running by now. Here's what you can do now:"
 echo " - open http://localhost:8321 in order to access the dashboard"
 echo " - open http://localhost:8888/lab?token=token4711 in order to access the Notebooks (with 'token4711' being your personal access token)"
 echo
-echo "Seeing an NPM error (EAI_AGAIN)? Most likely, it's a network issue we cannot control. Just re-run this script and building should succeed."
+echo "Seeing an NPM error (EAI_AGAIN)? It's a network issue that we cannot control, unfortunately (yet, we're very sorry for the inconvenience). Just re-run this script and building should succeed (or at least take a step)."
