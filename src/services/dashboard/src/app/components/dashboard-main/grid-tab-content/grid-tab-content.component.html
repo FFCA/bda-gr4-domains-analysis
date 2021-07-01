@@ -1,8 +1,9 @@
 <div class="container-fluid">
-    <div class="d-flex mt-3">
+    <div class="d-flex mt-4 mb-2">
         <mat-icon class="mr-2">info_outline</mat-icon>
         <div>{{ tab.tabExplanationKey | translate }}</div>
     </div>
+    <mat-divider class="my-3 position-relative"></mat-divider>
     <div class="row pb-1">
         <app-kpi-card
             *ngFor="let kpi of tab.kpis; index as index"
