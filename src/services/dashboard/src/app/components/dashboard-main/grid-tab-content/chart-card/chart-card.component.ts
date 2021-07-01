@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DomainAnalysisChart } from '../../../model/internal/domain-analysis-chart';
+import { DomainAnalysisChart } from '../../../../model/internal/domain-analysis-chart';
 
 /**
  * Generically usable component containing a chart incl. title in a Material card.

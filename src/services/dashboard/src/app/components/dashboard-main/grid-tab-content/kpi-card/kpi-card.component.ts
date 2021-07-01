@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DomainAnalysisKpi } from '../../../model/internal/domain-analysis-kpi';
+import { DomainAnalysisKpi } from '../../../../model/internal/domain-analysis-kpi';
 
 /**
  * Component for prominently displaying KPIs.
