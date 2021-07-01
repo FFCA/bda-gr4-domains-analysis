@@ -5,7 +5,7 @@
                 <button
                     *ngFor="let size of sizes"
                     [matTooltip]="
-                        (chart.size === size
+                        (chart.size !== size
                             ? 'dashboard.general.size.changeTo'
                             : 'dashboard.general.size.current'
                         ) | translate: { size: size }

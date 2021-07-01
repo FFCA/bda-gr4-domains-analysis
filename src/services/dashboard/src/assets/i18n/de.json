@@ -40,7 +40,7 @@
             "previousTab": "Vorheriger Tab",
             "nextTab": "Nächster Tab",
             "size": {
-                "changeSizeTo": "Größe auf \"{{ size }}\" ändern (ggf. nur auf größeren Bildschirmen bemerkbar)",
+                "changeTo": "Größe auf \"{{ size }}\" ändern (ggf. nur auf größeren Bildschirmen bemerkbar)",
                 "current": "Aktuelle Größe: \"{{ size }}\" (ggf. nur auf größeren Bildschirmen bemerkbar)"
             }
         },
