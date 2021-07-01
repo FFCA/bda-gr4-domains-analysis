@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomainAnalysisChart } from '../../../../model/internal/domain-analysis-chart';
 
 /**
@@ -9,7 +9,9 @@ import { DomainAnalysisChart } from '../../../../model/internal/domain-analysis-
     templateUrl: './chart-card.component.html',
     styleUrls: ['./chart-card.component.scss'],
 })
-export class ChartCardComponent {
+export class ChartCardComponent implements OnInit {
+    readonly sizes: ('S' | 'M' | 'XL')[] = ['S', 'M', 'XL'];
+
     /**
      * Chart to be displayed.
      */
@@ -19,4 +21,11 @@ export class ChartCardComponent {
      * Number of the chart.
      */
     @Input() nr!: number;
+
+    /**
+     * Sets the chart size to M if undefined.
+     */
+    ngOnInit(): void {
+        this.chart.Size = this.chart.Size ?? 'M';
+    }
 }

@@ -38,7 +38,11 @@
             "number": "Anzahl",
             "noData": "Keine Daten",
             "previousTab": "Vorheriger Tab",
-            "nextTab": "Nächster Tab"
+            "nextTab": "Nächster Tab",
+            "size": {
+                "changeSizeTo": "Größe auf \"{{ size }}\" ändern (ggf. nur auf größeren Bildschirmen bemerkbar)",
+                "current": "Aktuelle Größe: \"{{ size }}\" (ggf. nur auf größeren Bildschirmen bemerkbar)"
+            }
         },
         "tab": {
             "descriptive": "Deskriptive Daten"

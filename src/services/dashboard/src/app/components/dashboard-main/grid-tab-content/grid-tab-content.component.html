@@ -4,13 +4,20 @@
         <div>{{ tab.tabExplanationKey | translate }}</div>
     </div>
     <div class="row pb-1">
-        <div
-            class="col-xl-4 col-lg-6"
+        <app-kpi-card
             *ngFor="let kpi of tab.kpis; index as index"
+            [kpi]="kpi"
+            [nr]="index + 1"
+        ></app-kpi-card>
+        <div
+            class="p-0 chart-wrapper"
+            *ngFor="let chart of tab.charts; index as index"
+            [class.col-lg-12]="chart.Size === 'XL'"
+            [class.col-md-12]="!chart.Size || chart.Size === 'M'"
+            [class.col-lg-8]="!chart.Size || chart.Size === 'M'"
+            [class.col-lg-6]="chart.Size === 'S'"
+            [class.col-md-8]="chart.Size === 'S'"
         >
-            <app-kpi-card [kpi]="kpi" [nr]="index + 1"></app-kpi-card>
-        </div>
-        <div class="col-xl-6" *ngFor="let chart of tab.charts; index as index">
             <app-chart-card [chart]="chart" [nr]="index + 1"></app-chart-card>
         </div>
     </div>

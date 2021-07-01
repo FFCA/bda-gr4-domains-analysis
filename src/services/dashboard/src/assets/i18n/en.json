@@ -38,7 +38,11 @@
             "number": "Number",
             "noData": "No data",
             "previousTab": "Previous tab",
-            "nextTab": "Next tab"
+            "nextTab": "Next tab",
+            "size": {
+                "changeTo": "Change size to \"{{ size }}\" (might only be noticeable on larger screens)",
+                "current": "Current size: \"{{ size }}\" (might only be noticeable on larger screens)"
+            }
         },
         "tab": {
             "descriptive": "Descriptive data"
