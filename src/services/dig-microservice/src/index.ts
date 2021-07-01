@@ -22,11 +22,6 @@ const host = process.env.HOST ?? '0.0.0.0';
  */
 const port = process.env.PORT ? +process.env.PORT : 8088;
 
-const jsonDig = (dig: string) => {
-    // TODO Implement?
-    return dig;
-};
-
 /**
  * Checks whether a string value contains illegal characters and if so, returns a warning message.
  *
@@ -52,8 +47,6 @@ const invalidMsg = (value: string): string | undefined => {
 app.listen(port, host, () => {
     console.log(`Dig-microservice is running at ${host}:${port}`);
 
-    // TODO: Add optional params, i.e. flags?
-
     /**
      * On requesting the service using /<dig>, a dig request with the given
      * param is performed and, if valid, the result is sent back.
@@ -67,7 +60,7 @@ app.listen(port, host, () => {
             exec(`dig ${value}`, (error, stdout, stderr) => {
                 if (stdout) {
                     res.send({
-                        answer: !req.query.raw ? jsonDig(stdout) : stdout,
+                        answer: stdout,
                         digged: value,
                         timestamp: new Date(),
                     });
