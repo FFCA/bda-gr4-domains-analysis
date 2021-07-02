@@ -52,6 +52,9 @@
             "descriptive": "Deskriptive Daten",
             "checked": "Aktualisierte Records"
         },
+        "tabExplanation": {
+            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
+        },
         "kpi": {
             "totalDomains": "Anzahl eingelesener Domains"
         },
@@ -65,6 +68,9 @@
             },
             "mxCheckedTop10": {
                 "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)"
+            },
+            "aCheckedTop10": {
+                "title": "Meistverbreitete (geprüfte) A-Records (Top 10)"
             },
             "groupedMxCount": {
                 "title": "Gruppierte Anzahl an MX-Records",

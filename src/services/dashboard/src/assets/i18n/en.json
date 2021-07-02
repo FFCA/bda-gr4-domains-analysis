@@ -73,6 +73,10 @@
             "aCheckedTop10": {
                 "title": "Most common (updated) A-records (Top 10)"
             },
+            "groupedMxCount": {
+                "title": "Grouped number of MX-records",
+                "record": "Number of MX-records"
+            },
             "groupedACount": {
                 "title": "Grouped number of A-records",
                 "record": "Number of A-records"
