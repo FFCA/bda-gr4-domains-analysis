@@ -151,63 +151,7 @@ export class StatisticsService {
         this.domainCount.value = data[0].domain_count;
     }
 
-    private onMxCountTriggered(data: any): void {
-        this.mxCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
-        this.mxCountGlobal.labels = data.map((d: any) => d.mx_record);
-        this.mxCountGlobal.hasData = data.length;
-    }
-
-    private onACountTriggered(data: any): void {
-        this.aCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
-        this.aCountGlobal.labels = data.map((d: any) => d.a_record);
-        this.aCountGlobal.hasData = data.length;
-    }
-
-    private onMxCheckedCountTriggered(data: any): void {
-        this.mxCheckedCountGlobal.data = [
-            { data: data.map((d: any) => d.count) },
-        ];
-        this.mxCheckedCountGlobal.labels = data.map(
-            (d: any) => d.mx_record_checked
-        );
-        this.mxCheckedCountGlobal.hasData = data.length;
-    }
-
-    private onACheckedCountTriggered(data: any): void {
-        this.aCheckedCountGlobal.data = [
-            { data: data.map((d: any) => d.count) },
-        ];
-        this.aCheckedCountGlobal.labels = data.map(
-            (d: any) => d.a_record_checked
-        );
-        this.aCheckedCountGlobal.hasData = data.length;
-    }
-
-    private onGroupedMxCountTriggered(data: any): void {
-        data = data.sort(
-            (a: any, b: any) => a.mx_record_count - b.mx_record_count
-        );
-        this.groupedMxCount.data = [{ data: data.map((d: any) => d.count) }];
-        this.groupedMxCount.labels = data.map((d: any) => {
-            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
-                d.mx_record_count
-            }`;
-        });
-        this.groupedMxCount.hasData = data.length;
-    }
-
-    private onGroupedACountTriggered(data: any): void {
-        data = data.sort(
-            (a: any, b: any) => a.a_record_count - b.a_record_count
-        );
-        this.groupedACount.data = [{ data: data.map((d: any) => d.count) }];
-        this.groupedACount.labels = data.map((d: any) => {
-            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
-                d.a_record_count
-            }`;
-        });
-        this.groupedACount.hasData = data.length;
-    }
+    // mxCountGlobal
 
     private initMxGlobalData(): void {
         this.mxCountGlobal = {
@@ -225,6 +169,14 @@ export class StatisticsService {
         };
     }
 
+    private onMxCountTriggered(data: any): void {
+        this.mxCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
+        this.mxCountGlobal.labels = data.map((d: any) => d.mx_record);
+        this.mxCountGlobal.hasData = data.length;
+    }
+
+    // aCountGlobal
+
     private initAGlobalData(): void {
         const chart = this.aCountGlobal;
         this.aCountGlobal = {
@@ -238,6 +190,14 @@ export class StatisticsService {
             options: { responsive: true },
         };
     }
+
+    private onACountTriggered(data: any): void {
+        this.aCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
+        this.aCountGlobal.labels = data.map((d: any) => d.a_record);
+        this.aCountGlobal.hasData = data.length;
+    }
+
+    // mxCheckedCountGlobal
 
     private initMxCheckedGlobalData(): void {
         const chart = this.mxCheckedCountGlobal;
@@ -256,6 +216,18 @@ export class StatisticsService {
         };
     }
 
+    private onMxCheckedCountTriggered(data: any): void {
+        this.mxCheckedCountGlobal.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.mxCheckedCountGlobal.labels = data.map(
+            (d: any) => d.mx_record_checked
+        );
+        this.mxCheckedCountGlobal.hasData = data.length;
+    }
+
+    // aCheckedCountGlobal
+
     private initACheckedGlobalData(): void {
         const chart = this.aCheckedCountGlobal;
         this.aCheckedCountGlobal = {
@@ -269,6 +241,18 @@ export class StatisticsService {
             options: { responsive: true },
         };
     }
+
+    private onACheckedCountTriggered(data: any): void {
+        this.aCheckedCountGlobal.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.aCheckedCountGlobal.labels = data.map(
+            (d: any) => d.a_record_checked
+        );
+        this.aCheckedCountGlobal.hasData = data.length;
+    }
+
+    // groupedMxCount
 
     private initGroupedMxCount(): void {
         const chart = this.groupedMxCount;
@@ -287,6 +271,21 @@ export class StatisticsService {
         };
     }
 
+    private onGroupedMxCountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.mx_record_count - b.mx_record_count
+        );
+        this.groupedMxCount.data = [{ data: data.map((d: any) => d.count) }];
+        this.groupedMxCount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.mx_record_count
+            }`;
+        });
+        this.groupedMxCount.hasData = data.length;
+    }
+
+    // groupedACount
+
     private initGroupedACount(): void {
         const chart = this.groupedACount;
         this.groupedACount = {
@@ -302,5 +301,18 @@ export class StatisticsService {
                 this.translate.instant('dashboard.general.number')
             ),
         };
+    }
+
+    private onGroupedACountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.a_record_count - b.a_record_count
+        );
+        this.groupedACount.data = [{ data: data.map((d: any) => d.count) }];
+        this.groupedACount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.a_record_count
+            }`;
+        });
+        this.groupedACount.hasData = data.length;
     }
 }
