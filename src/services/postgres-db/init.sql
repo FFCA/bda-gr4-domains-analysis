@@ -53,7 +53,7 @@ CREATE TABLE domain_redirection
 (
     top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     redirection      VARCHAR(255) NULL,
-    status_code      VARCHAR(255) NULL
+    status_code      INTEGER NULL
 );
 
 CREATE TABLE a_record_checked_count_global
