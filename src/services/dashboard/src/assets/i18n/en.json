@@ -32,6 +32,9 @@
         "languageSwitched": "The language has been switched successfully."
     },
     "dashboard": {
+        "dataLabel": {
+            "records": "Records"
+        },
         "general": {
             "nthKpi": "KPI {{ n }}",
             "nthChart": "Chart {{ n }}",
@@ -69,6 +72,10 @@
             },
             "aCheckedTop10": {
                 "title": "Most common (updated) A-records (Top 10)"
+            },
+            "groupedACount": {
+                "title": "Grouped number of A-records",
+                "record": "Number of A-records"
             }
         }
     }

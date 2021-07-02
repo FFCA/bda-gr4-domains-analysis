@@ -24,6 +24,9 @@ export class StatisticsService {
 
     private mxCountGlobal!: DomainAnalysisChart;
     private aCountGlobal!: DomainAnalysisChart;
+    private groupedMxCount!: DomainAnalysisChart;
+    private groupedACount!: DomainAnalysisChart;
+
     private mxCheckedCountGlobal!: DomainAnalysisChart;
     private aCheckedCountGlobal!: DomainAnalysisChart;
 
@@ -74,6 +77,14 @@ export class StatisticsService {
             (data) => this.onMxCheckedCountTriggered(data)
         );
 
+        this.socket.on(DomainAnalysisFunctionName.MX_COUNT_GROUPED, (data) =>
+            this.onGroupedMxCountTriggered(data)
+        );
+
+        this.socket.on(DomainAnalysisFunctionName.A_COUNT_GROUPED, (data) =>
+            this.onGroupedACountTriggered(data)
+        );
+
         this.socket.on('disconnect', () => this.displayConnectionDialog());
 
         this.displayConnectionDialog();
@@ -119,9 +130,17 @@ export class StatisticsService {
     private initCharts(): void {
         this.initMxGlobalData();
         this.initAGlobalData();
+        this.initGroupedMxCount();
+        this.initGroupedACount();
+        this.tab00Descriptive.charts = [
+            this.mxCountGlobal,
+            this.aCountGlobal,
+            this.groupedMxCount,
+            this.groupedACount,
+        ];
+
         this.initMxCheckedGlobalData();
         this.initACheckedGlobalData();
-        this.tab00Descriptive.charts = [this.mxCountGlobal, this.aCountGlobal];
         this.tab01Checked.charts = [
             this.mxCheckedCountGlobal,
             this.aCheckedCountGlobal,
@@ -162,6 +181,32 @@ export class StatisticsService {
             (d: any) => d.a_record_checked
         );
         this.aCheckedCountGlobal.hasData = data.length;
+    }
+
+    private onGroupedMxCountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.mx_record_count - b.mx_record_count
+        );
+        this.groupedMxCount.data = [{ data: data.map((d: any) => d.count) }];
+        this.groupedMxCount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.mx_record_count
+            }`;
+        });
+        this.groupedMxCount.hasData = data.length;
+    }
+
+    private onGroupedACountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.a_record_count - b.a_record_count
+        );
+        this.groupedACount.data = [{ data: data.map((d: any) => d.count) }];
+        this.groupedACount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.a_record_count
+            }`;
+        });
+        this.groupedACount.hasData = data.length;
     }
 
     private initMxGlobalData(): void {
@@ -219,6 +264,38 @@ export class StatisticsService {
             type: 'pie',
             showLabels: true,
             options: { responsive: true },
+        };
+    }
+
+    private initGroupedMxCount(): void {
+        this.groupedMxCount = {
+            titleKey: 'dashboard.chart.groupedMxCount.title',
+            data: this.groupedMxCount?.data ?? [],
+            labels: this.groupedMxCount?.labels ?? [],
+            hasData: !!this.groupedMxCount?.data?.length,
+            size: this.groupedMxCount?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.groupedMxCount.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private initGroupedACount(): void {
+        this.groupedACount = {
+            titleKey: 'dashboard.chart.groupedACount.title',
+            data: this.groupedACount?.data ?? [],
+            labels: this.groupedACount?.labels ?? [],
+            hasData: !!this.groupedACount?.data?.length,
+            size: this.groupedACount?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.groupedACount.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
         };
     }
 }

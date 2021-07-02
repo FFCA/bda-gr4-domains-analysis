@@ -32,6 +32,9 @@
         "languageSwitched": "Die Sprache wurde erfolgreich gewechselt."
     },
     "dashboard": {
+        "dataLabel": {
+            "records": "Records"
+        },
         "general": {
             "nthKpi": "Kennzahl {{ n }}",
             "nthChart": "Diagramm {{ n }}",
@@ -62,6 +65,14 @@
             },
             "mxCheckedTop10": {
                 "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)"
+            },
+            "groupedMxCount": {
+                "title": "Gruppierte Anzahl an MX-Records",
+                "record": "Anzahl an MX-Records"
+            },
+            "groupedACount": {
+                "title": "Gruppierte Anzahl an A-Records",
+                "record": "Anzahl an A-Records"
             }
         }
     }
