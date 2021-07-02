@@ -4,7 +4,10 @@
             class="kpi text-center"
             *ngIf="kpi.value !== undefined; else emptyKpi"
         >
-            {{ kpi.value }}
+            <ng-container *ngIf="isPercentage; else valOnly">
+                {{ kpi.value | percent: '2.0-2' }}
+            </ng-container>
+            <ng-template #valOnly> {{ kpi.value }}</ng-template>
         </div>
 
         <mat-divider class="position-relative my-3"></mat-divider>

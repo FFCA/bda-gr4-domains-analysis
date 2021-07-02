@@ -19,4 +19,9 @@ export class KpiCardComponent {
      * Number of the chart.
      */
     @Input() nr!: number;
+
+    /**
+     * True if the number is to be displayed as percentage.
+     */
+    @Input() isPercentage: boolean = false;
 }
