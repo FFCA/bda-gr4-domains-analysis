@@ -10,7 +10,7 @@
         "start:prod": "node build/index.js"
     },
     "author": "Lucas Larisch",
-    "license": "ISC",
+    "license": "CC-BY-NC-4.0",
     "dependencies": {
         "express": "^4.17.1",
         "dotenv": "^10.0.0"

@@ -33,7 +33,7 @@ CREATE TABLE exception_message
     exception VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE domain_enhanced_records_checked -- TODO: new table to be used / adjusted
+CREATE TABLE domain_records_checked -- TODO: new table to be used / adjusted
 (
     top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     a_record_checked        VARCHAR(255)[] NULL,

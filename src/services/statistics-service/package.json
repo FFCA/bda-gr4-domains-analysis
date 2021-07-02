@@ -11,7 +11,7 @@
         "reinstall-bda-types": "npm uninstall domain-analysis-types && cd ../../shared-node-modules/domain-analysis-types && npm i && npm pack && cd ../../services/statistics-service && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz"
     },
     "author": "Lucas Larisch",
-    "license": "ISC",
+    "license": "CC-BY-NC-4.0",
     "dependencies": {
         "domain-analysis-types": "file:../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz",
         "dotenv": "^10.0.0",
