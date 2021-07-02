@@ -1,7 +1,12 @@
 <div class="container-fluid">
     <div class="d-flex mt-4 mb-2">
-        <mat-icon class="mr-2">info_outline</mat-icon>
-        <div>{{ tab.tabExplanationKey | translate }}</div>
+        <mat-icon class="mr-3 my-auto">info_outline</mat-icon>
+        <div>
+            <p>{{ tab.tabExplanationKey | translate }}</p>
+            <p class="p-0">
+                <i> {{ 'dashboard.general.interact' | translate }}</i>
+            </p>
+        </div>
     </div>
     <mat-divider class="my-3 position-relative"></mat-divider>
     <div class="row pb-1">

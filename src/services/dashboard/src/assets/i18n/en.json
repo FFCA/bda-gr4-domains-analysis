@@ -42,7 +42,8 @@
             "size": {
                 "changeTo": "Change size to \"{{ size }}\" (might only be noticeable on larger screens)",
                 "current": "Current size: \"{{ size }}\" (might only be noticeable on larger screens)"
-            }
+            },
+            "interact": "Hint: Hover/tap charts in order get more information."
         },
         "tab": {
             "descriptive": "Descriptive data",

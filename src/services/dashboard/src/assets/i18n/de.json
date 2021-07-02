@@ -42,7 +42,8 @@
             "size": {
                 "changeTo": "Größe auf \"{{ size }}\" ändern (ggf. nur auf größeren Bildschirmen bemerkbar)",
                 "current": "Aktuelle Größe: \"{{ size }}\" (ggf. nur auf größeren Bildschirmen bemerkbar)"
-            }
+            },
+            "interact": "Hinweise: Um mehr Informationen zu erhalten, die Diagamme berühren oder mit dem Zeiger überfahren."
         },
         "tab": {
             "descriptive": "Deskriptive Daten",
