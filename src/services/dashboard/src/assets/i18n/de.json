@@ -50,14 +50,17 @@
         },
         "tab": {
             "descriptive": "Deskriptive Daten",
-            "checked": "Aktualisierte Records"
+            "checked": "Aktualisierte Records",
+            "redirect": "Erreichbarkeit"
         },
         "tabExplanation": {
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
         },
         "kpi": {
             "totalDomains": "Anzahl eingelesener Domains",
-            "percentageOfMxLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record"
+            "percentageOfMxLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record",
+            "percentageOfRedirections": "Prozentzahl an Weiterleitungen (Null-Werte ausgeschlossen)",
+            "percentageOfRedirections200": "Prozentzahl an Weiterleitungen mit Statuscode 200 (Null-Werte ausgeschlossen)"
         },
         "chart": {
             "mxTop10": {
@@ -68,7 +71,8 @@
                 "title": "Meistverbreitete A-Records (Top 10)"
             },
             "mxCheckedTop10": {
-                "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)"
+                "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)",
+                "record": "MX-Record (geprüft)"
             },
             "aCheckedTop10": {
                 "title": "Meistverbreitete (geprüfte) A-Records (Top 10)"
@@ -80,6 +84,13 @@
             "groupedACount": {
                 "title": "Gruppierte Anzahl an A-Records",
                 "record": "Anzahl an A-Records"
+            },
+            "domainAccessCodes": {
+                "title": "Status-Codes der Domains",
+                "record": "HTTP Status Code"
+            },
+            "topTenRedirectedTo": {
+                "title": "Domains, zu denen weitergeleitet wird (Top 10)"
             }
         }
     }

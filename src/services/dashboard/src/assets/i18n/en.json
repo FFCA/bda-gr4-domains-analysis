@@ -49,15 +49,18 @@
             "interact": "Hint: Hover/tap charts in order get more information and resize them using the S/M/XL buttons."
         },
         "tab": {
-            "descriptive": "Descriptive data",
-            "checked": "Updated Records"
+            "descriptive": "Descriptive Data",
+            "checked": "Updated Records",
+            "redirect": "Accessibility"
         },
         "tabExplanation": {
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
         },
         "kpi": {
             "totalDomains": "Total number of parsed domains",
-            "percentageOfMxLocalhost": "Percentage of domains with \"localhost\" as MX-record"
+            "percentageOfMxLocalhost": "Percentage of domains with \"localhost\" as MX-record",
+            "percentageOfRedirections": "Percentage of redirections (excluding null values)",
+            "percentageOfRedirections200": "Percentage of redirections with status code 200 (excluding null values)"
         },
         "chart": {
             "mxTop10": {
@@ -81,6 +84,13 @@
             "groupedACount": {
                 "title": "Grouped number of A-records",
                 "record": "Number of A-records"
+            },
+            "domainAccessCodes": {
+                "title": "The domains' status codes",
+                "record": "HTTP status code"
+            },
+            "topTenRedirectedTo": {
+                "title": "Domains redirected to (Top 10)"
             }
         }
     }

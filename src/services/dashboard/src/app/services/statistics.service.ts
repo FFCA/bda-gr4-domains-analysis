@@ -10,6 +10,9 @@ import { DomainAnalysisKpi } from '../model/internal/domain-analysis-kpi';
 import { DomainAnalysisFunctionName } from 'domain-analysis-types';
 import { DisplayedTab } from '../model/internal/displayed-tab';
 
+/**
+ * Module for managing asynchronously passed statistic data.
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -17,21 +20,25 @@ export class StatisticsService {
     displayedTabs: DisplayedTab[] = [];
     private tab00Descriptive!: DisplayedTab;
     private tab01Checked!: DisplayedTab;
-
-    private socket!: Socket;
-
-    // TODO: Implement/Add documentation
+    private tab02Redirect!: DisplayedTab;
 
     private mxCountGlobal!: DomainAnalysisChart;
     private aCountGlobal!: DomainAnalysisChart;
     private groupedMxCount!: DomainAnalysisChart;
     private groupedACount!: DomainAnalysisChart;
-
     private mxCheckedCountGlobal!: DomainAnalysisChart;
     private aCheckedCountGlobal!: DomainAnalysisChart;
+    private domainAccessStatusCodes!: DomainAnalysisChart;
+    private topTenRedirectedTo!: DomainAnalysisChart;
 
     private domainCount!: DomainAnalysisKpi;
     private percentageOfMxLocalhost!: DomainAnalysisKpi;
+    private percentageOfRedirections!: DomainAnalysisKpi;
+    private percentageOfRedirections200!: DomainAnalysisKpi;
+
+    private socket!: Socket;
+
+    // TODO: Implement/Add documentation
 
     /**
      * @param dialog Injected Material dialog service.
@@ -71,6 +78,16 @@ export class StatisticsService {
             (data: any) => this.onMxLocalhostPercentageTriggered(data)
         );
 
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS,
+            (data: any) => this.onPercentageOfRedirectionsTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS_CODE_200,
+            (data: any) => this.onPercentageOfRedirectionsTriggered200(data)
+        );
+
         // Charts:
 
         this.socket.on(
@@ -102,6 +119,16 @@ export class StatisticsService {
             DomainAnalysisFunctionName.A_COUNT_GROUPED,
             (data: any) => this.onGroupedACountTriggered(data)
         );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.DOMAIN_ACCESS_STATUS_CODES,
+            (data: any) => this.onDomainAccessStatusCodesTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_REDIRECTED_TO,
+            (data: any) => this.onTopTenRedirectedToTriggered(data)
+        );
     }
 
     private displayConnectionDialog(): void {
@@ -130,7 +157,18 @@ export class StatisticsService {
             tabExplanationKey: 'dashboard.tabExplanation.checked', // TODO Add explanation
         };
 
-        this.displayedTabs = [this.tab00Descriptive, this.tab01Checked];
+        this.tab02Redirect = {
+            kpis: [],
+            charts: [],
+            tabKey: 'dashboard.tab.redirect',
+            tabExplanationKey: 'dashboard.tabExplanation.redirect', // TODO Add explanation
+        };
+
+        this.displayedTabs = [
+            this.tab00Descriptive,
+            this.tab01Checked,
+            this.tab02Redirect,
+        ];
     }
 
     private initKpis(): void {
@@ -144,6 +182,21 @@ export class StatisticsService {
             this.percentageOfMxLocalhost,
         ];
         // this.tab01Checked.kpis = [];
+
+        this.percentageOfRedirections = {
+            translationKey: 'dashboard.kpi.percentageOfRedirections',
+            isPercentage: true,
+        };
+
+        this.percentageOfRedirections200 = {
+            translationKey: 'dashboard.kpi.percentageOfRedirections200',
+            isPercentage: true,
+        };
+
+        this.tab02Redirect.kpis = [
+            this.percentageOfRedirections,
+            this.percentageOfRedirections200,
+        ];
     }
 
     private initCharts(): void {
@@ -164,6 +217,13 @@ export class StatisticsService {
             this.mxCheckedCountGlobal,
             this.aCheckedCountGlobal,
         ];
+
+        this.initDomainAccessStatusCodes();
+        this.initTopTenRedirectedTo();
+        this.tab02Redirect.charts = [
+            this.domainAccessStatusCodes,
+            this.topTenRedirectedTo,
+        ];
     }
 
     // KPIs
@@ -174,6 +234,14 @@ export class StatisticsService {
 
     private onMxLocalhostPercentageTriggered(data: any): void {
         this.percentageOfMxLocalhost.value = data[0].percentage;
+    }
+
+    private onPercentageOfRedirectionsTriggered(data: any): void {
+        this.percentageOfRedirections.value = data[0].percentage;
+    }
+
+    private onPercentageOfRedirectionsTriggered200(data: any): void {
+        this.percentageOfRedirections200.value = data[0].percentage;
     }
 
     // mxCountGlobal
@@ -217,6 +285,7 @@ export class StatisticsService {
     }
 
     private onACountTriggered(data: any): void {
+        data = data.sort((a: any, b: any) => b.count - a.count);
         this.aCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
         this.aCountGlobal.labels = data.map((d: any) => d.a_record);
         this.aCountGlobal.hasData = data.length;
@@ -268,6 +337,7 @@ export class StatisticsService {
     }
 
     private onACheckedCountTriggered(data: any): void {
+        data = data.sort((a: any, b: any) => b.count - a.count);
         this.aCheckedCountGlobal.data = [
             { data: data.map((d: any) => d.count) },
         ];
@@ -339,5 +409,64 @@ export class StatisticsService {
             }`;
         });
         this.groupedACount.hasData = data.length;
+    }
+
+    // TODO Impl...
+
+    // domainAccessStatusCodes
+
+    private initDomainAccessStatusCodes(): void {
+        const chart = this.domainAccessStatusCodes;
+        this.domainAccessStatusCodes = {
+            titleKey: 'dashboard.chart.domainAccessCodes.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.domainAccessCodes.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onDomainAccessStatusCodesTriggered(data: any): void {
+        data = data.sort((a: any, b: any) => a.status_code - b.status_code);
+        this.domainAccessStatusCodes.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.domainAccessStatusCodes.labels = data.map(
+            (d: any) => d.status_code
+        );
+        this.domainAccessStatusCodes.hasData = data.length;
+    }
+
+    // topTenRedirectedTo
+
+    private initTopTenRedirectedTo(): void {
+        const chart = this.topTenRedirectedTo;
+        this.topTenRedirectedTo = {
+            titleKey: 'dashboard.chart.topTenRedirectedTo.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'pie',
+            showLabels: false,
+            options: { responsive: true },
+        };
+    }
+
+    private onTopTenRedirectedToTriggered(data: any): void {
+        data = data.sort((a: any, b: any) => b.count - a.count);
+        this.topTenRedirectedTo.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.topTenRedirectedTo.labels = data.map((d: any) => d.redirection);
+        this.topTenRedirectedTo.hasData = data.length;
     }
 }
