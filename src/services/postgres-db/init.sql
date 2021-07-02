@@ -49,6 +49,18 @@ CREATE TABLE domain_redirection
     status_code      VARCHAR(255) NULL
 );
 
+CREATE TABLE a_record_checked_count_global
+(
+    a_record_checked VARCHAR(255) PRIMARY KEY,
+    count            INTEGER NOT NULL
+);
+
+CREATE TABLE mx_record_checked_count_global
+(
+    mx_record_checked VARCHAR(255) PRIMARY KEY,
+    count             INTEGER NOT NULL
+);
+
 CREATE TABLE soa
 (
     top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
@@ -118,6 +130,26 @@ END;
 $$
     LANGUAGE plpgsql;
 
+CREATE FUNCTION top_10_mx_checked_global()
+    RETURNS SETOF mx_record_checked_count_global
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM mx_record_checked_count_global ORDER BY count DESC LIMIT 10;
+END;
+$$
+    LANGUAGE plpgsql;
+
+CREATE FUNCTION top_10_a_checked_global()
+    RETURNS SETOF a_record_checked_count_global
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM a_record_checked_count_global ORDER BY count DESC LIMIT 10;
+END;
+$$
+    LANGUAGE plpgsql;
+
 -- Creation of notification function:
 
 CREATE FUNCTION notify_domain_count() RETURNS trigger AS
@@ -153,6 +185,28 @@ END;
 $$
     LANGUAGE plpgsql;
 
+CREATE FUNCTION notify_mx_checked_count_global() RETURNS trigger AS
+$$ -- TODO: Exclude localhost ?
+DECLARE
+BEGIN
+    NOTIFY
+        watch_mx_checked_count_global;
+    RETURN NULL;
+END;
+$$
+    LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_a_checked_count_global() RETURNS trigger AS
+$$
+DECLARE
+BEGIN
+    NOTIFY
+        watch_a_checked_count_global;
+    RETURN NULL;
+END;
+$$
+    LANGUAGE plpgsql;
+
 -- Creation of triggers:
 
 CREATE TRIGGER domain_count_trigger
@@ -178,3 +232,19 @@ CREATE TRIGGER mx_global_count_trigger
     ON mx_record_count_global
     FOR EACH ROW
 EXECUTE PROCEDURE notify_mx_count_global();
+
+CREATE TRIGGER a_checked_global_count_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON a_record_checked_count_global
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_a_checked_count_global();
+
+CREATE TRIGGER mx_checked_global_count_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON mx_record_checked_count_global
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_mx_checked_count_global();

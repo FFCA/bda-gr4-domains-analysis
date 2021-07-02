@@ -5,18 +5,17 @@
     </div>
     <mat-divider class="my-3 position-relative"></mat-divider>
     <div class="row pb-1">
-        <app-kpi-card
-            *ngFor="let kpi of tab.kpis; index as index"
-            [kpi]="kpi"
-            [nr]="index + 1"
-        ></app-kpi-card>
+        <div class="mx-auto" *ngFor="let kpi of tab.kpis; index as index">
+            <app-kpi-card [kpi]="kpi" [nr]="index + 1"></app-kpi-card>
+        </div>
         <div
-            class="p-0 chart-wrapper"
+            class="p-0 chart-wrapper mx-auto"
             *ngFor="let chart of tab.charts; index as index"
             [class.col-lg-12]="chart.size === 'XL'"
             [class.col-md-12]="!chart.size || chart.size === 'M'"
             [class.col-lg-8]="!chart.size || chart.size === 'M'"
             [class.col-lg-6]="chart.size === 'S'"
+            [class.col-xl-4]="chart.size === 'S'"
             [class.col-md-8]="chart.size === 'S'"
         >
             <app-chart-card [chart]="chart" [nr]="index + 1"></app-chart-card>
