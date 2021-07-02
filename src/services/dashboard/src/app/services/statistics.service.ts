@@ -212,7 +212,7 @@ export class StatisticsService {
 
     private initACheckedGlobalData(): void {
         this.aCheckedCountGlobal = {
-            titleKey: 'dashboard.chart.aTop10.title',
+            titleKey: 'dashboard.chart.aCheckedTop10.title',
             data: this.aCheckedCountGlobal?.data ?? [],
             labels: this.aCheckedCountGlobal?.labels ?? [],
             hasData: !!this.aCheckedCountGlobal?.data?.length,
@@ -220,7 +220,7 @@ export class StatisticsService {
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
-                this.translate.instant('dashboard.chart.aTop10.record'),
+                this.translate.instant('dashboard.chart.aCheckedTop10.record'),
                 this.translate.instant('dashboard.general.number')
             ),
         };

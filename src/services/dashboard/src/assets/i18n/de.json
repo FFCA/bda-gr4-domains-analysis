@@ -45,7 +45,8 @@
             }
         },
         "tab": {
-            "descriptive": "Deskriptive Daten"
+            "descriptive": "Deskriptive Daten",
+            "checked": "Aktualisierte Records"
         },
         "kpi": {
             "totalDomains": "Anzahl eingelesener Domains"
@@ -58,6 +59,14 @@
             "aTop10": {
                 "title": "Meistverbreitete A-Records (Top 10)",
                 "record": "A-Record"
+            },
+            "mxCheckedTop10": {
+                "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)",
+                "record": "MX-Record (geprüft)"
+            },
+            "aCheckedTop10": {
+                "title": "Meistverbreitete (geprüfte) A-Records (Top 10)",
+                "record": "A-Record (geprüft)"
             }
         }
     }

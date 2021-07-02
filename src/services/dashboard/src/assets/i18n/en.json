@@ -45,7 +45,8 @@
             }
         },
         "tab": {
-            "descriptive": "Descriptive data"
+            "descriptive": "Descriptive data",
+            "checked": "Updated Records"
         },
         "tabExplanation": {
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
@@ -61,6 +62,14 @@
             "aTop10": {
                 "title": "Most common A-records (Top 10)",
                 "record": "A-record"
+            },
+            "mxCheckedTop10": {
+                "title": "Most common (updated) MX-records (Top 10)",
+                "record": "MX-record (updated)"
+            },
+            "aCheckedTop10": {
+                "title": "Most common (updated) A-records (Top 10)",
+                "record": "A-record (updated)"
             }
         }
     }
