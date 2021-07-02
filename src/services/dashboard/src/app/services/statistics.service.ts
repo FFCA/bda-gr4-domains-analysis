@@ -226,12 +226,13 @@ export class StatisticsService {
     }
 
     private initAGlobalData(): void {
+        const chart = this.aCountGlobal;
         this.aCountGlobal = {
             titleKey: 'dashboard.chart.aTop10.title',
-            data: this.aCountGlobal?.data ?? [],
-            labels: this.aCountGlobal?.labels ?? [],
-            hasData: !!this.aCountGlobal?.data?.length,
-            size: this.aCountGlobal?.size,
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
             type: 'pie',
             showLabels: true,
             options: { responsive: true },
@@ -239,12 +240,13 @@ export class StatisticsService {
     }
 
     private initMxCheckedGlobalData(): void {
+        const chart = this.mxCheckedCountGlobal;
         this.mxCheckedCountGlobal = {
             titleKey: 'dashboard.chart.mxCheckedTop10.title',
-            data: this.mxCheckedCountGlobal?.data ?? [],
-            labels: this.mxCheckedCountGlobal?.labels ?? [],
-            hasData: !!this.mxCheckedCountGlobal?.data?.length,
-            size: this.mxCheckedCountGlobal?.size,
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
@@ -255,12 +257,13 @@ export class StatisticsService {
     }
 
     private initACheckedGlobalData(): void {
+        const chart = this.aCheckedCountGlobal;
         this.aCheckedCountGlobal = {
             titleKey: 'dashboard.chart.aCheckedTop10.title',
-            data: this.aCheckedCountGlobal?.data ?? [],
-            labels: this.aCheckedCountGlobal?.labels ?? [],
-            hasData: !!this.aCheckedCountGlobal?.data?.length,
-            size: this.aCheckedCountGlobal?.size,
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
             type: 'pie',
             showLabels: true,
             options: { responsive: true },
@@ -268,12 +271,13 @@ export class StatisticsService {
     }
 
     private initGroupedMxCount(): void {
+        const chart = this.groupedMxCount;
         this.groupedMxCount = {
             titleKey: 'dashboard.chart.groupedMxCount.title',
-            data: this.groupedMxCount?.data ?? [],
-            labels: this.groupedMxCount?.labels ?? [],
-            hasData: !!this.groupedMxCount?.data?.length,
-            size: this.groupedMxCount?.size,
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
@@ -284,12 +288,13 @@ export class StatisticsService {
     }
 
     private initGroupedACount(): void {
+        const chart = this.groupedACount;
         this.groupedACount = {
             titleKey: 'dashboard.chart.groupedACount.title',
-            data: this.groupedACount?.data ?? [],
-            labels: this.groupedACount?.labels ?? [],
-            hasData: !!this.groupedACount?.data?.length,
-            size: this.groupedACount?.size,
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
