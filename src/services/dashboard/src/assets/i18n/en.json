@@ -49,7 +49,7 @@
             "interact": "Hint: Hover/tap charts in order get more information and resize them using the S/M/XL buttons."
         },
         "tab": {
-            "descriptive": "Descriptive Data",
+            "descriptive": "Descriptive Information",
             "checked": "Updated Records",
             "redirect": "Accessibility"
         },
