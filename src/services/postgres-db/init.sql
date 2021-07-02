@@ -101,14 +101,16 @@ VALUES (0, 'No Error'),
 -- Creation of functions to be used in order to minimize the queries to be written:
 
 CREATE FUNCTION domain_count()
-    RETURNS INTEGER
+    RETURNS TABLE
+            (
+                domain_count INTEGER
+            )
 AS
 $$
-BEGIN
-    RETURN (SELECT COUNT(*) FROM domain);
-END;
+SELECT COUNT(*)
+FROM domain
 $$
-    LANGUAGE plpgsql;
+    LANGUAGE sql;
 
 CREATE FUNCTION top_10_mx_global()
     RETURNS SETOF mx_record_count_global
@@ -150,14 +152,42 @@ END;
 $$
     LANGUAGE plpgsql;
 
--- Creation of notification function:
+CREATE FUNCTION mx_count_grouped()
+    RETURNS TABLE
+            (
+                count           INTEGER,
+                mx_record_count INTEGER
+            )
+AS
+$$
+SELECT COUNT(mx_record_count), mx_record_count
+FROM domain_enhanced_based_on_existing_data
+GROUP BY mx_record_count
+$$
+    LANGUAGE sql;
+
+CREATE FUNCTION a_count_grouped()
+    RETURNS TABLE
+            (
+                count          INTEGER,
+                a_record_count INTEGER
+            )
+AS
+$$
+SELECT COUNT(a_record_count), a_record_count
+FROM domain_enhanced_based_on_existing_data
+GROUP BY a_record_count
+$$
+    LANGUAGE sql;
+
+
+-- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
 $$
 DECLARE
 BEGIN
-    NOTIFY
-        watch_domain;
+    NOTIFY watch_domain;
     RETURN NULL;
 END;
 $$
@@ -167,8 +197,7 @@ CREATE FUNCTION notify_a_count_global() RETURNS trigger AS
 $$
 DECLARE
 BEGIN
-    NOTIFY
-        watch_a_count_global;
+    NOTIFY watch_a_count_global;
     RETURN NULL;
 END;
 $$
@@ -178,8 +207,7 @@ CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS
 $$ -- TODO: Exclude localhost ?
 DECLARE
 BEGIN
-    NOTIFY
-        watch_mx_count_global;
+    NOTIFY watch_mx_count_global;
     RETURN NULL;
 END;
 $$
@@ -189,8 +217,7 @@ CREATE FUNCTION notify_mx_checked_count_global() RETURNS trigger AS
 $$ -- TODO: Exclude localhost ?
 DECLARE
 BEGIN
-    NOTIFY
-        watch_mx_checked_count_global;
+    NOTIFY watch_mx_checked_count_global;
     RETURN NULL;
 END;
 $$
@@ -200,12 +227,20 @@ CREATE FUNCTION notify_a_checked_count_global() RETURNS trigger AS
 $$
 DECLARE
 BEGIN
-    NOTIFY
-        watch_a_checked_count_global;
+    NOTIFY watch_a_checked_count_global;
     RETURN NULL;
 END;
 $$
     LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_domain_enhanced_based_on_existing_data() RETURNS trigger AS
+$$
+DECLARE
+BEGIN
+    NOTIFY watch_domain_enhanced_based_on_existing_data;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
 
 -- Creation of triggers:
 
@@ -248,3 +283,11 @@ CREATE TRIGGER mx_checked_global_count_trigger
     ON mx_record_checked_count_global
     FOR EACH ROW
 EXECUTE PROCEDURE notify_mx_checked_count_global();
+
+CREATE TRIGGER domain_enhanced_based_on_existing_data_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON domain_enhanced_based_on_existing_data
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_domain_enhanced_based_on_existing_data();

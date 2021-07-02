@@ -7,4 +7,5 @@ export enum DomainAnalysisEvent {
     MX_COUNT_GLOBAL = 'watch_mx_count_global',
     A_CHECKED_COUNT_GLOBAL = 'watch_a_checked_count_global',
     MX_CHECKED_COUNT_GLOBAL = 'watch_mx_checked_count_global',
+    DOMAIN_ENHANCED_BASED_ON_EXISTING = 'watch_domain_enhanced_based_on_existing_data',
 }

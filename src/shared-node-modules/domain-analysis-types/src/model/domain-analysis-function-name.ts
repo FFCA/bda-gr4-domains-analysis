@@ -7,4 +7,6 @@ export enum DomainAnalysisFunctionName {
     TOP_10_MX_GLOBAL = 'top_10_mx_global',
     TOP_10_A_CHECKED_GLOBAL = 'top_10_a_checked_global',
     TOP_10_MX_CHECKED_GLOBAL = 'top_10_mx_checked_global',
+    MX_COUNT_GROUPED = 'mx_count_grouped',
+    A_COUNT_GROUPED = 'a_count_grouped',
 }

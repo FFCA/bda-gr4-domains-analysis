@@ -14,8 +14,21 @@ const eventQueryMap = new Map<
         DomainAnalysisEvent.MX_COUNT_GLOBAL,
         [DomainAnalysisFunctionName.TOP_10_MX_GLOBAL],
     ],
-    [DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, [DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL]],
-    [DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, [DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL]],
+    [
+        DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL,
+        [DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL],
+    ],
+    [
+        DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL,
+        [DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL],
+    ],
+    [
+        DomainAnalysisEvent.DOMAIN_ENHANCED_BASED_ON_EXISTING,
+        [
+            DomainAnalysisFunctionName.MX_COUNT_GROUPED,
+            DomainAnalysisFunctionName.A_COUNT_GROUPED,
+        ],
+    ],
 ]);
 
 export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string[] => {
