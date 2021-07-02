@@ -73,18 +73,19 @@ CREATE TABLE soa
     nameserver_error INTEGER        NOT NULL REFERENCES exception_message (id)
 );
 
-CREATE TABLE domain_mx_record_location
+CREATE TABLE domain_mx_record_geolite2
 (
-    top_level_domain      VARCHAR(255) NOT NULL,
-    mx_record_checked     VARCHAR(255) NOT NULL,
-    mx_record_ip          VARCHAR(255) NULL,
-    mx_record_city        VARCHAR(255) NULL,
-    mx_record_region      VARCHAR(255) NULL,
-    mx_record_country     VARCHAR(255) NULL,
-    mx_record_coordinates VARCHAR(255) NULL,
-    mx_record_org         VARCHAR(255) NULL,
-    mx_record_postal      VARCHAR(255) NULL,
-    mx_record_timezone    VARCHAR(255) NULL
+    top_level_domain               VARCHAR(255) NOT NULL,
+    mx_record_checked              VARCHAR(255) NOT NULL,
+    mx_record_ip                   VARCHAR(255) NULL,
+    iso_code                       VARCHAR(255) NULL,
+    country                        VARCHAR(255) NULL,
+    city                           VARCHAR(255) NULL,
+    postal                         VARCHAR(255) NULL,
+    latitude                       VARCHAR(255) NULL,
+    longitude                      VARCHAR(255) NULL,
+    autonomous_system_number       VARCHAR(255) NULL,
+    autonomous_system_organization VARCHAR(255) NULL
 );
 
 -- Insertion of pre-defined values (caught errors):
