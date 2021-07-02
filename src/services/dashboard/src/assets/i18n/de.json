@@ -57,16 +57,10 @@
                 "record": "MX-Record"
             },
             "aTop10": {
-                "title": "Meistverbreitete A-Records (Top 10)",
-                "record": "A-Record"
+                "title": "Meistverbreitete A-Records (Top 10)"
             },
             "mxCheckedTop10": {
-                "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)",
-                "record": "MX-Record (geprüft)"
-            },
-            "aCheckedTop10": {
-                "title": "Meistverbreitete (geprüfte) A-Records (Top 10)",
-                "record": "A-Record (geprüft)"
+                "title": "Meistverbreitete (geprüfte) MX-Records (Top 10)"
             }
         }
     }

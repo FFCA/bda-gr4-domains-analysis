@@ -102,7 +102,7 @@ export class StatisticsService {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.checked',
-            tabExplanationKey: 'dashboard.tab.checked', // TODO Add explanation
+            tabExplanationKey: 'dashboard.tabExplanation.checked', // TODO Add explanation
         };
 
         this.displayedTabs = [this.tab00Descriptive, this.tab01Checked];
@@ -185,12 +185,9 @@ export class StatisticsService {
             labels: this.aCountGlobal?.labels ?? [],
             hasData: !!this.aCountGlobal?.data?.length,
             size: this.aCountGlobal?.size,
-            type: 'bar',
-            showLabels: false,
-            options: DomainAnalysisChart.defaultOptionsWithLabels(
-                this.translate.instant('dashboard.chart.aTop10.record'),
-                this.translate.instant('dashboard.general.number')
-            ),
+            type: 'pie',
+            showLabels: true,
+            options: { responsive: true },
         };
     }
 
@@ -217,12 +214,9 @@ export class StatisticsService {
             labels: this.aCheckedCountGlobal?.labels ?? [],
             hasData: !!this.aCheckedCountGlobal?.data?.length,
             size: this.aCheckedCountGlobal?.size,
-            type: 'bar',
-            showLabels: false,
-            options: DomainAnalysisChart.defaultOptionsWithLabels(
-                this.translate.instant('dashboard.chart.aCheckedTop10.record'),
-                this.translate.instant('dashboard.general.number')
-            ),
+            type: 'pie',
+            showLabels: true,
+            options: { responsive: true },
         };
     }
 }

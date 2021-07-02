@@ -60,16 +60,14 @@
                 "record": "MX-record"
             },
             "aTop10": {
-                "title": "Most common A-records (Top 10)",
-                "record": "A-record"
+                "title": "Most common A-records (Top 10)"
             },
             "mxCheckedTop10": {
                 "title": "Most common (updated) MX-records (Top 10)",
                 "record": "MX-record (updated)"
             },
             "aCheckedTop10": {
-                "title": "Most common (updated) A-records (Top 10)",
-                "record": "A-record (updated)"
+                "title": "Most common (updated) A-records (Top 10)"
             }
         }
     }
