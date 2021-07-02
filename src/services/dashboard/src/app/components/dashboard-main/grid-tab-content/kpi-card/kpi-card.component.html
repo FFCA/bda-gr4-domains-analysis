@@ -2,7 +2,7 @@
     <mat-card-content class="d-flex flex-column">
         <div
             class="kpi text-center"
-            *ngIf="kpi.value !== undefined; else emptyKpi"
+            *ngIf="kpi.value !== undefined && kpi.value !== null; else emptyKpi"
         >
             <ng-container *ngIf="isPercentage; else valOnly">
                 {{ kpi.value | percent: '2.0-2' }}
