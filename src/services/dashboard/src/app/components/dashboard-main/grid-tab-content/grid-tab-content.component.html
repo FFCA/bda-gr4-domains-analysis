@@ -11,7 +11,11 @@
     <mat-divider class="my-3 position-relative"></mat-divider>
     <div class="row pb-1">
         <div class="mx-auto" *ngFor="let kpi of tab.kpis; index as index">
-            <app-kpi-card [kpi]="kpi" [nr]="index + 1"></app-kpi-card>
+            <app-kpi-card
+                [kpi]="kpi"
+                [isPercentage]="kpi.isPercentage"
+                [nr]="index + 1"
+            ></app-kpi-card>
         </div>
         <div
             class="p-0 chart-wrapper mx-auto"

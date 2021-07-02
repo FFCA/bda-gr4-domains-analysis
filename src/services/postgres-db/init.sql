@@ -33,7 +33,7 @@ CREATE TABLE exception_message
     exception VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE domain_records_checked -- TODO: new table to be used / adjusted
+CREATE TABLE domain_records_checked
 (
     top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     a_record_checked        VARCHAR(255)[] NULL,
@@ -100,6 +100,8 @@ VALUES (0, 'No Error'),
 
 -- Creation of functions to be used in order to minimize the queries to be written:
 
+-- for KPIs:
+
 CREATE FUNCTION domain_count()
     RETURNS TABLE
             (
@@ -111,6 +113,20 @@ SELECT COUNT(*)
 FROM domain
 $$
     LANGUAGE sql;
+
+CREATE FUNCTION percentage_of_mx_localhost()
+    RETURNS TABLE
+            (
+                percentage FLOAT
+            )
+AS
+$$
+SELECT ROUND((SUM(CASE WHEN mx_uses_localhost THEN 1 ELSE 0 END)::numeric / COUNT(top_level_domain)), 1) AS percentage
+FROM domain_enhanced_based_on_existing_data;
+$$
+    LANGUAGE sql;
+
+-- for Charts:
 
 CREATE FUNCTION top_10_mx_global()
     RETURNS SETOF mx_record_count_global
@@ -179,7 +195,6 @@ FROM domain_enhanced_based_on_existing_data
 GROUP BY a_record_count
 $$
     LANGUAGE sql;
-
 
 -- Creation of notification functions:
 

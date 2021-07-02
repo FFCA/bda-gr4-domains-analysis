@@ -23,5 +23,5 @@ export class KpiCardComponent {
     /**
      * True if the number is to be displayed as percentage.
      */
-    @Input() isPercentage: boolean = false;
+    @Input() isPercentage?: boolean;
 }

@@ -56,7 +56,8 @@
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
         },
         "kpi": {
-            "totalDomains": "Anzahl eingelesener Domains"
+            "totalDomains": "Anzahl eingelesener Domains",
+            "percentageOfMxLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record"
         },
         "chart": {
             "mxTop10": {
