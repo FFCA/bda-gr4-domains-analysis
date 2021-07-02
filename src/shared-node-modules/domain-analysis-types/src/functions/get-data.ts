@@ -4,6 +4,8 @@ const eventQueryMap = new Map<DomainAnalysisEvent, string>([
     [DomainAnalysisEvent.DOMAIN_COUNT, 'domain_count'],
     [DomainAnalysisEvent.A_COUNT_GLOBAL, 'top_10_a_global'],
     [DomainAnalysisEvent.MX_COUNT_GLOBAL, 'top_10_mx_global'],
+    [DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, 'top_10_a_checked_global'],
+    [DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, 'top_10_mx_checked_global'],
 ]);
 
 export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string => {

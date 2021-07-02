@@ -15,14 +15,17 @@ import { DisplayedTab } from '../model/internal/displayed-tab';
 })
 export class StatisticsService {
     displayedTabs: DisplayedTab[] = [];
-    private tab0Descriptive!: DisplayedTab;
+    private tab00Descriptive!: DisplayedTab;
+    private tab01Checked!: DisplayedTab;
 
     private socket!: Socket;
 
     // TODO: Implement/Add documentation
 
-    private mxCountGlobalData!: DomainAnalysisChart;
-    private aCountGlobalData!: DomainAnalysisChart;
+    private mxCountGlobal!: DomainAnalysisChart;
+    private aCountGlobal!: DomainAnalysisChart;
+    private mxCheckedCountGlobal!: DomainAnalysisChart;
+    private aCheckedCountGlobal!: DomainAnalysisChart;
 
     private domainCount!: DomainAnalysisKpi;
 
@@ -61,6 +64,14 @@ export class StatisticsService {
             this.onMxCountTriggered(data)
         );
 
+        this.socket.on(DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, (data) =>
+            this.onACheckedCountTriggered(data)
+        );
+
+        this.socket.on(DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, (data) =>
+            this.onMxCheckedCountTriggered(data)
+        );
+
         this.socket.on('disconnect', () => this.displayConnectionDialog());
 
         this.displayConnectionDialog();
@@ -80,32 +91,38 @@ export class StatisticsService {
     }
 
     private initTabs(): void {
-        this.tab0Descriptive = {
+        this.tab00Descriptive = {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.descriptive',
             tabExplanationKey: 'dashboard.tabExplanation.descriptive', // TODO Add explanation
         };
 
-        // TODO: Rm duplication
-        this.displayedTabs = [
-            this.tab0Descriptive,
-            this.tab0Descriptive,
-            this.tab0Descriptive,
-        ];
+        this.tab01Checked = {
+            kpis: [],
+            charts: [],
+            tabKey: 'dashboard.tab.checked',
+            tabExplanationKey: 'dashboard.tab.checked', // TODO Add explanation
+        };
+
+        this.displayedTabs = [this.tab00Descriptive, this.tab01Checked];
     }
 
     private initKpis(): void {
         this.domainCount = { translationKey: 'dashboard.kpi.totalDomains' };
-        this.tab0Descriptive.kpis = [this.domainCount];
+        this.tab00Descriptive.kpis = [this.domainCount];
+        // this.tab01Checked.kpis = [];
     }
 
     private initCharts(): void {
         this.initMxGlobalData();
         this.initAGlobalData();
-        this.tab0Descriptive.charts = [
-            this.mxCountGlobalData,
-            this.aCountGlobalData,
+        this.initMxCheckedGlobalData();
+        this.initACheckedGlobalData();
+        this.tab00Descriptive.charts = [this.mxCountGlobal, this.aCountGlobal];
+        this.tab01Checked.charts = [
+            this.mxCheckedCountGlobal,
+            this.aCheckedCountGlobal,
         ];
     }
 
@@ -114,24 +131,44 @@ export class StatisticsService {
     }
 
     private onMxCountTriggered(data: any): void {
-        this.mxCountGlobalData.data = [{ data: data.map((d: any) => d.count) }];
-        this.mxCountGlobalData.labels = data.map((d: any) => d.mx_record);
-        this.mxCountGlobalData.hasData = data.length;
+        this.mxCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
+        this.mxCountGlobal.labels = data.map((d: any) => d.mx_record);
+        this.mxCountGlobal.hasData = data.length;
     }
 
     private onACountTriggered(data: any): void {
-        this.aCountGlobalData.data = [{ data: data.map((d: any) => d.count) }];
-        this.aCountGlobalData.labels = data.map((d: any) => d.a_record);
-        this.aCountGlobalData.hasData = data.length;
+        this.aCountGlobal.data = [{ data: data.map((d: any) => d.count) }];
+        this.aCountGlobal.labels = data.map((d: any) => d.a_record);
+        this.aCountGlobal.hasData = data.length;
+    }
+
+    private onMxCheckedCountTriggered(data: any): void {
+        this.mxCheckedCountGlobal.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.mxCheckedCountGlobal.labels = data.map(
+            (d: any) => d.mx_record_checked
+        );
+        this.mxCheckedCountGlobal.hasData = data.length;
+    }
+
+    private onACheckedCountTriggered(data: any): void {
+        this.aCheckedCountGlobal.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.aCheckedCountGlobal.labels = data.map(
+            (d: any) => d.a_record_checked
+        );
+        this.aCheckedCountGlobal.hasData = data.length;
     }
 
     private initMxGlobalData(): void {
-        this.mxCountGlobalData = {
+        this.mxCountGlobal = {
             titleKey: 'dashboard.chart.mxTop10.title',
-            data: this.mxCountGlobalData?.data ?? [],
-            labels: this.mxCountGlobalData?.labels ?? [],
-            hasData: !!this.mxCountGlobalData?.data?.length,
-            size: this.aCountGlobalData?.size,
+            data: this.mxCountGlobal?.data ?? [],
+            labels: this.mxCountGlobal?.labels ?? [],
+            hasData: !!this.mxCountGlobal?.data?.length,
+            size: this.mxCountGlobal?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
@@ -142,12 +179,44 @@ export class StatisticsService {
     }
 
     private initAGlobalData(): void {
-        this.aCountGlobalData = {
+        this.aCountGlobal = {
             titleKey: 'dashboard.chart.aTop10.title',
-            data: this.aCountGlobalData?.data ?? [],
-            labels: this.aCountGlobalData?.labels ?? [],
-            hasData: !!this.aCountGlobalData?.data?.length,
-            size: this.aCountGlobalData?.size,
+            data: this.aCountGlobal?.data ?? [],
+            labels: this.aCountGlobal?.labels ?? [],
+            hasData: !!this.aCountGlobal?.data?.length,
+            size: this.aCountGlobal?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.aTop10.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private initMxCheckedGlobalData(): void {
+        this.mxCheckedCountGlobal = {
+            titleKey: 'dashboard.chart.mxCheckedTop10.title',
+            data: this.mxCheckedCountGlobal?.data ?? [],
+            labels: this.mxCheckedCountGlobal?.labels ?? [],
+            hasData: !!this.mxCheckedCountGlobal?.data?.length,
+            size: this.mxCheckedCountGlobal?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.mxCheckedTop10.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private initACheckedGlobalData(): void {
+        this.aCheckedCountGlobal = {
+            titleKey: 'dashboard.chart.aTop10.title',
+            data: this.aCheckedCountGlobal?.data ?? [],
+            labels: this.aCheckedCountGlobal?.labels ?? [],
+            hasData: !!this.aCheckedCountGlobal?.data?.length,
+            size: this.aCheckedCountGlobal?.size,
             type: 'bar',
             showLabels: false,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
