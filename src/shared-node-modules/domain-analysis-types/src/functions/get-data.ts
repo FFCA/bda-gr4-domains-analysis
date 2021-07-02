@@ -1,18 +1,28 @@
 import { DomainAnalysisEvent } from '../model/domain-analysis-event';
+import { DomainAnalysisFunctionName } from '../model/domain-analysis-function-name';
 
-const eventQueryMap = new Map<DomainAnalysisEvent, string>([
-    [DomainAnalysisEvent.DOMAIN, 'domain_count'],
-    [DomainAnalysisEvent.A_COUNT_GLOBAL, 'top_10_a_global'],
-    [DomainAnalysisEvent.MX_COUNT_GLOBAL, 'top_10_mx_global'],
-    [DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, 'top_10_a_checked_global'],
-    [DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, 'top_10_mx_checked_global'],
+const eventQueryMap = new Map<
+    DomainAnalysisEvent,
+    DomainAnalysisFunctionName[]
+>([
+    [DomainAnalysisEvent.DOMAIN, [DomainAnalysisFunctionName.DOMAIN_COUNT]],
+    [
+        DomainAnalysisEvent.A_COUNT_GLOBAL,
+        [DomainAnalysisFunctionName.TOP_10_A_GLOBAL],
+    ],
+    [
+        DomainAnalysisEvent.MX_COUNT_GLOBAL,
+        [DomainAnalysisFunctionName.TOP_10_MX_GLOBAL],
+    ],
+    [DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, [DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL]],
+    [DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, [DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL]],
 ]);
 
-export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string => {
+export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string[] => {
     return eventQueryMap.get(event)!;
 };
 
-export const getDbFunctions = (): Map<DomainAnalysisEvent, string> => {
+export const getDbFunctions = (): Map<DomainAnalysisEvent, string[]> => {
     return eventQueryMap;
 };
 

@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NoConnectionComponent } from '../components/dialogs/no-connection/no-connection.component';
 import { DomainAnalysisKpi } from '../model/internal/domain-analysis-kpi';
-import { DomainAnalysisEvent } from 'domain-analysis-types';
+import { DomainAnalysisFunctionName } from 'domain-analysis-types';
 import { DisplayedTab } from '../model/internal/displayed-tab';
 
 @Injectable({
@@ -52,24 +52,26 @@ export class StatisticsService {
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
 
-        this.socket.on(DomainAnalysisEvent.DOMAIN, (data) =>
+        this.socket.on(DomainAnalysisFunctionName.DOMAIN_COUNT, (data) =>
             this.onDomainCountTriggered(data)
         );
 
-        this.socket.on(DomainAnalysisEvent.A_COUNT_GLOBAL, (data) =>
+        this.socket.on(DomainAnalysisFunctionName.TOP_10_A_GLOBAL, (data) =>
             this.onACountTriggered(data)
         );
 
-        this.socket.on(DomainAnalysisEvent.MX_COUNT_GLOBAL, (data) =>
+        this.socket.on(DomainAnalysisFunctionName.TOP_10_MX_GLOBAL, (data) =>
             this.onMxCountTriggered(data)
         );
 
-        this.socket.on(DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, (data) =>
-            this.onACheckedCountTriggered(data)
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL,
+            (data) => this.onACheckedCountTriggered(data)
         );
 
-        this.socket.on(DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL, (data) =>
-            this.onMxCheckedCountTriggered(data)
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL,
+            (data) => this.onMxCheckedCountTriggered(data)
         );
 
         this.socket.on('disconnect', () => this.displayConnectionDialog());

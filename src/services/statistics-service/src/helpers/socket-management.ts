@@ -16,7 +16,7 @@ let io: any;
 const emitTimeout = 2000;
 const notificationTsMap = new Map<DomainAnalysisEvent, number>();
 const emitMap = new Map<DomainAnalysisEvent, number>();
-const eventQueryMap = getDbFunctions();
+const eventQueryMap: Map<DomainAnalysisEvent, string[]> = getDbFunctions();
 
 const onSocketConnected = async (socket: Socket): Promise<void> => {
     console.log('A client connected');
@@ -34,8 +34,12 @@ const emitEventData = async (
     event: DomainAnalysisEvent,
     emitPlatform: Socket = io
 ): Promise<void> => {
-    const query = `SELECT * FROM ${eventQueryMap.get(event)}()`;
-    emitPlatform.emit(event, (await Db.executeQuery(query)).rows);
+    await Promise.all(
+        eventQueryMap.get(event)!.map(async (fn) => {
+            const query = `SELECT * FROM ${fn}()`;
+            emitPlatform.emit(fn, (await Db.executeQuery(query)).rows);
+        })
+    );
 };
 
 const patientlyEmitAfterTimeout = (event: DomainAnalysisEvent) => {
