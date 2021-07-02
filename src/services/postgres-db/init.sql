@@ -39,7 +39,9 @@ CREATE TABLE domain_records_checked
     a_record_checked        VARCHAR(255)[] NULL,
     a_record_checked_error  INTEGER        NOT NULL REFERENCES exception_message (id),
     mx_record_checked       VARCHAR(255)[] NULL,
-    mx_record_checked_error INTEGER        NOT NULL REFERENCES exception_message (id)
+    mx_record_checked_error INTEGER        NOT NULL REFERENCES exception_message (id),
+    ipv6_available          BOOLEAN        NOT NULL,
+    ipv6_error              INTEGER        NOT NULL REFERENCES exception_message (id)
 );
 
 CREATE TABLE domain_redirection
