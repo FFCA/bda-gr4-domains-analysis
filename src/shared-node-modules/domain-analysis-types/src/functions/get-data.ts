@@ -27,6 +27,7 @@ const eventQueryMap = new Map<
         [
             DomainAnalysisFunctionName.MX_COUNT_GROUPED,
             DomainAnalysisFunctionName.A_COUNT_GROUPED,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_LOCALHOST,
         ],
     ],
 ]);

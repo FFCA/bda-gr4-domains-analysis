@@ -31,6 +31,7 @@ export class StatisticsService {
     private aCheckedCountGlobal!: DomainAnalysisChart;
 
     private domainCount!: DomainAnalysisKpi;
+    private percentageOfMxLocalhost!: DomainAnalysisKpi;
 
     /**
      * @param dialog Injected Material dialog service.
@@ -55,41 +56,52 @@ export class StatisticsService {
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
 
-        this.socket.on(DomainAnalysisFunctionName.DOMAIN_COUNT, (data) =>
-            this.onDomainCountTriggered(data)
-        );
-
-        this.socket.on(DomainAnalysisFunctionName.TOP_10_A_GLOBAL, (data) =>
-            this.onACountTriggered(data)
-        );
-
-        this.socket.on(DomainAnalysisFunctionName.TOP_10_MX_GLOBAL, (data) =>
-            this.onMxCountTriggered(data)
-        );
-
-        this.socket.on(
-            DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL,
-            (data) => this.onACheckedCountTriggered(data)
-        );
-
-        this.socket.on(
-            DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL,
-            (data) => this.onMxCheckedCountTriggered(data)
-        );
-
-        this.socket.on(DomainAnalysisFunctionName.MX_COUNT_GROUPED, (data) =>
-            this.onGroupedMxCountTriggered(data)
-        );
-
-        this.socket.on(DomainAnalysisFunctionName.A_COUNT_GROUPED, (data) =>
-            this.onGroupedACountTriggered(data)
-        );
-
         this.socket.on('disconnect', () => this.displayConnectionDialog());
 
         this.displayConnectionDialog();
 
-        // TODO: handle one - n "no data" => add dialog?
+        // KPIs:
+
+        this.socket.on(DomainAnalysisFunctionName.DOMAIN_COUNT, (data: any) =>
+            this.onDomainCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_LOCALHOST,
+            (data: any) => this.onMxLocalhostPercentageTriggered(data)
+        );
+
+        // Charts:
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_A_GLOBAL,
+            (data: any) => this.onACountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_GLOBAL,
+            (data: any) => this.onMxCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL,
+            (data: any) => this.onACheckedCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL,
+            (data: any) => this.onMxCheckedCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.MX_COUNT_GROUPED,
+            (data: any) => this.onGroupedMxCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.A_COUNT_GROUPED,
+            (data: any) => this.onGroupedACountTriggered(data)
+        );
     }
 
     private displayConnectionDialog(): void {
@@ -123,7 +135,14 @@ export class StatisticsService {
 
     private initKpis(): void {
         this.domainCount = { translationKey: 'dashboard.kpi.totalDomains' };
-        this.tab00Descriptive.kpis = [this.domainCount];
+        this.percentageOfMxLocalhost = {
+            translationKey: 'dashboard.kpi.percentageOfMxLocalhost',
+            isPercentage: true,
+        };
+        this.tab00Descriptive.kpis = [
+            this.domainCount,
+            this.percentageOfMxLocalhost,
+        ];
         // this.tab01Checked.kpis = [];
     }
 
@@ -147,8 +166,14 @@ export class StatisticsService {
         ];
     }
 
+    // KPIs
+
     private onDomainCountTriggered(data: any): void {
         this.domainCount.value = data[0].domain_count;
+    }
+
+    private onMxLocalhostPercentageTriggered(data: any): void {
+        this.percentageOfMxLocalhost.value = data[0].percentage;
     }
 
     // mxCountGlobal
