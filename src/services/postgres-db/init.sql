@@ -59,6 +59,20 @@ CREATE TABLE soa
     nameserver_error INTEGER        NOT NULL REFERENCES exception_message (id)
 );
 
+CREATE TABLE domain_mx_record_location
+(
+    top_level_domain      VARCHAR(255) NOT NULL,
+    mx_record_checked     VARCHAR(255) NOT NULL,
+    mx_record_ip          VARCHAR(255) NULL,
+    mx_record_city        VARCHAR(255) NULL,
+    mx_record_region      VARCHAR(255) NULL,
+    mx_record_country     VARCHAR(255) NULL,
+    mx_record_coordinates VARCHAR(255) NULL,
+    mx_record_org         VARCHAR(255) NULL,
+    mx_record_postal      VARCHAR(255) NULL,
+    mx_record_timezone    VARCHAR(255) NULL
+);
+
 -- Insertion of pre-defined values (caught errors):
 
 INSERT INTO exception_message (id, exception)
