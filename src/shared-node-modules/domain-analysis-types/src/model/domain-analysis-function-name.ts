@@ -10,4 +10,8 @@ export enum DomainAnalysisFunctionName {
     MX_COUNT_GROUPED = 'mx_count_grouped',
     A_COUNT_GROUPED = 'a_count_grouped',
     PERCENTAGE_OF_MX_LOCALHOST = 'percentage_of_mx_localhost',
+    DOMAIN_ACCESS_STATUS_CODES = 'domain_access_status_codes',
+    PERCENTAGE_OF_REDIRECTIONS = 'percentage_of_redirections',
+    PERCENTAGE_OF_REDIRECTIONS_CODE_200 = 'percentage_of_redirections_code_200',
+    TOP_10_REDIRECTED_TO = 'top_10_redirected_to',
 }

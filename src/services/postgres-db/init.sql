@@ -128,8 +128,30 @@ CREATE FUNCTION percentage_of_mx_localhost()
             )
 AS
 $$
-SELECT ROUND((SUM(CASE WHEN mx_uses_localhost THEN 1 ELSE 0 END)::numeric / COUNT(top_level_domain)), 1) AS percentage
+SELECT ROUND((SUM(CASE WHEN mx_uses_localhost THEN 1 ELSE 0 END)::numeric / COUNT(top_level_domain)), 4) AS percentage
 FROM domain_enhanced_based_on_existing_data;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION percentage_of_redirections()
+    RETURNS TABLE
+            (
+                percentage FLOAT
+            )
+AS
+$$
+SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain THEN 1 ELSE 0 END)::numeric / COUNT(redirection)), 4) AS percentage
+FROM domain_redirection;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION percentage_of_redirections_code_200()
+    RETURNS TABLE
+            (
+                percentage FLOAT
+            )
+AS
+$$
+SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain AND status_code = 200 THEN 1 ELSE 0 END)::numeric / COUNT(redirection)), 4) AS percentage
+FROM domain_redirection;
 $$ LANGUAGE sql;
 
 -- for Charts:
@@ -196,6 +218,35 @@ FROM domain_enhanced_based_on_existing_data
 GROUP BY a_record_count
 $$ LANGUAGE sql;
 
+CREATE FUNCTION domain_access_status_codes()
+    RETURNS TABLE
+            (
+                count       INTEGER,
+                status_code INTEGER
+            )
+AS
+$$
+SELECT COUNT(*), status_code
+FROM domain_redirection
+GROUP BY status_code
+$$ LANGUAGE sql;
+
+CREATE FUNCTION top_10_redirected_to()
+    RETURNS TABLE
+            (
+                count       INTEGER,
+                redirection VARCHAR(255)
+            )
+AS
+$$
+SELECT COUNT(redirection) as count, redirection
+FROM domain_redirection
+WHERE redirection != top_level_domain
+GROUP BY redirection
+ORDER BY count DESC
+LIMIT 10
+$$ LANGUAGE sql;
+
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
@@ -257,6 +308,17 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION notify_domain_redirection() RETURNS trigger AS
+$$
+DECLARE
+BEGIN
+    NOTIFY watch_domain_redirection;
+    RETURN NULL;
+END;
+$$
+    LANGUAGE plpgsql;
+
+
 -- Creation of triggers:
 
 CREATE TRIGGER domain_trigger
@@ -306,3 +368,11 @@ CREATE TRIGGER domain_enhanced_based_on_existing_data_trigger
     ON domain_enhanced_based_on_existing_data
     FOR EACH ROW
 EXECUTE PROCEDURE notify_domain_enhanced_based_on_existing_data();
+
+CREATE TRIGGER domain_redirection_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON domain_redirection
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_domain_redirection();

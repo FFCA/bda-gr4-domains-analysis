@@ -30,6 +30,15 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.PERCENTAGE_OF_MX_LOCALHOST,
         ],
     ],
+    [
+        DomainAnalysisEvent.DOMAIN_REDIRECTION,
+        [
+            DomainAnalysisFunctionName.DOMAIN_ACCESS_STATUS_CODES,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS_CODE_200,
+            DomainAnalysisFunctionName.TOP_10_REDIRECTED_TO,
+        ],
+    ],
 ]);
 
 export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string[] => {
