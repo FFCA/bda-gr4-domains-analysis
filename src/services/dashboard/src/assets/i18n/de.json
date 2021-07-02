@@ -43,7 +43,7 @@
                 "changeTo": "Größe auf \"{{ size }}\" ändern (ggf. nur auf größeren Bildschirmen bemerkbar)",
                 "current": "Aktuelle Größe: \"{{ size }}\" (ggf. nur auf größeren Bildschirmen bemerkbar)"
             },
-            "interact": "Hinweise: Um mehr Informationen zu erhalten, die Diagamme berühren oder mit dem Zeiger überfahren."
+            "interact": "Hinweise: Um mehr Informationen zu erhalten, die Diagamme berühren oder mit dem Zeiger überfahren. Die Buttons S/M/XL können genutzt werden, um die Größe der Diagramme zu verändern."
         },
         "tab": {
             "descriptive": "Deskriptive Daten",

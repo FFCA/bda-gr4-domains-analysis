@@ -26,6 +26,6 @@ export class ChartCardComponent implements OnInit {
      * Sets the chart size to M if undefined.
      */
     ngOnInit(): void {
-        this.chart.size = this.chart.size ?? 'M';
+        this.chart.size = this.chart.size ?? 'S';
     }
 }
