@@ -411,8 +411,6 @@ export class StatisticsService {
         this.groupedACount.hasData = data.length;
     }
 
-    // TODO Impl...
-
     // domainAccessStatusCodes
 
     private initDomainAccessStatusCodes(): void {
@@ -456,7 +454,7 @@ export class StatisticsService {
             hasData: !!chart?.data?.length,
             size: chart?.size,
             type: 'pie',
-            showLabels: false,
+            showLabels: true,
             options: { responsive: true },
         };
     }
