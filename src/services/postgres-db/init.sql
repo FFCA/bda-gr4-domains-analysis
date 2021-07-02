@@ -53,7 +53,7 @@ CREATE TABLE domain_redirection
 (
     top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
     redirection      VARCHAR(255) NULL,
-    status_code      INTEGER NULL
+    status_code      INTEGER      NULL
 );
 
 CREATE TABLE a_record_checked_count_global
@@ -119,8 +119,7 @@ AS
 $$
 SELECT COUNT(*)
 FROM domain
-$$
-    LANGUAGE sql;
+$$ LANGUAGE sql;
 
 CREATE FUNCTION percentage_of_mx_localhost()
     RETURNS TABLE
@@ -131,8 +130,7 @@ AS
 $$
 SELECT ROUND((SUM(CASE WHEN mx_uses_localhost THEN 1 ELSE 0 END)::numeric / COUNT(top_level_domain)), 1) AS percentage
 FROM domain_enhanced_based_on_existing_data;
-$$
-    LANGUAGE sql;
+$$ LANGUAGE sql;
 
 -- for Charts:
 
@@ -143,8 +141,7 @@ $$
 BEGIN
     RETURN QUERY SELECT * FROM mx_record_count_global ORDER BY count DESC LIMIT 10;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION top_10_a_global()
     RETURNS SETOF a_record_count_global
@@ -153,8 +150,7 @@ $$
 BEGIN
     RETURN QUERY SELECT * FROM a_record_count_global ORDER BY count DESC LIMIT 10;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION top_10_mx_checked_global()
     RETURNS SETOF mx_record_checked_count_global
@@ -163,8 +159,7 @@ $$
 BEGIN
     RETURN QUERY SELECT * FROM mx_record_checked_count_global ORDER BY count DESC LIMIT 10;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION top_10_a_checked_global()
     RETURNS SETOF a_record_checked_count_global
@@ -173,8 +168,7 @@ $$
 BEGIN
     RETURN QUERY SELECT * FROM a_record_checked_count_global ORDER BY count DESC LIMIT 10;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION mx_count_grouped()
     RETURNS TABLE
@@ -187,8 +181,7 @@ $$
 SELECT COUNT(mx_record_count), mx_record_count
 FROM domain_enhanced_based_on_existing_data
 GROUP BY mx_record_count
-$$
-    LANGUAGE sql;
+$$ LANGUAGE sql;
 
 CREATE FUNCTION a_count_grouped()
     RETURNS TABLE
@@ -201,8 +194,7 @@ $$
 SELECT COUNT(a_record_count), a_record_count
 FROM domain_enhanced_based_on_existing_data
 GROUP BY a_record_count
-$$
-    LANGUAGE sql;
+$$ LANGUAGE sql;
 
 -- Creation of notification functions:
 
@@ -227,7 +219,7 @@ $$
     LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS
-$$ -- TODO: Exclude localhost ?
+$$
 DECLARE
 BEGIN
     NOTIFY watch_mx_count_global;
@@ -237,7 +229,7 @@ $$
     LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_mx_checked_count_global() RETURNS trigger AS
-$$ -- TODO: Exclude localhost ?
+$$
 DECLARE
 BEGIN
     NOTIFY watch_mx_checked_count_global;
