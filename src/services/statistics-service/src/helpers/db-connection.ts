@@ -1,5 +1,6 @@
 import { Client, ClientConfig, QueryResult } from 'pg';
 import dotenv from 'dotenv';
+import { DomainAnalysisEvent } from 'domain-analysis-types';
 
 /**
  * Loads the dotenv config on initially loading this file.
@@ -37,11 +38,13 @@ class DbConnection {
      * @param notificationFn Function to be executed in case of a notification on the subscribed channel.
      */
     async registerNotificationListener(
-        channel: string,
+        channel: DomainAnalysisEvent,
         notificationFn: () => void
     ): Promise<void> {
         await this.client.query(`LISTEN ${channel}`);
-        this.client.on('notification', notificationFn);
+        this.client.on('notification', (notification) => {
+            if (channel === notification.channel) notificationFn();
+        });
     }
 
     /**
