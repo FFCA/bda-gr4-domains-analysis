@@ -152,12 +152,12 @@ $$
 
 -- Creation of notification function:
 
-CREATE FUNCTION notify_domain_count() RETURNS trigger AS
+CREATE FUNCTION notify_domain() RETURNS trigger AS
 $$
 DECLARE
 BEGIN
     NOTIFY
-        watch_domain_count;
+        watch_domain;
     RETURN NULL;
 END;
 $$
@@ -209,13 +209,13 @@ $$
 
 -- Creation of triggers:
 
-CREATE TRIGGER domain_count_trigger
+CREATE TRIGGER domain_trigger
     AFTER INSERT OR
         UPDATE OR
         DELETE
     ON domain
     FOR EACH ROW
-EXECUTE PROCEDURE notify_domain_count();
+EXECUTE PROCEDURE notify_domain();
 
 CREATE TRIGGER a_global_count_trigger
     AFTER INSERT OR

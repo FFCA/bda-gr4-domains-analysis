@@ -1,7 +1,7 @@
 import { DomainAnalysisEvent } from '../model/domain-analysis-event';
 
 const eventQueryMap = new Map<DomainAnalysisEvent, string>([
-    [DomainAnalysisEvent.DOMAIN_COUNT, 'domain_count'],
+    [DomainAnalysisEvent.DOMAIN, 'domain_count'],
     [DomainAnalysisEvent.A_COUNT_GLOBAL, 'top_10_a_global'],
     [DomainAnalysisEvent.MX_COUNT_GLOBAL, 'top_10_mx_global'],
     [DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL, 'top_10_a_checked_global'],

@@ -52,7 +52,7 @@ export class StatisticsService {
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
 
-        this.socket.on(DomainAnalysisEvent.DOMAIN_COUNT, (data) =>
+        this.socket.on(DomainAnalysisEvent.DOMAIN, (data) =>
             this.onDomainCountTriggered(data)
         );
 
