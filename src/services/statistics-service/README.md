@@ -59,6 +59,12 @@ socket.on(
 );
 ```
 
+## Build a Docker Image
+
+For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since service
+requires the [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md). Yet, if you
+build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set automatically.
+
 ## License
 
 The project's [package.json](./package.json) does contain a license: As the whole project, this service is licensed as
