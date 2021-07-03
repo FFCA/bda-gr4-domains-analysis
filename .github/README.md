@@ -4,6 +4,6 @@ This project has one [CI pipeline](./workflows/assignment-zip-artifact.yml) for 
 
 - The repository as `zip`
 - The LaTeX documentation as `pdf`
-- The presentation as `pptx`
+- The presentation converted to `pdf`
 
 All files are renamed including the current date. The pipeline  is triggered on each push to `master`.
