@@ -80,17 +80,14 @@ CREATE TABLE soa
 
 CREATE TABLE domain_mx_record_geolite2
 (
-    -- TODO Don't store unused
     top_level_domain               VARCHAR(255) NOT NULL,
     mx_record_checked              VARCHAR(255) NOT NULL,
     mx_record_ip                   VARCHAR(255) NULL,
-    iso_code                       VARCHAR(3)   NULL,
-    country                        VARCHAR(255) NULL,
+    iso_code                       VARCHAR(255) NULL,
     city                           VARCHAR(255) NULL,
     postal                         VARCHAR(255) NULL,
     latitude                       VARCHAR(255) NULL,
     longitude                      VARCHAR(255) NULL,
-    autonomous_system_number       VARCHAR(255) NULL,
     autonomous_system_organization VARCHAR(255) NULL
 );
 
