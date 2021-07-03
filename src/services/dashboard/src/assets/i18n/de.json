@@ -51,7 +51,8 @@
         "tab": {
             "descriptive": "Deskriptive Informationen",
             "checked": "Aktualisierte Records",
-            "redirect": "Erreichbarkeit"
+            "redirect": "Erreichbarkeit",
+            "mxGeo": "Mailserver"
         },
         "tabExplanation": {
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
@@ -60,7 +61,8 @@
             "totalDomains": "Anzahl eingelesener Domains",
             "percentageOfMxLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record",
             "percentageOfRedirections": "Prozentzahl an Weiterleitungen (Null-Werte ausgeschlossen)",
-            "percentageOfRedirections200": "Prozentzahl an Weiterleitungen mit Statuscode 200 (Null-Werte ausgeschlossen)"
+            "percentageOfRedirections200": "Prozentzahl an Weiterleitungen mit Statuscode 200 (Null-Werte ausgeschlossen)",
+            "percentageOfMxOutsideOfGermany": "Prozentzahl an MX-Records von E-Mail-Providern außerhalb Deutschlands"
         },
         "chart": {
             "mxTop10": {
@@ -93,6 +95,17 @@
             },
             "topTenRedirectedTo": {
                 "title": "Domains, zu denen weitergeleitet wird (Top 10)"
+            },
+            "topTenMxCountries": {
+                "title": "Anzahl an MX-Records gruppiert nach Land des Providers (Top 10)",
+                "record": "Land"
+            },
+            "topTenMxAsn": {
+                "title": "Meistverbreitete E-Mail-Provider (Top 10)",
+                "record": "Provider"
+            },
+            "topTenMxCities": {
+                "title": "Anzahl an MX-Records gruppiert nach Stadt des Providers (Top 10)"
             }
         }
     }

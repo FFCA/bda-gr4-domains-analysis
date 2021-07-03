@@ -1,6 +1,8 @@
 import { DomainAnalysisEvent } from '../model/domain-analysis-event';
 import { DomainAnalysisFunctionName } from '../model/domain-analysis-function-name';
 
+// TODO Add documentation
+
 const eventQueryMap = new Map<
     DomainAnalysisEvent,
     DomainAnalysisFunctionName[]
@@ -37,6 +39,15 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS,
             DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS_CODE_200,
             DomainAnalysisFunctionName.TOP_10_REDIRECTED_TO,
+        ],
+    ],
+    [
+        DomainAnalysisEvent.DOMAIN_MX_GEO,
+        [
+            DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
+            DomainAnalysisFunctionName.TOP_10_MX_CITIES,
+            DomainAnalysisFunctionName.TOP_10_MX_ASN,
+            DomainAnalysisFunctionName.PERCENTAGE_MX_PROVIDERS_OUTSIDE_OF_GER,
         ],
     ],
 ]);

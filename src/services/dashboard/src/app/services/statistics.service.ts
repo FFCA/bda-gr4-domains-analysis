@@ -21,6 +21,8 @@ export class StatisticsService {
     private tab00Descriptive!: DisplayedTab;
     private tab01Checked!: DisplayedTab;
     private tab02Redirect!: DisplayedTab;
+    // tab 03
+    private tab04MxGeo!: DisplayedTab;
 
     private mxCountGlobal!: DomainAnalysisChart;
     private aCountGlobal!: DomainAnalysisChart;
@@ -30,11 +32,15 @@ export class StatisticsService {
     private aCheckedCountGlobal!: DomainAnalysisChart;
     private domainAccessStatusCodes!: DomainAnalysisChart;
     private topTenRedirectedTo!: DomainAnalysisChart;
+    private topTenMxAsn!: DomainAnalysisChart;
+    private topTenMxCities!: DomainAnalysisChart;
+    private topTenMxCountries!: DomainAnalysisChart;
 
     private domainCount!: DomainAnalysisKpi;
     private percentageOfMxLocalhost!: DomainAnalysisKpi;
     private percentageOfRedirections!: DomainAnalysisKpi;
     private percentageOfRedirections200!: DomainAnalysisKpi;
+    private percentageOfMxOutsideOfGermany!: DomainAnalysisKpi;
 
     private socket!: Socket;
 
@@ -85,7 +91,12 @@ export class StatisticsService {
 
         this.socket.on(
             DomainAnalysisFunctionName.PERCENTAGE_OF_REDIRECTIONS_CODE_200,
-            (data: any) => this.onPercentageOfRedirectionsTriggered200(data)
+            (data: any) => this.onPercentageOfRedirections200Triggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_MX_PROVIDERS_OUTSIDE_OF_GER,
+            (data: any) => this.onPercentageOfMxOutsideOfGermanyTriggered(data)
         );
 
         // Charts:
@@ -129,6 +140,20 @@ export class StatisticsService {
             DomainAnalysisFunctionName.TOP_10_REDIRECTED_TO,
             (data: any) => this.onTopTenRedirectedToTriggered(data)
         );
+
+        this.socket.on(DomainAnalysisFunctionName.TOP_10_MX_ASN, (data: any) =>
+            this.onTopTenMxAsnTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_CITIES,
+            (data: any) => this.onTopTenMxCitiesTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
+            (data: any) => this.onTopTenMxCountriesTriggered(data)
+        );
     }
 
     private displayConnectionDialog(): void {
@@ -164,10 +189,19 @@ export class StatisticsService {
             tabExplanationKey: 'dashboard.tabExplanation.redirect', // TODO Add explanation
         };
 
+        this.tab04MxGeo = {
+            kpis: [],
+            charts: [],
+            tabKey: 'dashboard.tab.mxGeo',
+            tabExplanationKey: 'dashboard.tabExplanation.mxGeo', // TODO Add explanation
+        };
+
         this.displayedTabs = [
             this.tab00Descriptive,
             this.tab01Checked,
             this.tab02Redirect,
+            // t03
+            this.tab04MxGeo,
         ];
     }
 
@@ -193,10 +227,17 @@ export class StatisticsService {
             isPercentage: true,
         };
 
+        this.percentageOfMxOutsideOfGermany = {
+            translationKey: 'dashboard.kpi.percentageOfMxOutsideOfGermany',
+            isPercentage: true,
+        };
+
         this.tab02Redirect.kpis = [
             this.percentageOfRedirections,
             this.percentageOfRedirections200,
         ];
+
+        this.tab04MxGeo.kpis = [this.percentageOfMxOutsideOfGermany];
     }
 
     private initCharts(): void {
@@ -224,6 +265,17 @@ export class StatisticsService {
             this.domainAccessStatusCodes,
             this.topTenRedirectedTo,
         ];
+
+        // tab 03
+
+        this.initTopTenMxAsn();
+        this.initTopTenMxCities();
+        this.initTopTenMxCountries();
+        this.tab04MxGeo.charts = [
+            this.topTenMxAsn,
+            this.topTenMxCities,
+            this.topTenMxCountries,
+        ];
     }
 
     // KPIs
@@ -240,8 +292,12 @@ export class StatisticsService {
         this.percentageOfRedirections.value = data[0].percentage;
     }
 
-    private onPercentageOfRedirectionsTriggered200(data: any): void {
+    private onPercentageOfRedirections200Triggered(data: any): void {
         this.percentageOfRedirections200.value = data[0].percentage;
+    }
+
+    private onPercentageOfMxOutsideOfGermanyTriggered(data: any): void {
+        this.percentageOfMxOutsideOfGermany.value = data[0].percentage;
     }
 
     // mxCountGlobal
@@ -486,5 +542,84 @@ export class StatisticsService {
         ];
         this.topTenRedirectedTo.labels = data.map((d: any) => d.redirection);
         this.topTenRedirectedTo.hasData = data.length;
+    }
+
+    // topTenMxAsn
+
+    private initTopTenMxAsn(): void {
+        const chart = this.topTenMxAsn;
+        this.topTenMxAsn = {
+            titleKey: 'dashboard.chart.topTenMxAsn.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.topTenMxAsn.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onTopTenMxAsnTriggered(data: any): void {
+        this.topTenMxAsn.data = [{ data: data.map((d: any) => d.count) }];
+        this.topTenMxAsn.labels = data.map(
+            (d: any) => `${d.autonomous_system_organization} (${d.iso_code})`
+        );
+        this.topTenMxAsn.hasData = data.length;
+    }
+
+    // topTenMxCities
+
+    private initTopTenMxCities(): void {
+        const chart = this.topTenMxCities;
+        this.topTenMxCities = {
+            titleKey: 'dashboard.chart.topTenMxCities.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'pie',
+            showLabels: true,
+            options: { responsive: true },
+        };
+    }
+
+    private onTopTenMxCitiesTriggered(data: any): void {
+        this.topTenMxCities.data = [{ data: data.map((d: any) => d.count) }];
+        this.topTenMxCities.labels = data.map(
+            (d: any) => `${d.city} (${d.iso_code})`
+        );
+        this.topTenMxCities.hasData = data.length;
+    }
+
+    // topTenMxCountries
+
+    private initTopTenMxCountries(): void {
+        const chart = this.topTenMxCountries;
+        this.topTenMxCountries = {
+            titleKey: 'dashboard.chart.topTenMxCountries.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.topTenMxCountries.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onTopTenMxCountriesTriggered(data: any): void {
+        console.log(data);
+        this.topTenMxCountries.data = [{ data: data.map((d: any) => d.count) }];
+        this.topTenMxCountries.labels = data.map((d: any) => d.iso_code);
+        this.topTenMxCountries.hasData = data.length;
     }
 }

@@ -13,5 +13,9 @@ export enum DomainAnalysisFunctionName {
     DOMAIN_ACCESS_STATUS_CODES = 'domain_access_status_codes',
     PERCENTAGE_OF_REDIRECTIONS = 'percentage_of_redirections',
     PERCENTAGE_OF_REDIRECTIONS_CODE_200 = 'percentage_of_redirections_code_200',
-    TOP_10_REDIRECTED_TO = 'top_10_redirected_to',
+    TOP_10_REDIRECTED_TO                    = 'top_10_redirected_to',
+    TOP_10_MX_COUNTRIES                         = 'top_10_mx_countries',
+    TOP_10_MX_CITIES                             = 'top_10_mx_cities',
+    TOP_10_MX_ASN                                = 'top_10_mx_asn',
+    PERCENTAGE_MX_PROVIDERS_OUTSIDE_OF_GER = 'percentage_of_mx_providers_outside_of_germany',
 }

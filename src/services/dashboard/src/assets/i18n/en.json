@@ -51,7 +51,8 @@
         "tab": {
             "descriptive": "Descriptive Information",
             "checked": "Updated Records",
-            "redirect": "Accessibility"
+            "redirect": "Accessibility",
+            "mxGeo": "Mail servers"
         },
         "tabExplanation": {
             "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
@@ -60,7 +61,8 @@
             "totalDomains": "Total number of parsed domains",
             "percentageOfMxLocalhost": "Percentage of domains with \"localhost\" as MX-record",
             "percentageOfRedirections": "Percentage of redirections (excluding null values)",
-            "percentageOfRedirections200": "Percentage of redirections with status code 200 (excluding null values)"
+            "percentageOfRedirections200": "Percentage of redirections with status code 200 (excluding null values)",
+            "percentageOfMxOutsideOfGermany": "Percentage of MX-records from e-mail providers head-quartered outside of Germany"
         },
         "chart": {
             "mxTop10": {
@@ -93,6 +95,17 @@
             },
             "topTenRedirectedTo": {
                 "title": "Domains redirected to (Top 10)"
+            },
+            "topTenMxCountries": {
+                "title": "Number of Mx-records grouped by provider countries (Top 10)",
+                "record": "Country"
+            },
+            "topTenMxAsn": {
+                "title": "Most common e-mail providers (Top 10)",
+                "record": "Provider"
+            },
+            "topTenMxCities": {
+                "title": "Number of Mx-records grouped by provider cities (Top 10)"
             }
         }
     }
