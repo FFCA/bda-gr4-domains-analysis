@@ -93,6 +93,19 @@ CREATE TABLE domain_mx_record_geolite2
     autonomous_system_organization VARCHAR(255) NULL
 );
 
+CREATE TABLE soa_top_ten
+(
+    soa_name                       VARCHAR(255) NULL,
+    count                          INTEGER NOT NULL,
+    ipv4                           VARCHAR(255) NULL,
+    iso_code                       VARCHAR(255) NULL,
+    city                           VARCHAR(255) NULL,
+    postal                         VARCHAR(255) NULL,
+    latitude                       VARCHAR(255) NULL,
+    longitude                      VARCHAR(255) NULL,
+    autonomous_system_organization VARCHAR(255) NULL
+);
+
 -- Insertion of pre-defined values (caught errors):
 
 INSERT INTO exception_message (id, exception)
