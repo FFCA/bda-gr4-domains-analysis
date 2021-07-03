@@ -14,6 +14,28 @@ The objective, gaining insight into the given information, requires the definiti
 % Beschreibungen und Komentare aus https://www.bigdata-insider.de/was-ist-crisp-dm-a-815478/
 
 \subsection{Data Understanding ...}\label{subsec:dataunderstanding}
+After the concrete goals and requirements have been defined in the Business Understanding phase, a close look is taken at the existing basic data.
+The existing data is to be examined for processability, content and quality.
+Initial analyses show that the data is available in a comma-separated value structure and is assigned to the context of the Domain Name System (DNS).
+Furthermore, the dataset consists of 4 columns and 4860885 rows.
+Due to the large amount of data, the use of parallel data processing technologies is inevitable.
+To gain an understanding of the data, it is described below:
+
+\begin{center}
+    \begin{tabular}{||c c c c||} 
+    \hline
+    Column & Description & Occurrence & Nullable \\ [0.5ex] 
+    \hline\hline
+    A & Top-level domains, excluding subdomains & unique & false \\ 
+    \hline
+    B & MX record from name server & multiple & true \\
+    \hline
+    C & A-record of the respective domain & multiple & true \\
+    \hline
+    D & Dolumn D: Timestamp of scraping process & multiple & false
+   \end{tabular}
+   \end{center}
+
 \begin{itemize}
     \item Erster Überblick über die Daten (Welche Daten, gibt es Probleme)
     \item Probelme insbeosndere in Bezug auf die im vorherigen Kapitel benannten Ziele/Aufgabenstellung/Vorgehensweise
