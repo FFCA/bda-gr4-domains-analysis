@@ -80,10 +80,11 @@ CREATE TABLE soa
 
 CREATE TABLE domain_mx_record_geolite2
 (
+    -- TODO Don't store unused
     top_level_domain               VARCHAR(255) NOT NULL,
     mx_record_checked              VARCHAR(255) NOT NULL,
     mx_record_ip                   VARCHAR(255) NULL,
-    iso_code                       VARCHAR(255) NULL,
+    iso_code                       VARCHAR(3)   NULL,
     country                        VARCHAR(255) NULL,
     city                           VARCHAR(255) NULL,
     postal                         VARCHAR(255) NULL,
@@ -268,13 +269,14 @@ CREATE FUNCTION top_10_mx_asn()
     RETURNS TABLE
             (
                 count                          INTEGER,
-                autonomous_system_organization VARCHAR(255)
+                autonomous_system_organization VARCHAR(255),
+                iso_code                       VARCHAR(3)
             )
 AS
 $$
-SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization
+SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization, iso_code
 FROM domain_mx_record_geolite2
-GROUP BY autonomous_system_organization
+GROUP BY autonomous_system_organization, iso_code
 ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
@@ -283,8 +285,8 @@ CREATE FUNCTION top_10_mx_cities()
     RETURNS TABLE
             (
                 count    INTEGER,
-                iso_code VARCHAR(255),
-                city     VARCHAR(255)
+                city     VARCHAR(255),
+                iso_code VARCHAR(3)
             )
 AS
 $$
@@ -299,7 +301,7 @@ CREATE FUNCTION top_10_mx_countries()
     RETURNS TABLE
             (
                 count    INTEGER,
-                iso_code VARCHAR(255)
+                iso_code VARCHAR(3)
             )
 AS
 $$
