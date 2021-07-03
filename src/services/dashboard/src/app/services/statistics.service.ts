@@ -12,18 +12,27 @@ import { DisplayedTab } from '../model/internal/displayed-tab';
 
 /**
  * Module for managing asynchronously passed statistic data.
+ * Please note that due to the very similar pattern for event subscriptions and being trivial code,
+ * event subscriptions are only described generically in this module. Everything else and everything that is public is, of course,
+ * documented using TypeScript documentation at the attribute/method.
  */
 @Injectable({
     providedIn: 'root',
 })
 export class StatisticsService {
+    /**
+     * Tabs to be displayed.
+     */
     displayedTabs: DisplayedTab[] = [];
+
+    // Objects for each tab to be displayed:
     private tab00Descriptive!: DisplayedTab;
     private tab01Checked!: DisplayedTab;
     private tab02Redirect!: DisplayedTab;
     // tab 03
     private tab04MxGeo!: DisplayedTab;
 
+    // Objects for each chart to be displayed:
     private mxCountGlobal!: DomainAnalysisChart;
     private aCountGlobal!: DomainAnalysisChart;
     private groupedMxCount!: DomainAnalysisChart;
@@ -36,19 +45,26 @@ export class StatisticsService {
     private topTenMxCities!: DomainAnalysisChart;
     private topTenMxCountries!: DomainAnalysisChart;
 
+    // Objects for each KPI to be displayed
     private domainCount!: DomainAnalysisKpi;
     private percentageOfMxLocalhost!: DomainAnalysisKpi;
     private percentageOfRedirections!: DomainAnalysisKpi;
     private percentageOfRedirections200!: DomainAnalysisKpi;
     private percentageOfMxOutsideOfGermany!: DomainAnalysisKpi;
 
+    /**
+     * Socket for asynchronous communication.
+     * @private
+     */
     private socket!: Socket;
 
-    // TODO: Implement/Add documentation
-
     /**
+     * Initializes tabs and KPIs and subscribes to i18n changes in which case the
+     * charts are (re-)initialized (necessary in order to localize labels etc.) and,
+     * if not yet initialized, {{ socket }} is initialized.
+     *
      * @param dialog Injected Material dialog service.
-     * @param translate Injected translate service.
+     * @param translate Injected translation service.
      */
     constructor(
         private readonly dialog: MatDialog,
@@ -62,10 +78,19 @@ export class StatisticsService {
         });
     }
 
+    /**
+     * True if the current socket exists and is connected, false if not.
+     */
     get isConnected(): boolean {
         return this.socket?.connected;
     }
 
+    /**
+     * Sets up a socket connection, i.e. declares all functions to be executed in case of receiving a notification.
+     * Furthermore, it is checked whether 5s after calling this function the service is connected and if not,
+     * an information dialog is shown.
+     * @private
+     */
     private setupSocketConnection(): void {
         this.socket = io(environment.statisticsApi);
 
@@ -156,6 +181,12 @@ export class StatisticsService {
         );
     }
 
+    /**
+     * Opens a dialog informing about not being connected to a client.
+     * After closure, this dialog is re-opened after 5s if no connection could be established yet.
+     *
+     * @private
+     */
     private displayConnectionDialog(): void {
         setTimeout(() => {
             if (!this.isConnected) {
@@ -167,6 +198,10 @@ export class StatisticsService {
         }, 5000);
     }
 
+    /**
+     * Initializes the tabs to be displayed.
+     * @private
+     */
     private initTabs(): void {
         this.tab00Descriptive = {
             kpis: [],
@@ -205,6 +240,10 @@ export class StatisticsService {
         ];
     }
 
+    /**
+     * Initializes the KPIs to be displayed and pushes them to their respective tab object.
+     * @private
+     */
     private initKpis(): void {
         this.domainCount = { translationKey: 'dashboard.kpi.totalDomains' };
         this.percentageOfMxLocalhost = {
@@ -240,6 +279,10 @@ export class StatisticsService {
         this.tab04MxGeo.kpis = [this.percentageOfMxOutsideOfGermany];
     }
 
+    /**
+     * Initializes the charts to be displayed and pushes them to their respective tab object.
+     * @private
+     */
     private initCharts(): void {
         this.initMxGlobalData();
         this.initAGlobalData();
@@ -278,7 +321,8 @@ export class StatisticsService {
         ];
     }
 
-    // KPIs
+    // Functions called on KPI changes, implemented using the following schema:
+    // data => <kpi>.value = data[<property to be shown>]
 
     private onDomainCountTriggered(data: any): void {
         this.domainCount.value = data[0].domain_count;
@@ -299,6 +343,10 @@ export class StatisticsService {
     private onPercentageOfMxOutsideOfGermanyTriggered(data: any): void {
         this.percentageOfMxOutsideOfGermany.value = data[0].percentage;
     }
+
+    // Initialization functions and functions called in case of chart data changes.
+    // init<...> => Initialization of the chart considering already existing object (in order to avoid reset in case of language changes)
+    // on<...>Triggered => set labels, data and hasData for the respective chart.
 
     // mxCountGlobal
 
