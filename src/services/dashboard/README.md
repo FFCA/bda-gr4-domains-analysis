@@ -1,10 +1,10 @@
 # Domain Analysis Dashboard
 
-## What does This dashboard do?
+## What Does This Dashboard Do?
 
 Dashboard for visualizing data received from the [Statistics Service](../statistics-service/README.md).
 
-### Layout and application logic
+### Layout and Application Logic
 
 Improving the user experience (UX), this dashboard uses event-driven logic, i.e. it subscribes to the events emitted
 from the Statistics Service and displays data asynchronously without the necessity of having to refresh the page in
@@ -17,7 +17,7 @@ the user about this problem.
 The dashboard's layout is card- and tab-based in order to prominently display the data to be presented and dividing it
 into logically coherent sections. Information will either be displayed as a KPI or as a chart component.
 
-### Integrated Dig terminal
+### Integrated Dig Terminal
 
 The dashboard does also feature an integrated (mocked) terminal for performing requests to
 the [Dig Microservice](../dig-microservice/README.md). Even though using the Dig service has been discarded for this
@@ -25,7 +25,7 @@ project's [data analysis part](../pyspark/README.md), it is still fully function
 can be accessed through the terminal icon in the bottom right corner (or after opening the hamburger menu on small
 screens).
 
-### Further features
+### Further Features
 
 - **I18N:** The dashboard is available in English and in German: The language can be configured after tapping the world
   icon in the bottom right corner (or after opening the hamburger menu on small screens)
