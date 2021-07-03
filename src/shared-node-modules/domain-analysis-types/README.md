@@ -3,16 +3,16 @@
 ## What does this package do?
 
 `domain-analysis-types` is a package to be used in TypeScript-based domain analysis projects, i.e.
-the [statistics service](../../services/statistics-service/README.md) and
-the [client](../../services/dashboard/README.md). This package exports DB event names and DB functions used in this
+the [Statistics Service](../../services/statistics-service/README.md) and
+the [Dashboard](../../services/dashboard/README.md). This package exports DB event names and DB functions used in this
 project as well as how they are connected, i.e. which functions belong to which event.
 
 ## How do I use this package?
 
 ### Prerequisites
 
-You will need [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v7/commands/npm) installed in order
-to build this package locally (outside of Docker).
+You will need [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v7/commands/npm) to be installed in
+order to build this package locally (outside of Docker).
 
 ### Install this package
 

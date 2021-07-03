@@ -9,8 +9,8 @@ asynchronous/event-driven architecture ([Socket.io](https://socket.io/)).
 
 ### Prerequisites
 
-You will need [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v7/commands/npm) installed in order
-to start this project locally (outside of Docker).
+You will need [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v7/commands/npm) to be installed in
+order to start this project locally (outside of Docker).
 
 Also, make sure you have the [Postgres DB](../../services/postgres-db/README.md) running at port `5432` on `localhost`:
 Hint: For this purpose, you can also map the port of the database in the project's
@@ -63,7 +63,8 @@ socket.on(
 
 For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since service
 requires the [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md). Yet, if you
-build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set automatically.
+build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set
+automatically.
 
 ## License
 
