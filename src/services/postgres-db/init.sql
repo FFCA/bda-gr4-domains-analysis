@@ -101,7 +101,8 @@ VALUES (0, 'No Error'),
        (4, 'Timeout'),
        (5, 'Connection Error'),
        (6, 'Read Timeout'),
-       (7, 'Too Many Redirects');
+       (7, 'Too Many Redirects'),
+       (8, 'Unknown Exception');
 -- TODO Generic error
 
 -- Creation of functions to be used in order to minimize the queries to be written:
