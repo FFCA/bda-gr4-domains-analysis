@@ -7,9 +7,9 @@ itself.
 
 ## Setup this project
 
-### The easiest way: All-in-one shell script
+### The easiest way: All-in-one bash script
 
-In order to make this tool as easily usable as possible, there is a shell script for both managing the required data (
+In order to make this tool as easily usable as possible, there is a bash script for both managing the required data (
 parsed domain data (`real_domains.csv`) and starting all services (`docker-compose`). This file can be
 found [here](./setup.sh).
 
@@ -48,7 +48,7 @@ bash path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
 
 ### Manual verification and execution of commands
 
-After verifying whether the required data exists, the shell script does nothing else than (in `./src/services`):
+After verifying whether the required data exists, the bash script does nothing else than (in `./src/services`):
 
 ```shell
 docker-compose -p "bda-gr4-domain-analysis" up -d

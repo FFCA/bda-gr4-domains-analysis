@@ -20,7 +20,7 @@ else
   echo "Failed to find" $datadir$csvFile"!"
   echo "Note: If you started this script with a file path as argument, this path does not seem to exist."
   echo "This script makes sure the application is only called if the required data exists. You have two options:"
-  echo "  1. Download the data and call this shell script with the path to the downloaded data, e.g. (called from root): sh setup.sh <path to your csv>"
+  echo "  1. Download the data and call this script with the path to the downloaded data, e.g. (called from root): bash setup.sh <path to your csv>"
   echo "  2. Download the data and store it manually as:" $datadir$csvFile "(relative path to the directory this script has been run from)"
   echo "In case of questions, check the assignment specification in Moodle."
   exit 1
