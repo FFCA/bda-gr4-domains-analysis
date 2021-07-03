@@ -1,1 +1,63 @@
 \section{Project Realization}\label{sec:project-realization}
+
+\subsection{Dockerized Microservices as Infrastructure}\label{subsec:dockerized-microservices-as-infrastructure}
+
+Aiming for short feedback-loops, and the prevention of shipping anything but code, the domain analysis project has been realized following the principles of \textit{Infrastructure as Code}, a procedure that is at DevOps' core.~\autocite[cf.][p. 13]{Riti.2018}
+More specifically, the project consists of five dockerized services that are
+managed using \textit{Docker Compose} and communicating with each other through a Docker network.
+Unless stated otherwise, the containers are only communicating through this network, i.e.\ their port is not mapped.
+In the following, these services as well as how they are interacting will be described briefly.
+All Dockerfiles as well as the docker-compose file can be found in~\ref{subsec:docker-compose} -~\ref{subsec:dockerfile-(dig-microservice)}.
+
+\subsubsection{PySpark Jupyter Lab}\label{subsubsec:pyspark-jupyter-lab}
+
+In order to process the data described in the previous chapter efficiently, a Jupyter Lab running PySpark, customized regarding the requirements of the analyses to be made, is used.
+The container is accessible from the host machine on port \texttt{8888} using the token \texttt{token4711} and, due to mounting both the notebooks containing the code to be executed,
+and the data to be analyzed, it can be used for working without the risk of losing information on removing the container.
+Eventually, the processed data is stored in the Postgres database described in ~\ref{subsubsec:postgres-database}.
+%
+
+\subsubsection{Postgres Database}\label{subsubsec:postgres-database}
+
+For storing the enhanced data, a Postgres database is used which is initialized with all tables to be used for the domain analysis, functions for getting the data to be displayed as charts/KPIs (cf.~\ref{subsubsec:dashboard})
+and notifier functions/triggers for asynchronous communication to be described in~\ref{subsec:event-driven-architecture}.
+
+\subsubsection{Statistics Service}\label{subsubsec:statistics-service}
+
+The Statistics Service collects data to be displayed from the Postgres database (cf.~\ref{subsubsec:postgres-database}) and asynchronously sends it the connected dashboards (cf.~\ref{subsubsec:dashboard}) using Web Sockets.~\autocite[cf.][]{MDNWebDocs.2021}
+
+\subsubsection{Dashboard}\label{subsubsec:dashboard}
+
+The dashboard container runs an Angular application that is accessible on port \texttt{8321} and visualizes the data received from the Statistics Service dynamically.
+Its layout is card- and tab-based in order to prominently display the data to be presented and dividing it into logically coherent sections.
+Information will either be displayed as a KPI or as a chart component.
+Furthermore, it contains a mocked terminal for performing requests to the Dig Service presented in ~\ref{subsubsec:dig-microservice}.
+
+\subsubsection{Dig Microservice}\label{subsubsec:dig-microservice}
+
+Even though its usage within the scope of this project's data analysis part was discarded as the required functionality was solved in another way, the Dig Microservice allows performing \texttt{dig}-requests through HTTP due to running in a container based on Linux Debian.
+
+\subsection{Perks of Using Node.js}\label{subsec:choosing-a-node-based-environment}
+
+Both the dig microservice, and the statistics service are Node.js applications written in TypeScript.
+In this project's context, this was a deliberate decision considering several aspects to be described in the following.
+
+First, it is of the utmost importance to understand the concept of microservices, i.e.\ only solving one, or a limited number of tasks.
+If application logic was to be supplemented, another microservice would be created, resulting in a distributed system instead of extending the scope of one service.~\autocite[cf.][p. 23]{Farcic.2016}
+Since, in this context, the tasks of both services in themselves are not related to data science, it is not necessary to use a programming language commonly related to this topic such as Python or R.~\autocite[cf.][]{Gossett.2021}
+
+Furthermore, it is possible to implement custom packages shared by multiple containers.
+Within the scope of this project, \texttt{domain-analysis-types}, an NPM package used by both the dashboard, and the statistics service is built which centrally defines names of events (cf.~\ref{subsec:event-driven-architecture}).
+Subsequently, complexity is minimized as a predefined list of events is used on both ends and if an event name is changed, it is changed for both the client and the server.
+
+Last but not least, for dockerizing the dashboard project, a Node.js image (\texttt{node:16-alpine}) is used in the build step.
+Considering base images are only downloaded once and referenced by each container, using the same base image for multiple minimizes the disk space to be used, and the time for initially building all images.~\autocite[cf.][pp. 8-9]{Arundel.2019}
+
+\subsection{Event-driven Architecture}\label{subsec:event-driven-architecture}
+
+In order to improve the user experience (UX), the dashboard is loaded asynchronously.
+Therefore, using Socket.io, it subscribes to events emitted from the statistics service and updates the respective values dynamically.
+
+The server, on the other hand, subscribes to notifications from the database.
+In order to avoid sending an unnecessary amount of data, the payload emitted by the database is always \texttt{NULL}, i.e.\ subscribers are only informed about changes but not about what has changed.
+After not receiving any new notification from the database for 2 seconds, the statistics service emits the updated data to all clients, i.e.\ it requests the respective data from the database using a predefined database function and emits it eventually.
