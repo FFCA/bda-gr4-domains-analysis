@@ -2,20 +2,20 @@
 
 \subsection{Business Understanding ...}\label{subsec:businessunderstanding}
 The given data includes DNS record information concerning '.de' domains, the country code top-level domains (ccTLD's)~\autocite[cf.][]{DENICeG.2021} allocated to the Federal Republic of Germany.
-The comma-separated value file (CSV) with a size of about 500 megabytes contains \textit{the domain name, mail servers used, the domains target IPv4 address, and the timestamp, the information were fetched}.
+The comma-separated value file (CSV) with a size of about 500 megabytes contains \textit{.de-related domain names, mail servers used, the domains target IPv4 address, and the timestamp, the information were fetched}.
 As CSV files offer straightforward integration into software systems and programs supporting the format~\autocite[cf.][]{Hoffman.2018}, complex file conversion steps (possibly using proprietary software) are not necessary.
-Nevertheless, checking the content for correct set delimiters, unnecessary characters, and reasonable data types for subsequent conversion is crucial.
+Nevertheless, checking the content for correct set delimiters, unnecessary characters, and determination of reasonable data types for subsequent conversion is crucial.
 Therefore, we implemented an ETL process to cover these checks and considerations, while ensuring a certain level of flexibility concerning the data sources.
-An important part is the enhancement of the given data by statistics to gain more value out of the data.
-Therefore, further data were collected as described in ~\ref{subsec:businessunderstanding}.
-As the amount of data and the processes offer various analyses, the following objectives of the project were determined:
+
+Another important part is the enhancement of the given data by statistics to gain more value out of the data.
+As the amount of data and processes to handle them offer various analyses, the following objectives of the project were determined:
 \begin{itemize}
     \item Follow the approach ‘everything as code’
     \item Validate existing and collect additional information
     \item Establish an ETL process and data preparation as a requirement for the analyses
     \item Analyses and deployment of the results
 \end{itemize}
-These processes and objectives as well as the explanations in the following sections are supposed to provide a detailed analysis of DNS record information within the context of big data.
+These objectives as well as the processes explained in the following sections are supposed to provide detailed analysis of DNS record information within the context of big data.
 
 
 % Beschreibungen und Komentare aus https://www.bigdata-insider.de/was-ist-crisp-dm-a-815478/
