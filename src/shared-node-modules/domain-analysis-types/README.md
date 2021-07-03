@@ -2,9 +2,10 @@
 
 ## What does this package do?
 
-Node package to be used in TypeScript-based domain analysis projects, i.e. the statistics service and the client. This
-package exports DB event names and DB functions used in this project as well as how they are connected, i.e. which
-functions belong to which event.
+`domain-analysis-types` is a package to be used in TypeScript-based domain analysis projects, i.e.
+the [statistics service](../../services/statistics-service/README.md) and
+the [client](../../services/dashboard/README.md). This package exports DB event names and DB functions used in this
+project as well as how they are connected, i.e. which functions belong to which event.
 
 ## How do I use this package?
 
@@ -30,7 +31,7 @@ both the statistics service, and the dashboard project. To do so, run (in this d
 npm run update-bda-types-in-repo
 ```
 
-### Exported functions data
+### Exported functions/data
 
 The `domain-analysis-types` package exports the following enums:
 
@@ -46,5 +47,6 @@ And the following functions:
 
 ## License
 
-As the whole project, this package is licensed as Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0). If you are
-not familiar with this license, read more about it [here](https://creativecommons.org/licenses/by-nc/4.0/).
+The project's [package.json](./package.json) does contain a license: As the whole project, this service is licensed as
+Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0). If you are not familiar with this license, read more about
+it [here](https://creativecommons.org/licenses/by-nc/4.0/).

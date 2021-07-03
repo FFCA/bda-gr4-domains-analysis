@@ -1,6 +1,6 @@
 # Dig Microservice
 
-## How to use?
+## What does this service do and how do to use it?
 
 This service allows performing `dig`-requests through `http`. It does only provide one endpoint and can be queried as
 follows:
@@ -36,10 +36,16 @@ another container with a mapped port (`-p <your port>:8088`).
 
 ### Commands for developing
 
-The following commands are useful for developers.
+The following commands are useful for developers:
 
 - For starting the app in dev mode, run `npm run start:dev`
 - For manual building, run: `npm run build`
-- For starting the build application, run: `npm run start:prod`
+- For starting the built application, run: `npm run start:prod`
 
 However, if you are using Windows, the application will not run due to lack of `dig`.
+
+## License
+
+The project's [package.json](./package.json) does contain a license: As the whole project, this service is licensed as
+Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0). If you are not familiar with this license, read more about
+it [here](https://creativecommons.org/licenses/by-nc/4.0/).

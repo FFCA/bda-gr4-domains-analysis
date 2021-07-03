@@ -7,8 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "rimraf ./build && tsc",
         "start:dev": "nodemon",
-        "start:prod": "node build/index.js",
-        "reinstall-bda-types": "npm uninstall domain-analysis-types && cd ../../shared-node-modules/domain-analysis-types && npm i && npm pack && cd ../../services/statistics-service && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz"
+        "start:prod": "node build/index.js"
     },
     "author": "Lucas Larisch",
     "license": "CC-BY-NC-4.0",
