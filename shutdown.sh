@@ -2,6 +2,8 @@ basename="$(dirname "$0")/"
 rmiArg="rmi"
 rmDbArg="rmdb"
 rmDataArg="rmdata"
+rmPgJarArg="rmpgjar"
+rmGeoDbArg="rmgeodb"
 
 cd $basename/src/services
 docker-compose -p "bda-gr4-domain-analysis" down
@@ -16,6 +18,11 @@ for arg in "$@"; do
     rm -r $basename/src/services/postgres-db/postgres-data
   elif [ $arg = $rmDataArg ]; then
     rm -r $basename/data
+  elif [ $arg = $rmGeoDbArg ]; then
+    rm $basename/src/services/pyspark/GeoLite2-ASN.mmdb
+    rm $basename/src/services/pyspark/GeoLite2-City.mmdb
+  elif [ $arg = $rmPgJarArg ]; then
+    rm $basename/src/services/pyspark/postgresql-42.2.22.jar
   else
     echo "Unknown argument '"$arg"' => will be ignored"
   fi
@@ -32,5 +39,7 @@ echo "Hint: If you also want to remove the domain csv data, the mounted DB stora
 echo " - '"$rmDataArg"' => removes stored csv data"
 echo " - '"$rmDbArg"' => removes the mounted Postgres storage"
 echo " - '"$rmiArg"' => removes all images (if not used by another container)"
+echo " - '"$rmGeoDbArg"' => removes the GeoLite2 database files"
+echo " - '"$rmPgJarArg"' => removes the Postgres driver jar"
 echo "e.g.: bash shutdown.sh $rmiArg $rmDbArg"
 echo "(Of course, if already removed before, there will be a warning prompted for the already deleted container/image/directory"
