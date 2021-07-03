@@ -45,7 +45,7 @@ CREATE TABLE domain_records_checked
 CREATE TABLE ip_v6_information
 (
     top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
-    ipv6_available   BOOLEAN NOT NULL,
+    ipv6_available   BOOLEAN NULL,
     ipv6_error       INTEGER NOT NULL REFERENCES exception_message (id)
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE soa
     refresh                 INTEGER        NULL,
     minimum                 INTEGER        NULL,
     nameservers             VARCHAR(255)[] NULL,
-    nameserver_error        INTEGER        NOT NULL REFERENCES exception_message (id),
+    nameservers_error       INTEGER        NOT NULL REFERENCES exception_message (id),
     nameservers_count       INTEGER NOT NULL
 );
 
