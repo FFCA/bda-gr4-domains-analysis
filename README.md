@@ -7,7 +7,7 @@ and of the [domain analysis](./src) itself.
 
 The repository is structured as follows (all directories that are under version control are linked to their respective README):
 
-- [.github (GitHub Workflows)](./.github/README.md)
+- [.github (GitHub Workflows)](./.github) (see section below)
 - [conceptual-doc (Conceptual Documentation)](./conceptual-doc/README.md)
 - data (not under version control)
 - [src (Source Code for services and package(s))](./src/README.md)
@@ -16,6 +16,17 @@ The repository is structured as follows (all directories that are under version 
 
 The project is licensed as Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0). If you are not familiar with this
 license, read more about it [here](https://creativecommons.org/licenses/by-nc/4.0/).
+
+## Workflow
+
+This project has one [CI pipeline](./.github/workflows/assignment-zip-artifact.yml) for creating an artifact containing:
+
+- The repository as `zip`
+- The LaTeX documentation as `pdf`
+- The presentation converted to `pdf`
+
+All files are renamed including the current date. The pipeline  is triggered on each push to `master`.
+
 
 ## Prerequisites
 
