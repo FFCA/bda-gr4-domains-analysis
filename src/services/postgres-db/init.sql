@@ -156,6 +156,18 @@ SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain AND status_code = 20
 FROM domain_redirection;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION percentage_of_mx_providers_outside_of_germany()
+    RETURNS TABLE
+            (
+                percentage FLOAT
+            )
+AS
+$$
+SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
+              COUNT(iso_code)), 4) AS percentage
+FROM domain_mx_record_geolite2;
+$$ LANGUAGE sql;
+
 -- for Charts:
 
 CREATE FUNCTION top_10_mx_global()
@@ -252,6 +264,54 @@ ORDER BY count DESC
 LIMIT 10
 $$ LANGUAGE sql;
 
+CREATE FUNCTION top_10_mx_asn()
+    RETURNS TABLE
+            (
+                count                          INTEGER,
+                autonomous_system_organization VARCHAR(255)
+            )
+AS
+$$
+SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization
+FROM domain_mx_record_geolite2
+GROUP BY autonomous_system_organization
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION top_10_mx_cities()
+    RETURNS TABLE
+            (
+                count    INTEGER,
+                iso_code VARCHAR(255),
+                city     VARCHAR(255)
+            )
+AS
+$$
+SELECT COUNT(city) count, city, iso_code
+FROM domain_mx_record_geolite2
+GROUP BY city, iso_code
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION top_10_mx_countries()
+    RETURNS TABLE
+            (
+                count    INTEGER,
+                iso_code VARCHAR(255)
+            )
+AS
+$$
+SELECT COUNT(iso_code) count, iso_code
+FROM domain_mx_record_geolite2
+GROUP BY iso_code
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
+-- TODO: Add data to be displayed on map?
+
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
@@ -261,8 +321,7 @@ BEGIN
     NOTIFY watch_domain;
     RETURN NULL;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_a_count_global() RETURNS trigger AS
 $$
@@ -271,8 +330,7 @@ BEGIN
     NOTIFY watch_a_count_global;
     RETURN NULL;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS
 $$
@@ -281,8 +339,7 @@ BEGIN
     NOTIFY watch_mx_count_global;
     RETURN NULL;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_mx_checked_count_global() RETURNS trigger AS
 $$
@@ -291,8 +348,7 @@ BEGIN
     NOTIFY watch_mx_checked_count_global;
     RETURN NULL;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_a_checked_count_global() RETURNS trigger AS
 $$
@@ -301,8 +357,7 @@ BEGIN
     NOTIFY watch_a_checked_count_global;
     RETURN NULL;
 END;
-$$
-    LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE FUNCTION notify_domain_enhanced_based_on_existing_data() RETURNS trigger AS
 $$
@@ -320,8 +375,16 @@ BEGIN
     NOTIFY watch_domain_redirection;
     RETURN NULL;
 END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_domain_mx_record_geolite2() RETURNS trigger AS
 $$
-    LANGUAGE plpgsql;
+DECLARE
+BEGIN
+    NOTIFY watch_domain_mx_record_geolite2;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
 
 
 -- Creation of triggers:
@@ -381,3 +444,11 @@ CREATE TRIGGER domain_redirection_trigger
     ON domain_redirection
     FOR EACH ROW
 EXECUTE PROCEDURE notify_domain_redirection();
+
+CREATE TRIGGER domain_mx_record_geolite2_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON domain_mx_record_geolite2
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_domain_mx_record_geolite2();
