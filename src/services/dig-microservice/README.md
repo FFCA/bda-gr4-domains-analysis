@@ -44,6 +44,15 @@ The following commands are useful for developers:
 
 However, if you are using Windows, the application will not run due to lack of `dig`.
 
+## Docker Image
+
+The dockerized version of this project builds upon:
+
+- `node:16-alpine` (for building the application)
+- `debian:stable-slim` (for running the application)
+
+See [Dockerfile](./Dockerfile).
+
 ## License
 
 The project's [package.json](./package.json) does contain a license: As the whole project, this service is licensed as

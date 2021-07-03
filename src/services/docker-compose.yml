@@ -55,8 +55,6 @@ services:
       - ../../data:/home/jovyan/work/data
       - ./pyspark/notebooks:/home/jovyan/work/notebooks
       - ./pyspark/README.ipynb:/home/jovyan/work/README.ipynb
-      - ./pyspark/GeoLite2-ASN.mmdb:/home/jovyan/work/GeoLite2-ASN.mmdb
-      - ./pyspark/GeoLite2-City.mmdb:/home/jovyan/work/GeoLite2-City.mmdb
 
 networks:
   domain_analysis_network_gr4:

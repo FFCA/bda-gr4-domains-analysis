@@ -59,12 +59,18 @@ socket.on(
 );
 ```
 
-## Build a Docker Image
+## Docker Image
 
-For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since service
+The dockerized version of this project builds upon:
+
+- `node:16-alpine` (both for building and for running the application)
+
+See [Dockerfile](./Dockerfile).
+
+_**Hint:** For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since service
 requires the [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md). Yet, if you
 build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set
-automatically.
+automatically._
 
 ## License
 
