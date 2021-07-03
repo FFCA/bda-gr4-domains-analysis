@@ -417,12 +417,21 @@ export class StatisticsService {
         const chart = this.domainAccessStatusCodes;
         this.domainAccessStatusCodes = {
             titleKey: 'dashboard.chart.domainAccessCodes.title',
-            data: chart?.data ?? [],
+            data: chart?.data.length
+                ? chart.data.map((d, i) => ({
+                      ...d,
+                      label: this.translate.instant(
+                          i === 0
+                              ? 'dashboard.chart.domainAccessCodes.notRedirected'
+                              : 'dashboard.chart.domainAccessCodes.redirected'
+                      ),
+                  }))
+                : [],
             labels: chart?.labels ?? [],
             hasData: !!chart?.data?.length,
             size: chart?.size,
             type: 'bar',
-            showLabels: false,
+            showLabels: true,
             options: DomainAnalysisChart.defaultOptionsWithLabels(
                 this.translate.instant(
                     'dashboard.chart.domainAccessCodes.record'
@@ -435,7 +444,18 @@ export class StatisticsService {
     private onDomainAccessStatusCodesTriggered(data: any): void {
         data = data.sort((a: any, b: any) => a.status_code - b.status_code);
         this.domainAccessStatusCodes.data = [
-            { data: data.map((d: any) => d.count) },
+            {
+                data: data.map((d: any) => d.not_redirected_count),
+                label: this.translate.instant(
+                    'dashboard.chart.domainAccessCodes.notRedirected'
+                ),
+            },
+            {
+                data: data.map((d: any) => d.redirected_count),
+                label: this.translate.instant(
+                    'dashboard.chart.domainAccessCodes.redirected'
+                ),
+            },
         ];
         this.domainAccessStatusCodes.labels = data.map(
             (d: any) => d.status_code

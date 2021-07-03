@@ -87,7 +87,9 @@
             },
             "domainAccessCodes": {
                 "title": "Status-Codes der Domains",
-                "record": "HTTP Status Code"
+                "record": "HTTP Status Code",
+                "redirected": "Weitergeleitet",
+                "notRedirected": "Nicht weitergeleitet"
             },
             "topTenRedirectedTo": {
                 "title": "Domains, zu denen weitergeleitet wird (Top 10)"

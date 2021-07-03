@@ -139,7 +139,8 @@ CREATE FUNCTION percentage_of_redirections()
             )
 AS
 $$
-SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain THEN 1 ELSE 0 END)::numeric / COUNT(redirection)), 4) AS percentage
+SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain THEN 1 ELSE 0 END)::numeric / COUNT(redirection)),
+             4) AS percentage
 FROM domain_redirection;
 $$ LANGUAGE sql;
 
@@ -150,7 +151,8 @@ CREATE FUNCTION percentage_of_redirections_code_200()
             )
 AS
 $$
-SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain AND status_code = 200 THEN 1 ELSE 0 END)::numeric / COUNT(redirection)), 4) AS percentage
+SELECT ROUND((SUM(CASE WHEN redirection != top_level_domain AND status_code = 200 THEN 1 ELSE 0 END)::numeric /
+              COUNT(redirection)), 4) AS percentage
 FROM domain_redirection;
 $$ LANGUAGE sql;
 
@@ -221,14 +223,17 @@ $$ LANGUAGE sql;
 CREATE FUNCTION domain_access_status_codes()
     RETURNS TABLE
             (
-                count       INTEGER,
-                status_code INTEGER
+                not_redirected_count INTEGER,
+                redirected_count     INTEGER,
+                status_code          INTEGER
             )
 AS
 $$
-SELECT COUNT(*), status_code
+SELECT COUNT(CASE WHEN redirection IS NULL OR redirection = top_level_domain THEN 1 END) AS not_redirected_count,
+       COUNT(CASE WHEN redirection != top_level_domain THEN 1 END)                       AS redirected_count,
+       status_code
 FROM domain_redirection
-GROUP BY status_code
+GROUP BY status_code;
 $$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_redirected_to()
