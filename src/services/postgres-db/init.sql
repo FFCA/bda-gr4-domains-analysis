@@ -70,12 +70,14 @@ CREATE TABLE mx_record_checked_count_global
 
 CREATE TABLE soa
 (
-    top_level_domain VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
-    mname            VARCHAR(255)   NULL,
-    refresh          INTEGER        NULL,
-    minimum          INTEGER        NULL,
-    nameservers      VARCHAR(255)[] NULL,
-    nameserver_error INTEGER        NOT NULL REFERENCES exception_message (id)
+    top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
+    soa_name                VARCHAR(255)   NULL,
+    soa_information_error   INTEGER        NOT NULL REFERENCES exception_message (id),
+    refresh                 INTEGER        NULL,
+    minimum                 INTEGER        NULL,
+    nameservers             VARCHAR(255)[] NULL,
+    nameserver_error        INTEGER        NOT NULL REFERENCES exception_message (id),
+    nameservers_count       INTEGER NOT NULL
 );
 
 CREATE TABLE domain_mx_record_geolite2
