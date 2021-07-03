@@ -7,7 +7,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepare": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-        "bda-types-for-children": "npm i && npm pack && cd ../../services/statistics-service && npm uninstall domain-analysis-types && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz && cd ../../services/dashboard && npm uninstall domain-analysis-types && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz"
+        "update-bda-types-in-repo": "npm i && npm pack && cd ../../services/statistics-service && npm uninstall domain-analysis-types && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz && cd ../../services/dashboard && npm uninstall domain-analysis-types && npm i ../../shared-node-modules/domain-analysis-types/domain-analysis-types-1.0.0.tgz"
     },
     "author": "Lucas Larisch",
     "license": "CC-BY-NC-4.0",

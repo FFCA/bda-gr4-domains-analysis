@@ -2,7 +2,7 @@ import { DomainAnalysisEvent } from './model/domain-analysis-event';
 import { DomainAnalysisFunctionName } from './model/domain-analysis-function-name';
 import {
     getDbFunctions,
-    getDbFunctionByEvent,
+    getDbFunctionsByEvent,
     getAllEvents,
 } from './functions/get-data';
 
@@ -13,6 +13,6 @@ export {
     DomainAnalysisEvent,
     DomainAnalysisFunctionName,
     getDbFunctions,
-    getDbFunctionByEvent,
+    getDbFunctionsByEvent,
     getAllEvents,
 };

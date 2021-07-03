@@ -1,8 +1,9 @@
 import { DomainAnalysisEvent } from '../model/domain-analysis-event';
 import { DomainAnalysisFunctionName } from '../model/domain-analysis-function-name';
 
-// TODO Add documentation
-
+/**
+ * Map containing all functions to be triggered for a given event.
+ */
 const eventQueryMap = new Map<
     DomainAnalysisEvent,
     DomainAnalysisFunctionName[]
@@ -52,14 +53,24 @@ const eventQueryMap = new Map<
     ],
 ]);
 
-export const getDbFunctionByEvent = (event: DomainAnalysisEvent): string[] => {
+/**
+ * @param event DB Event the functions for are to be returned.
+ * @return DB functions for the given event.
+ */
+export const getDbFunctionsByEvent = (event: DomainAnalysisEvent): DomainAnalysisFunctionName[] => {
     return eventQueryMap.get(event)!;
 };
 
-export const getDbFunctions = (): Map<DomainAnalysisEvent, string[]> => {
+/**
+ * Returns all DB functions as map with the respective DB event as key.
+ */
+export const getDbFunctions = (): Map<DomainAnalysisEvent, DomainAnalysisFunctionName[]> => {
     return eventQueryMap;
 };
 
+/**
+ * Returns a list of all existing DB events.
+ */
 export const getAllEvents = (): DomainAnalysisEvent[] => {
     return [...eventQueryMap.keys()];
 };
