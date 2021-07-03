@@ -20,14 +20,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tex_path: 'conceptual-doc/main.tex'
-#      - name: Convert PPTX to PDF
-#        run: |
-#          sudo apt-get install unoconv
-#          unoconv -f pdf presentation.pptx
+      - name: Convert PPTX to PDF
+        run: |
+          sudo apt-get install unoconv
+          unoconv -f pdf presentation.pptx
       - name: Rename files
         run: |
           mv conceptual-doc/main.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
-#          mv presentation.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
+          mv presentation.pdf ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
       - name: Zip source code
         uses: montudor/action-zip@v1
         with:
@@ -39,7 +39,5 @@ jobs:
           path: |
             ${{ env.DATE }}-Group-4-Domains-Analysis-Source.zip
             ${{ env.DATE }}-Group-4-Domains-Analysis-Conceptual-Documentation.pdf
-#           ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
+            ${{ env.DATE }}-Group-4-Domains-Analysis-Presentation.pdf
           retention-days: 1
-
-# TODO don't exclude presentation
