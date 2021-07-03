@@ -177,3 +177,6 @@ Once everything is running, you can access:
 - `8321`: [Dashboard](./src/services/dashboard/README.md)
 
 Learn more about the containers and how they are interacting [here](./src/services/README.md).
+
+![Service architecture](architecture.svg)
+

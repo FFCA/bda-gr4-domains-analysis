@@ -21,3 +21,7 @@ Also, docker-compose manages the mounted volumes, i.e.:
     - the repository root's `data` directory (git ignored) (read more about it in the [root README](../../README.md))
     - [Notebooks](./pyspark/notebooks)
     - [Notebook README](./pyspark/README.ipynb)
+
+## Simple diagram visualizing the architecture
+
+![Service architecture](../../architecture.svg)
