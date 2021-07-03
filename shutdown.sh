@@ -28,8 +28,6 @@ for arg in "$@"; do
   fi
 done
 
-# TODO describe in readme
-
 echo
 echo "----------------"
 echo
