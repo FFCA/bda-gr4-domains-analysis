@@ -12,8 +12,7 @@ import { DomainAnalysisChart } from '../../model/internal/domain-analysis-chart'
     styleUrls: ['./dashboard-main.component.scss'],
 })
 export class DashboardMainComponent implements OnInit {
-    // TODO: take real data / add documentation / move to sub-components?
-    // TODO: Use magic grid and option to make diagrams smaller/bigger?
+    // TODO: add documentation?
 
     /**
      * Charts to be displayed.

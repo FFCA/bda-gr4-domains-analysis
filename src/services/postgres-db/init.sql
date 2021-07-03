@@ -312,8 +312,6 @@ ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
 
--- TODO: Add data to be displayed on map?
-
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS

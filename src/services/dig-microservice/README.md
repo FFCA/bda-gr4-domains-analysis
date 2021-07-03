@@ -24,8 +24,6 @@ es will you use this Data to: (1) allow, enable, or otherwise support the transm
 es the right to terminate your access to the WHOIS database in its sole discretion for any violations by you of these terms of use. CSC reserves the right to modify these terms at any time.
 ```
 
-[comment]: <> (TODO: Add license in package.json)
-
 ## Technical information
 
 ### Run this application
