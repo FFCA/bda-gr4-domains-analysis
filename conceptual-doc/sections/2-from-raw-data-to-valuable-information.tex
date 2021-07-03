@@ -8,7 +8,7 @@
     \item Grobe Vorgehensweise
 \end{itemize}
 
-The given data represent DNS specifications concerning '.de' domains, country code top-level domains (ccTLD's)~\autocite[cf.][]{DENICeG.03.07.2021} of the Federal Republic of Germany.
+The given data represent DNS specifications concerning '.de' domains, country code top-level domains (ccTLD's)~\autocite[cf.][]{DENICeG.2021} of the Federal Republic of Germany.
 The objective, gaining insight into the given information, requires the definition of processes covering technological, analytical and organizational aspects to ensure the success of the project.
 
 % Beschreibungen und Komentare aus https://www.bigdata-insider.de/was-ist-crisp-dm-a-815478/
@@ -22,7 +22,7 @@ The objective, gaining insight into the given information, requires the definiti
 \subsection{Data Preparation ...}\label{subsec:datapreparation}
 Data preparation is an essential process beforehand any analysis and thus, should be well documented within the project.
 Therefore, Jupyter notebooks containing the associated steps in code blocks were used to provide the processed information.
-The code blocks were commented on or being accompanied by explanations to ensure transparency and to match best practices in coding~\autocite[cf.][]{Kosourova.23.4.2021}.
+The code blocks were commented on or being accompanied by explanations to ensure transparency and to match best practices in coding~\autocite[cf.][]{Kosourova.2021}.
 The file names are numbered so that the notebooks should be executed consecutively to ensure a clean and smooth delivery of the results.
 
 At first, the required functions are loaded to make them available in the following notebooks.
@@ -39,7 +39,7 @@ To ensure detailed analyses, it is important to collect suitable information whi
     \item Configuration details of the authoritative nameserver (refresh and minimum setting)
 \end{itemize}
 These steps were performed on extracts of the given dataset as its amount (around 4.8 million) could interfere with performant coding.
-As this amount requires corresponding processing steps, parallelization is essential to achieve reasonable runtimes within each code block, which is why we use PySpark, offering native parallelization by using its variant of data frames~\autocite[cf.][]{Weber.21.1.2019} .
+As this amount requires corresponding processing steps, parallelization is essential to achieve reasonable runtimes within each code block, which is why we use PySpark, offering native parallelization by using its variant of data frames~\autocite[cf.][]{Weber.2019}.
 
 A key result of this step was the knowledge, that provided data set contains partially outdated information (e.g.\ A- and MX-records of a top-level domain), that some domains are re-directed or that requesting them raised an HTTP errors code.
 The methods listed above were focused to encounter these issues.
