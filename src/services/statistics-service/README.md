@@ -12,13 +12,14 @@ asynchronous/event-driven architecture ([Socket.io](https://socket.io/)).
 You will need [Node.js](https://nodejs.org/en/) and [npm](https://docs.npmjs.com/cli/v7/commands/npm) installed in order
 to start this project locally (outside of Docker).
 
-Also, make sure you have the [Postgres DB](../../services/postgres-db/README.md) running at port `5432` on `localhost`: Hint: For this purpose, you can also map
-the port of the database in the project's docker compose (`bda-gr-4-domains-analysis/src/services`).
+Also, make sure you have the [Postgres DB](../../services/postgres-db/README.md) running at port `5432` on `localhost`:
+Hint: For this purpose, you can also map the port of the database in the project's
+docker-compose (`bda-gr-4-domains-analysis/src/services`).
 
 In order to load all dependencies, run (in this directory):
 
 ```sh
-npm install 
+npm install
 ```
 
 ### Commands for developing
@@ -31,9 +32,14 @@ The following commands are useful for developers:
 
 ### Emitted events
 
-In order to minimize the complexity of this application, the emitted events are named as the database functions that have
-been called in order to get the respective emitted values. For this purpose, the
+In order to minimize the complexity of this application, the emitted events are named as the database functions that
+have been called in order to get the respective emitted values. For this purpose, the
 shared [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md) is used.
+
+In order to prevent clients from receiving too many notifications, events are only emitted after not receiving any new
+notification from the database for 2 seconds. Also, in order to avoid sending too many data to this backend, it only
+calls a DB function once after these 2 seconds in order to get the data. Read more about
+it [here](../postgres-db/README.md).
 
 ### Subscribe to events as a client
 
