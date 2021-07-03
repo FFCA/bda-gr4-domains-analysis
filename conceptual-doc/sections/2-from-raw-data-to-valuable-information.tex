@@ -45,7 +45,7 @@ To ensure detailed analyses, it is important to collect suitable information whi
     \item Company details concerning MX servers and the server of authority (SOA)
     \item Configuration details of the authoritative nameserver (refresh and minimum setting)
 \end{itemize}
-These steps were performed on extracts of the given dataset as its amount (around 4.8 million) could interfere with performant coding.
+These steps were performed on extracts of the given dataset as its amount could interfere with performant coding.
 As this amount requires corresponding processing steps, parallelization is essential to achieve reasonable runtimes within each code block, which is why we use PySpark, offering native parallelization by using its variant of data frames~\autocite[cf.][]{Weber.2019}.
 
 A key result of this step was the knowledge, that provided data set contains partially outdated information (e.g.\ A- and MX-records of a top-level domain), that some domains are re-directed or that requesting them raised an HTTP errors code.
