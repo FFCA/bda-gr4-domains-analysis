@@ -1,0 +1,63 @@
+\section{Project Realization}\label{sec:project-realization}
+
+\subsection{Business Understanding ...}\label{subsec:businessunderstanding}
+\begin{itemize}
+    \item Ziele (Everything as code, Analysen, Dockerisierung, Notebooks)
+    \item Besonderheiten der Daten (Fehlende, veraltete, unvollständige Angaben) und (Gegen-)Maßnahmen
+    \item Definition Ausfgabenstellung
+    \item Grobe Vorgehensweise
+\end{itemize}
+
+The given data represent DNS specifications concerning '.de' domains, country code top-level domains (ccTLD's) of the Federal Republic of Germany.
+The objective, gaining insight into the given information, requires the definition of processes covering technological, analytical and organizational aspects to ensure the success of the project.
+
+% Beschreibungen und Komentare aus https://www.bigdata-insider.de/was-ist-crisp-dm-a-815478/
+\subsection{Data Understanding ...}\label{subsec:dataunderstanding}
+\begin{itemize}
+    \item Erster Überblick über die Daten (Welche Daten, gibt es Probleme)
+    \item Probelme insbeosndere in Bezug auf die im vorherigen Kapitel benannten Ziele/Aufgabenstellung/Vorgehensweise
+\end{itemize}
+
+\subsection{Data Preparation ...}\label{subsec:datapreparation}
+% Die Datenvorbereitung dient dazu, einen finalen Datensatz zu erstellen, der die Basis für die nächste Phase der Modellierung bildet.
+\begin{itemize}
+    \item Überpüfung der gegebenen Einträge (IP, MX and enhancements)
+    \item Probelme insbeosndere in Bezug auf die im vorherigen Kapitel benannten Ziele/Aufgabenstellung/Vorgehensweise
+\end{itemize}
+
+Data preparation was done using Jupyter notebooks which will provide the processed information, if executed sequentially.
+The notebooks load the required functions, perform the ETL process as basic data preparation step and enhance the given information.
+Furthermore, the existing information are checked for correctness as DNS entries and domains themselves could have changed in the meantime.
+This is done by using Pythons dnspython package to send requests, fetching the information which are then compared with the original entries if necessary.
+To ensure detailed analyses, it is important to collect suitable information which is why we decided to include the following data retrieval steps:
+\begin{itemize}
+    \item Current IP addresses and MX Servers (in comparison to the given data)
+    \item HTTP status code per domain and redirects, applied to certain domains
+    \item Collection of details such as the number of nameservers used per domain and the availability of IPv6 per domain
+    \item Company details concerning MX servers and the server of authority (SOA)
+    \item Configuration details of the authoritative nameserver (refresh and minimum setting)
+\end{itemize}
+As the amount of the given data requires a corresponding number of requests, parallelization is essential to achieve reasonable runtimes.
+The code was designed to keep track of this issue by using PySpark which offers native parallelization by using its adapted variant of dataframes.
+Furthermore, packages and libraries associated with Python are used to process the data and create the necessary base for the analyses.
+
+\subsection{Modeling ...}\label{subsec:modeling}
+% Im Rahmen der Modellierung werden die für die Aufgabenstellung geeigneten Methoden des Data Minings auf den in der Datenvorbereitung erstellten Datensatz angewandt. Typisch für diese Phase sind die Optimierung der Parameter und die Erstellung mehrerer Modelle.
+\subsection{Evaluation ...}\label{subsec:evaluation}
+% %Die Evaluierung sorgt für einen exakten Abgleich der erstellten Datenmodelle mit der Aufgabenstellung und wählt das am besten passende Modell aus.
+\begin{itemize}
+    \item Auswahl am besten passender Modelle (Vorschlag Felix: hier Darstellungen und Auswertungen)
+    \item erste Erkenntnisse anreißen (Status Codes 200 > != 200)?
+\end{itemize}
+
+
+\subsection{Deployment ...}\label{subsec:deployment}
+% Ergebnisaufbereitung
+\begin{itemize}
+    \item Dashboard (Datenfluss, Aufteilung, Inhalte)
+    \item Aktualisierungsvorgang
+\end{itemize}
+
+\subsection{License ...}\label{subsec:license}
+
+\subsection{Start and shut down this project ...}\label{subsec:start-and-shut-down-this-project-...}
