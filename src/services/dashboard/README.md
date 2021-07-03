@@ -15,11 +15,11 @@ screens) indicating being listening to events emitted from the Statistics Servic
 the user about this problem.
 
 The dashboard's layout is card- and tab-based in order to prominently display the data to be presented and dividing it
-into logically coherent sections. Information will either be displayed as KPI or as chart component.
+into logically coherent sections. Information will either be displayed as a KPI or as a chart component.
 
 ### Integrated Dig terminal
 
-The dashboard does also feature an integrated (mocked) terminal for performing dig requests to
+The dashboard does also feature an integrated (mocked) terminal for performing requests to
 the [Dig Microservice](../dig-microservice/README.md). Even though using the Dig service has been discarded for this
 project's [data analysis part](../pyspark/README.md), it is still fully functional and ready-to-use from this client and
 can be accessed through the terminal icon in the bottom right corner (or after opening the hamburger menu on small

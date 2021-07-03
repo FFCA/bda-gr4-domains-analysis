@@ -67,9 +67,9 @@ The dockerized version of this project builds upon:
 
 See [Dockerfile](./Dockerfile).
 
-_**Hint:** For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since service
-requires the [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md). Yet, if you
-build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set
+_**Hint:** For building a Docker Image, the context has to be adjusted to [the monorepo's `src` directory](../..) since
+service requires the [domain analysis types package](../../shared-node-modules/domain-analysis-types/README.md). Yet, if
+you build this image using [docker-compose](../docker-compose.yml) (strongly recommended), the required context is set
 automatically._
 
 ## License
