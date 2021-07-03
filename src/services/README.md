@@ -8,7 +8,7 @@ be own projects ([dashboard](./dashboard), [dig-microservice](./dig-microservice
 
 The containers are communicating through a custom network, i.e. only the required ports are accessible from your machine:
 
-- `8888`: [PySpark](./pyspark/README.md) (Token: `token4711`)
+- `8888`: [PySpark](./pyspark/README.md) (Token: `token4711`, notebooks in: `work/notebooks`)
 - `8321`: [Dashboard](./dashboard/README.md)
 
 ## Volume Mounting

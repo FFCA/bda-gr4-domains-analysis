@@ -168,3 +168,12 @@ docker rmi <image name>
 ```
 
 Again, we strongly recommend the shutdown script.
+
+## Access containers
+
+Once everything is running, you can access:
+
+- `8888`: [PySpark](./src/services/pyspark/README.md) (Token: `token4711`, notebooks in: `work/notebooks`)
+- `8321`: [Dashboard](./src/services/dashboard/README.md)
+
+Learn more about the containers and how they are interacting [here](./src/services/README.md).
