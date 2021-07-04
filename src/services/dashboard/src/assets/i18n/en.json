@@ -125,7 +125,7 @@
                 "record": "Number of nameservers"
             },
             "topTenSoaCountries": {
-                "title": "Number of SOA nameservers grouped by provider countries (Top 10)",
+                "title": "Number of nameservers grouped by provider countries (Top 10)",
                 "record": "Country"
             },
             "topTenSoaAsn": {
@@ -133,7 +133,7 @@
                 "record": "Provider"
             },
             "topTenSoaCities": {
-                "title": "Number of SOA nameservers grouped by provider cities (Top 10)"
+                "title": "Number of nameservers grouped by provider cities (Top 10)"
             },
             "groupedMxCheckedCount": {
                 "title": "Grouped number of (checked) MX-records per domain",

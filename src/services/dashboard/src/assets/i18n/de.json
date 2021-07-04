@@ -121,11 +121,11 @@
                 "title": "Anzahl an MX-Records gruppiert nach Stadt des Providers (Top 10)"
             },
             "soaNameserversCountWhereNoErr": {
-                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain (Request-Errors ausgenommen)",
+                "title": "Gruppierte Anzahl an Nameservern pro Domain (Request-Errors ausgenommen)",
                 "record": "Anzahl an Nameservern"
             },
             "topTenSoaCountries": {
-                "title": "Anzahl an SOA Nameservern gruppiert nach Land des Providers (Top 10)",
+                "title": "Anzahl an Nameservern gruppiert nach Land des Providers (Top 10)",
                 "record": "Land"
             },
             "topTenSoaAsn": {
@@ -133,7 +133,7 @@
                 "record": "Provider"
             },
             "topTenSoaCities": {
-                "title": "Anzahl an SOA-Nameservern gruppiert nach Stadt des Providers (Top 10)"
+                "title": "Anzahl an Nameservern gruppiert nach Stadt des Providers (Top 10)"
             },
             "groupedMxCheckedCount": {
                 "title": "Gruppierte Anzahl (geprüfter) MX-Records pro Domain (Request-Errors ausgenommen)",
