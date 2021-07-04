@@ -59,6 +59,9 @@ socket.on(
 );
 ```
 
+On connection, all events will be emitted to the new connected client. In case of changes to be emitted, i.e. an event
+emitted by the database, the statistics service emits to all of its connected clients.
+
 ## Docker Image
 
 The dockerized version of this project builds upon:
