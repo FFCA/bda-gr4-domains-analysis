@@ -12,3 +12,7 @@ To do so, run:
 ```shell
 docker pull <image>:<tag>
 ```
+
+## Figure visualizing the architecture
+
+![Service architecture](../project-architecture.svg)
