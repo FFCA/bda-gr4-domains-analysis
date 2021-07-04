@@ -15,4 +15,4 @@ docker pull <image>:<tag>
 
 ## Figure visualizing the architecture
 
-![Service architecture](../project-architecture.svg)
+![Service architecture](../project-architecture.png)

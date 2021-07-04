@@ -24,4 +24,4 @@ Also, docker-compose manages the mounted volumes, i.e.:
 
 ## Figure visualizing the architecture
 
-![Service architecture](../../project-architecture.svg)
+![Service architecture](../../project-architecture.png)

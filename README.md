@@ -181,5 +181,4 @@ Learn more about the containers and how they are interacting [here](./src/servic
 
 ## Simple figure visualizing the architecture
 
-![Service architecture](project-architecture.svg)
-
+![Service architecture](project-architecture.png)
