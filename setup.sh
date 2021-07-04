@@ -21,7 +21,7 @@ else
   echo "[Data csv] Failed to find" $datadir$csvFile"!"
   echo "[Data csv] Note: If you started this script with a file path as argument, this path does not seem to exist."
   echo "[Data csv] This script makes sure the application is only called if the required data exists. You have two options:"
-  echo "[Data csv]   1. Download the data and call this script with the path to the downloaded data, e.g. (called from root): bash setup.sh <path to your csv>"
+  echo "[Data csv]   1. Download the data and call this script with the path to the downloaded data, e.g. (called from root): bash setup.sh <absolute path to your csv>"
   echo "[Data csv]   2. Download the data and store it manually as:" $datadir$csvFile "(relative path to the directory this script has been run from)"
   echo "[Data csv] In case of questions, check the assignment specification in Moodle."
   echo "[Data csv] Also, your file name is not relevant as long as it's a csv. E.g. you can copy my_domains_small.csv using this script and it will be renamed to real_domains.csv at the directory it is copied to."
