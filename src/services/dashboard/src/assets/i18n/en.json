@@ -121,7 +121,7 @@
                 "title": "Number of MX-records grouped by provider cities (Top 10)"
             },
             "soaNameserversCountWhereNoErr": {
-                "title": "Grouped number of SOA nameservers per domain (excluding request errors)",
+                "title": "Grouped number of nameservers per domain (excluding request errors)",
                 "record": "Number of nameservers"
             },
             "topTenSoaCountries": {
