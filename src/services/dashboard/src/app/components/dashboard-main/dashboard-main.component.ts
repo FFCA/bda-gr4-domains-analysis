@@ -20,7 +20,7 @@ export class DashboardMainComponent {
     /**
      * The selected tab index.
      */
-    selectedIndex = 4;
+    selectedIndex = 0;
 
     /**
      * @param statistics Injected statistics service.
