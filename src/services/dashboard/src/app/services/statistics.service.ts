@@ -45,6 +45,9 @@ export class StatisticsService {
     private topTenMxCities!: DomainAnalysisChart;
     private topTenMxCountries!: DomainAnalysisChart;
     private soaNameserversCountWhereNoErr!: DomainAnalysisChart;
+    private topTenSoaAsn!: DomainAnalysisChart;
+    private topTenSoaCities!: DomainAnalysisChart;
+    private topTenSoaCountries!: DomainAnalysisChart;
 
     // Objects for each KPI to be displayed
     private domainCount!: DomainAnalysisKpi;
@@ -55,6 +58,7 @@ export class StatisticsService {
     private percentageOfIpV6!: DomainAnalysisKpi;
     private avgSoaMinimum!: DomainAnalysisKpi;
     private avgSoaRefresh!: DomainAnalysisKpi;
+    private percentageOfSoaOutsideOfGermany!: DomainAnalysisKpi;
 
     /**
      * Socket for asynchronous communication.
@@ -143,6 +147,11 @@ export class StatisticsService {
             (data: any) => this.onAvgSoaRefreshTriggered(data)
         );
 
+        this.socket.on(
+            DomainAnalysisFunctionName.SOA_OUTSIDE_GER,
+            (data: any) => this.onPercentageSoaOutsideOfGermanyTriggered(data)
+        );
+
         // Charts:
 
         this.socket.on(
@@ -202,6 +211,21 @@ export class StatisticsService {
         this.socket.on(
             DomainAnalysisFunctionName.SOA_NAMESERVERS_COUNT_WHERE_NO_ERR,
             (data: any) => this.onSoaNameserversCountWhereNoErrTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.SOA_TOP_TEN_ASN,
+            (data: any) => this.onTopTenSoaAsnTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_CITIES,
+            (data: any) => this.onTopTenSoaCitiesTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
+            (data: any) => this.onTopTenSoaCountriesTriggered(data)
         );
     }
 
@@ -302,9 +326,18 @@ export class StatisticsService {
             isPercentage: true,
         };
 
-        this.avgSoaMinimum = { translationKey: 'dashboard.kpi.soaAvgMinimumInS' };
+        this.avgSoaMinimum = {
+            translationKey: 'dashboard.kpi.soaAvgMinimumInS',
+        };
 
-        this.avgSoaRefresh = { translationKey: 'dashboard.kpi.soaAvgRefreshInS' };
+        this.avgSoaRefresh = {
+            translationKey: 'dashboard.kpi.soaAvgRefreshInS',
+        };
+
+        this.percentageOfSoaOutsideOfGermany = {
+            translationKey: 'dashboard.kpi.percentageOfSoaOutsideOfGermany',
+            isPercentage: true,
+        };
 
         this.tab00Descriptive.kpis = [
             this.domainCount,
@@ -324,6 +357,7 @@ export class StatisticsService {
             this.percentageOfIpV6,
             this.avgSoaMinimum,
             this.avgSoaRefresh,
+            this.percentageOfSoaOutsideOfGermany,
         ];
     }
 
@@ -376,7 +410,15 @@ export class StatisticsService {
         ];
 
         this.initSoaNameserversCountWhereNoErr();
-        this.tab04ipv6Soa.charts = [this.soaNameserversCountWhereNoErr];
+        this.initTopTenSoaAsn();
+        this.initTopTenSoaCities();
+        this.initTopTenSoaCountries();
+        this.tab04ipv6Soa.charts = [
+            this.soaNameserversCountWhereNoErr,
+            this.topTenSoaAsn,
+            this.topTenSoaCities,
+            this.topTenSoaCountries,
+        ];
     }
 
     // Functions called on KPI changes, implemented using the following schema:
@@ -412,6 +454,10 @@ export class StatisticsService {
 
     private onAvgSoaRefreshTriggered(data: any): void {
         this.avgSoaRefresh.value = data[0].avg;
+    }
+
+    private onPercentageSoaOutsideOfGermanyTriggered(data: any): void {
+        this.percentageOfSoaOutsideOfGermany.value = data[0].percentage;
     }
 
     // Initialization functions and functions called in case of chart data changes.
@@ -772,5 +818,85 @@ export class StatisticsService {
             )}: ${d.nameservers_cont}`;
         });
         this.soaNameserversCountWhereNoErr.hasData = data.length;
+    }
+
+    // topTenSoaAsn
+
+    private initTopTenSoaAsn(): void {
+        const chart = this.topTenSoaAsn;
+        this.topTenSoaAsn = {
+            titleKey: 'dashboard.chart.topTenSoaAsn.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant('dashboard.chart.topTenSoaAsn.record'),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onTopTenSoaAsnTriggered(data: any): void {
+        this.topTenSoaAsn.data = [{ data: data.map((d: any) => d.count) }];
+        this.topTenSoaAsn.labels = data.map(
+            (d: any) => `${d.autonomous_system_organization} (${d.iso_code})`
+        );
+        this.topTenSoaAsn.hasData = data.length;
+    }
+
+    // topTenSoaCities
+
+    private initTopTenSoaCities(): void {
+        const chart = this.topTenSoaCities;
+        this.topTenSoaCities = {
+            titleKey: 'dashboard.chart.topTenSoaCities.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'pie',
+            showLabels: true,
+            options: { responsive: true },
+        };
+    }
+
+    private onTopTenSoaCitiesTriggered(data: any): void {
+        this.topTenSoaCities.data = [{ data: data.map((d: any) => d.count) }];
+        this.topTenSoaCities.labels = data.map(
+            (d: any) => `${d.city} (${d.iso_code})`
+        );
+        this.topTenSoaCities.hasData = data.length;
+    }
+
+    // topTenSoaCountries
+
+    private initTopTenSoaCountries(): void {
+        const chart = this.topTenSoaCountries;
+        this.topTenSoaCountries = {
+            titleKey: 'dashboard.chart.topTenSoaCountries.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.topTenSoaCountries.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onTopTenSoaCountriesTriggered(data: any): void {
+        this.topTenSoaCountries.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.topTenSoaCountries.labels = data.map((d: any) => d.iso_code);
+        this.topTenSoaCountries.hasData = data.length;
     }
 }

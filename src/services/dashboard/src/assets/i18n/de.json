@@ -71,7 +71,8 @@
             "percentageOfMxOutsideOfGermany": "Prozentzahl an MX-Records von E-Mail-Providern außerhalb Deutschlands",
             "percentageOfIpV6ExcludingErrors": "Percentage of domains supporting IPv6 (excluding request errors)",
             "soaAvgMinimumInS": "Durchschnittlicher SOA \"Minimum\"-Wert in Sekunden",
-            "soaAvgRefreshInS": "Durchschnittlicher SOA \"Refresh\"-Wert in Sekunden"
+            "soaAvgRefreshInS": "Durchschnittlicher SOA \"Refresh\"-Wert in Sekunden",
+          "percentageOfSoaOutsideOfGermany": "Prozentzahl an Nameservern von Providern außerhalb Deutschlands"
         },
         "chart": {
             "mxTop10": {
@@ -119,6 +120,17 @@
             "soaNameserversCountWhereNoErr": {
                 "title": "Gruppierte Anzahl an SOA Nameservern pro Domain (Request-Error ausgenommen)",
                 "record": "Anzahl an Nameservern"
+            },
+            "topTenSoaCountries": {
+                "title": "Anzahl an SOA Nameservern gruppiert nach Land des Providers (Top 10)",
+                "record": "Land"
+            },
+            "topTenSoaAsn": {
+                "title": "Meistverbreitete Nameserver-Provider (Top 10)",
+                "record": "Provider"
+            },
+            "topTenSoaCities": {
+                "title": "Anzahl an SOA-Nameservern gruppiert nach Stadt des Providers (Top 10)"
             }
         }
     }
