@@ -44,7 +44,9 @@ You will need the [Angular CLI](https://angular.io/cli) (incl. [Node.js](https:/
 and [npm](https://docs.npmjs.com/cli/v7/commands/npm)) to be installed in order to start this project locally (outside
 of Docker).
 
-In order to load all dependencies, run (in this directory):
+Also make sure you have a local [dig service](../dig-microservice/README.md) running on port `8080` and a [statistics service](../statistics-service/README.md) running on port `8081`.
+
+Then, install the types package as described [here](../../shared-node-modules/domain-analysis-types/README.md). In order to load all other dependencies, run (in this directory):
 
 ```sh
 npm install
