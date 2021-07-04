@@ -48,6 +48,8 @@ export class StatisticsService {
     private topTenSoaAsn!: DomainAnalysisChart;
     private topTenSoaCities!: DomainAnalysisChart;
     private topTenSoaCountries!: DomainAnalysisChart;
+    private groupedMxCheckedCount!: DomainAnalysisChart;
+    private groupedACheckedCount!: DomainAnalysisChart;
 
     // Objects for each KPI to be displayed
     private domainCount!: DomainAnalysisKpi;
@@ -59,6 +61,9 @@ export class StatisticsService {
     private avgSoaMinimum!: DomainAnalysisKpi;
     private avgSoaRefresh!: DomainAnalysisKpi;
     private percentageOfSoaOutsideOfGermany!: DomainAnalysisKpi;
+    private percentageOfMxCheckedUsingLocalhost!: DomainAnalysisKpi;
+    private percentageOfADiffIgnoringErrs!: DomainAnalysisKpi;
+    private percentageOfMxDiffIgnoringErrs!: DomainAnalysisKpi;
 
     /**
      * Socket for asynchronous communication.
@@ -152,6 +157,22 @@ export class StatisticsService {
             (data: any) => this.onPercentageSoaOutsideOfGermanyTriggered(data)
         );
 
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_CHECKED_LOCALHOST,
+            (data: any) =>
+                this.onPercentageOfMxCheckedUsingLocalhostTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_DIFF_IGNORING_ERRS,
+            (data: any) => this.onPercentageOfMxDiffIgnoringErrsTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_OF_A_DIFF_IGNORING_ERRS,
+            (data: any) => this.onPercentageOfADiffIgnoringErrsTriggered(data)
+        );
+
         // Charts:
 
         this.socket.on(
@@ -226,6 +247,16 @@ export class StatisticsService {
         this.socket.on(
             DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
             (data: any) => this.onTopTenSoaCountriesTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.MX_CHECKED_COUNT_GROUPED,
+            (data: any) => this.onGroupedMxCheckedCountTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.A_CHECKED_COUNT_GROUPED,
+            (data: any) => this.onGroupedACheckedCountTriggered(data)
         );
     }
 
@@ -339,12 +370,31 @@ export class StatisticsService {
             isPercentage: true,
         };
 
+        this.percentageOfMxCheckedUsingLocalhost = {
+            translationKey: 'dashboard.kpi.percentageOfMxCheckedUsingLocalhost',
+            isPercentage: true,
+        };
+
+        this.percentageOfADiffIgnoringErrs = {
+            translationKey: 'dashboard.kpi.percentageOfADiffIgnoringErrs',
+            isPercentage: true,
+        };
+
+        this.percentageOfMxDiffIgnoringErrs = {
+            translationKey: 'dashboard.kpi.percentageOfMxDiffIgnoringErrs',
+            isPercentage: true,
+        };
+
         this.tab00Descriptive.kpis = [
             this.domainCount,
             this.percentageOfMxLocalhost,
         ];
 
-        // this.tab01Checked.kpis = [];
+        this.tab01Checked.kpis = [
+            this.percentageOfMxCheckedUsingLocalhost,
+            this.percentageOfADiffIgnoringErrs,
+            this.percentageOfMxDiffIgnoringErrs,
+        ];
 
         this.tab02Redirect.kpis = [
             this.percentageOfRedirections,
@@ -379,9 +429,13 @@ export class StatisticsService {
 
         this.initMxCheckedGlobalData();
         this.initACheckedGlobalData();
+        this.initGroupedMxCheckedCount();
+        this.initGroupedACheckedCount();
         this.tab01Checked.charts = [
             this.mxCheckedCountGlobal,
             this.aCheckedCountGlobal,
+            this.groupedMxCheckedCount,
+            this.groupedACheckedCount,
         ];
 
         this.initDomainAccessStatusCodes();
@@ -458,6 +512,18 @@ export class StatisticsService {
 
     private onPercentageSoaOutsideOfGermanyTriggered(data: any): void {
         this.percentageOfSoaOutsideOfGermany.value = data[0].percentage;
+    }
+
+    private onPercentageOfMxCheckedUsingLocalhostTriggered(data: any): void {
+        this.percentageOfMxCheckedUsingLocalhost.value = data[0].percentage;
+    }
+
+    private onPercentageOfADiffIgnoringErrsTriggered(data: any): void {
+        this.percentageOfADiffIgnoringErrs.value = data[0].percentage;
+    }
+
+    private onPercentageOfMxDiffIgnoringErrsTriggered(data: any): void {
+        this.percentageOfMxDiffIgnoringErrs.value = data[0].percentage;
     }
 
     // Initialization functions and functions called in case of chart data changes.
@@ -898,5 +964,77 @@ export class StatisticsService {
         ];
         this.topTenSoaCountries.labels = data.map((d: any) => d.iso_code);
         this.topTenSoaCountries.hasData = data.length;
+    }
+
+    // groupedACheckedCount
+
+    private initGroupedACheckedCount(): void {
+        const chart = this.groupedACheckedCount;
+        this.groupedACheckedCount = {
+            titleKey: 'dashboard.chart.groupedACheckedCount.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.groupedACheckedCount.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onGroupedACheckedCountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.mx_record_count - b.mx_record_count
+        );
+        this.groupedACheckedCount.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.groupedACheckedCount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.a_record_checked_count
+            }`;
+        });
+        this.groupedACheckedCount.hasData = data.length;
+    }
+
+    // groupedMxCheckedCount
+
+    private initGroupedMxCheckedCount(): void {
+        const chart = this.groupedMxCheckedCount;
+        this.groupedMxCheckedCount = {
+            titleKey: 'dashboard.chart.groupedMxCheckedCount.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.groupedMxCheckedCount.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onGroupedMxCheckedCountTriggered(data: any): void {
+        data = data.sort(
+            (a: any, b: any) => a.mx_record_count - b.mx_record_count
+        );
+        this.groupedMxCheckedCount.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.groupedMxCheckedCount.labels = data.map((d: any) => {
+            return `${this.translate.instant('dashboard.dataLabel.records')}: ${
+                d.mx_record_checked_count
+            }`;
+        });
+        this.groupedMxCheckedCount.hasData = data.length;
     }
 }

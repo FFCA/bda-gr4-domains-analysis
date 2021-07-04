@@ -228,6 +228,42 @@ SELECT ROUND(AVG(refresh))
 FROM soa;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION percentage_of_mx_checked_has_localhost()
+    RETURNS TABLE
+        (
+        percentage FLOAT
+        )
+    AS
+$$
+SELECT ROUND((SUM(CASE WHEN 'localhost'=ANY(mx_record_checked) THEN 1 ELSE 0 END)::numeric /
+              COUNT(mx_record_checked)), 4) AS percentage
+FROM domain_records_checked;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION percentage_of_diff_a_records_ignoring_errs()
+    RETURNS TABLE
+        (
+        percentage FLOAT
+        )
+    AS
+$$
+SELECT ROUND((1 - SUM(CASE WHEN a_record = a_record_checked THEN 1 ELSE 0 END)::numeric /
+              COUNT(a_record_checked)), 4) AS percentage
+FROM domain d INNER JOIN domain_records_checked c on d.top_level_domain = c.top_level_domain;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION percentage_of_diff_mx_records_ignoring_errs()
+    RETURNS TABLE
+        (
+        percentage FLOAT
+        )
+    AS
+$$
+SELECT ROUND((1 - SUM(CASE WHEN mx_record = mx_record_checked THEN 1 ELSE 0 END)::numeric /
+              COUNT(mx_record_checked)), 4) AS percentage
+FROM domain d INNER JOIN domain_records_checked c on d.top_level_domain = c.top_level_domain;
+$$ LANGUAGE sql;
+
 -- for Charts:
 
 CREATE FUNCTION top_10_mx_global()
@@ -431,6 +467,36 @@ ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION a_checked_count_grouped()
+    RETURNS TABLE
+        (
+        count                  INTEGER,
+        a_record_checked_count INTEGER
+        )
+    AS
+$$
+SELECT COUNT(*), COALESCE(CARDINALITY(a_record_checked), 0) a_record_checked_count
+FROM domain_records_checked
+WHERE a_record_checked_error = 0
+GROUP BY a_record_checked_count
+ORDER BY a_record_checked_count;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION mx_checked_count_grouped()
+    RETURNS TABLE
+        (
+        count                   INTEGER,
+        mx_record_checked_count INTEGER
+        )
+    AS
+$$
+SELECT COUNT(*), COALESCE(CARDINALITY(mx_record_checked), 0) mx_record_checked_count
+FROM domain_records_checked
+WHERE mx_record_checked_error = 0
+GROUP BY mx_record_checked_count
+ORDER BY mx_record_checked_count;
+$$ LANGUAGE sql;
+
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
@@ -532,6 +598,15 @@ RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION notify_domain_records_checked() RETURNS trigger AS
+    $$
+DECLARE
+BEGIN
+    NOTIFY watch_domain_records_checked;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Creation of triggers:
 
 CREATE TRIGGER domain_trigger
@@ -621,3 +696,11 @@ DELETE
 ON soa_top_ten
     FOR EACH ROW
 EXECUTE PROCEDURE notify_soa_top_ten();
+
+CREATE TRIGGER domain_records_checked_trigger
+    AFTER INSERT OR
+UPDATE OR
+DELETE
+ON domain_records_checked
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_domain_records_checked();
