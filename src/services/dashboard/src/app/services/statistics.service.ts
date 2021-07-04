@@ -214,21 +214,21 @@ export class StatisticsService {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.checked',
-            tabExplanationKey: 'dashboard.tabExplanation.checked', // TODO Add explanation
+            tabExplanationKey: 'dashboard.tabExplanation.checked',
         };
 
         this.tab02Redirect = {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.redirect',
-            tabExplanationKey: 'dashboard.tabExplanation.redirect', // TODO Add explanation
+            tabExplanationKey: 'dashboard.tabExplanation.redirect',
         };
 
         this.tab04MxGeo = {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.mxGeo',
-            tabExplanationKey: 'dashboard.tabExplanation.mxGeo', // TODO Add explanation
+            tabExplanationKey: 'dashboard.tabExplanation.mxGeo',
         };
 
         this.displayedTabs = [
