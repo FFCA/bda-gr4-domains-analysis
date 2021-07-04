@@ -22,4 +22,8 @@ export enum DomainAnalysisFunctionName {
     AVG_SOA_MINIMUM = 'avg_soa_minimum',
     AVG_SOA_REFRESH = 'avg_soa_refresh',
     SOA_NAMESERVERS_COUNT_WHERE_NO_ERR = 'soa_nameservers_count_where_no_err',
+    SOA_TOP_TEN_CITIES = 'top_10_soa_cities',
+    SOA_TOP_TEN_ASN = 'top_10_soa_asn',
+    SOA_TOP_TEN_COUNTRIES = 'top_10_soa_countries',
+    SOA_OUTSIDE_GER = "percentage_of_soa_providers_outside_of_germany"
 }

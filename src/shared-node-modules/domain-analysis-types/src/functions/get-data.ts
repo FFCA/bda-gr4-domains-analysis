@@ -63,6 +63,15 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.SOA_NAMESERVERS_COUNT_WHERE_NO_ERR,
         ],
     ],
+    [
+        DomainAnalysisEvent.SOA_TOP_TEN,
+        [
+            DomainAnalysisFunctionName.SOA_TOP_TEN_CITIES,
+            DomainAnalysisFunctionName.SOA_TOP_TEN_ASN,
+            DomainAnalysisFunctionName.SOA_TOP_TEN_COUNTRIES,
+            DomainAnalysisFunctionName.SOA_OUTSIDE_GER,
+        ],
+    ],
 ]);
 
 /**

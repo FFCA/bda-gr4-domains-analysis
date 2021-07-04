@@ -182,6 +182,18 @@ SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
 FROM domain_mx_record_geolite2;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION percentage_of_soa_providers_outside_of_germany()
+    RETURNS TABLE
+        (
+        percentage FLOAT
+        )
+    AS
+$$
+SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
+              COUNT(iso_code)), 4) AS percentage
+FROM soa_top_ten;
+$$ LANGUAGE sql;
+
 CREATE FUNCTION percentage_has_ip_v6()
     RETURNS TABLE
         (
@@ -372,6 +384,53 @@ WHERE nameservers_error = 0
 GROUP BY nameservers_count;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION top_10_soa_countries()
+    RETURNS TABLE
+        (
+            count    INTEGER,
+            iso_code VARCHAR(3)
+        )
+    AS
+$$
+SELECT COUNT(iso_code) count, iso_code
+FROM soa_top_ten
+GROUP BY iso_code
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION top_10_soa_asn()
+    RETURNS TABLE
+        (
+        count                          INTEGER,
+        autonomous_system_organization VARCHAR(255),
+        iso_code                       VARCHAR(3)
+        )
+    AS
+$$
+SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization, iso_code
+FROM soa_top_ten
+GROUP BY autonomous_system_organization, iso_code
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION top_10_soa_cities()
+    RETURNS TABLE
+        (
+        count    INTEGER,
+        city     VARCHAR(255),
+        iso_code VARCHAR(3)
+        )
+    AS
+$$
+SELECT COUNT(city) count, city, iso_code
+FROM soa_top_ten
+GROUP BY city, iso_code
+ORDER BY count DESC
+LIMIT 10;
+$$ LANGUAGE sql;
+
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
@@ -464,6 +523,15 @@ RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION notify_soa_top_ten() RETURNS trigger AS
+    $$
+DECLARE
+BEGIN
+    NOTIFY watch_soa_top_ten;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Creation of triggers:
 
 CREATE TRIGGER domain_trigger
@@ -540,8 +608,16 @@ EXECUTE PROCEDURE notify_ip_v6_information();
 
 CREATE TRIGGER soa_trigger
     AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON soa
+UPDATE OR
+DELETE
+ON soa
     FOR EACH ROW
 EXECUTE PROCEDURE notify_soa();
+
+CREATE TRIGGER soa_top_ten_trigger
+    AFTER INSERT OR
+UPDATE OR
+DELETE
+ON soa_top_ten
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_soa_top_ten();
