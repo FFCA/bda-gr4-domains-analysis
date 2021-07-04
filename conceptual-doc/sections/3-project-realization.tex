@@ -37,7 +37,7 @@ Furthermore, it contains a mocked terminal for performing requests to the Dig Se
 
 Even though its usage within the scope of this project's data analysis part was discarded as the required functionality was solved in another way, the Dig Microservice allows performing \texttt{dig}-requests through HTTP due to running in a container based on Linux Debian.
 
-\subsection{Perks of Using Node.js}\label{subsec:choosing-a-node-based-environment}
+\subsection{Benefits of Using Node.js}\label{subsec:choosing-a-node-based-environment}
 
 Both the dig microservice, and the statistics service are Node.js applications written in TypeScript.
 In this project's context, this was a deliberate decision considering several aspects to be described in the following.
@@ -55,8 +55,9 @@ Considering base images are only downloaded once and referenced by each containe
 
 \subsection{Event-driven Architecture}\label{subsec:event-driven-architecture}
 
-In order to improve the user experience (UX), the dashboard is loaded asynchronously.
+In order to improve the user experience (UX), the dashboard is loaded asynchronously.~\autocite[cf.][]{Shah.2021}
 Therefore, using Socket.io, it subscribes to events emitted from the statistics service and updates the respective values dynamically.
+On connecting, the client (only this instance) receives the data for all events from the statistics service.
 
 The server, on the other hand, subscribes to notifications from the database.
 In order to avoid sending an unnecessary amount of data, the payload emitted by the database is always \texttt{NULL}, i.e.\ subscribers are only informed about changes but not about what has changed.
