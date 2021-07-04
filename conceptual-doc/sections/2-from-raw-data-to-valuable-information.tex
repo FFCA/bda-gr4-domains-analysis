@@ -18,7 +18,6 @@ As the amount of data and processes to handle them offer various analyses, the f
 These objectives as well as the processes explained in the following sections are supposed to provide detailed analysis of DNS record information within the context of big data.
 
 
-% Beschreibungen und Komentare aus https://www.bigdata-insider.de/was-ist-crisp-dm-a-815478/
 
 \subsection{Data Understanding}\label{subsec:dataunderstanding}
 After the concrete goals and requirements have been defined in the Business Understanding phase, a close look is taken at the existing basic data.
@@ -43,10 +42,7 @@ To gain an understanding of the data, it is described below:
    \end{tabular}
    \end{center}
 
-\begin{itemize}
-    \item Erster Überblick über die Daten (Welche Daten, gibt es Probleme)
-    \item Probelme insbeosndere in Bezug auf die im vorherigen Kapitel benannten Ziele/Aufgabenstellung/Vorgehensweise
-\end{itemize}
+
 
 \subsection{Data Preparation}\label{subsec:datapreparation}
 Data preparation is an essential process beforehand any analysis and thus, should be well documented within the project.
@@ -79,11 +75,16 @@ Models used in data mining were not implemented within the project in favor of d
 The application of reasonable models like pattern recognition (e.g. Clustering methods) may require further data that could be realized in a follow-up project.
 However, this is a challenging task concerning information retrieval, data storage, and loading which requires further enhancements and awareness of performance issues.
 
+
+
 \subsection{Evaluation}\label{subsec:evaluation}
 After preparing the data to build a predictive model, the final goal is to verify the predictive accuracy.
 In this phase, the entire process including data availability, data quality, and use case coverage is analyzed~\autocite[cf.][]{Semmelmann.2020}.
 As models were not used within this project, an evaluation of such was not done.
 Re-evaluation of created models would be a continuous step in the project to keep track of changing requirements (analyses) and of the frequent changes of the data justified on the given context.
 
+
 \subsection{Deployment}\label{subsec:deployment}
-For details concerning deployment, see section~\ref{sec:project-realization}.
+As deployment is an essential part of the provision of the results of the project, it was aimed to follow the approach 'everything as code'.
+
+The successful realization of this objective requires several techniques and software to work properly, which is why detailed descriptions of the implementation within this project are available in section~\ref{sec:project-realization}.
