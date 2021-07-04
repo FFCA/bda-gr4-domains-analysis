@@ -743,7 +743,7 @@ export class StatisticsService {
     // soaNameserversCountWhereNoErr
 
     private initSoaNameserversCountWhereNoErr(): void {
-        const chart = this.topTenMxCountries;
+        const chart = this.soaNameserversCountWhereNoErr;
         this.soaNameserversCountWhereNoErr = {
             titleKey: 'dashboard.chart.soaNameserversCountWhereNoErr.title',
             data: chart?.data ?? [],

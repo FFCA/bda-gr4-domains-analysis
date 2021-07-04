@@ -117,7 +117,7 @@
                 "title": "Anzahl an MX-Records gruppiert nach Stadt des Providers (Top 10)"
             },
             "soaNameserversCountWhereNoErr": {
-                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain",
+                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain (Request-Error ausgenommen)",
                 "record": "Anzahl an Nameservern"
             }
         }
