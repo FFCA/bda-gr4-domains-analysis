@@ -53,8 +53,8 @@
             "descriptive": "Descriptive Information",
             "checked": "Updated Records",
             "redirect": "Accessibility",
-            "mxGeo": "Mail servers",
-            "ipv6soa": "IPv6, SOA details and companies"
+            "mxGeo": "Mail Servers",
+            "ipv6soa": "IPv6, SOA Details and Companies"
         },
         "tabExplanation": {
             "descriptive": "This tab contains descriptive information concerning the imported dataset and certain enhancements. The total number of Top-Level domains (TLD), the percentage of domains having 'localhost' configured as MX-record are provided. Furthermore, MX-record information (most common servers and the number of MX servers per TLD) including respective information about A-records are available.",
