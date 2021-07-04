@@ -69,10 +69,13 @@
             "percentageOfRedirections": "Prozentzahl an Weiterleitungen (Null-Werte ausgeschlossen)",
             "percentageOfRedirections200": "Prozentzahl an Weiterleitungen mit Statuscode 200 (Null-Werte ausgeschlossen)",
             "percentageOfMxOutsideOfGermany": "Prozentzahl an MX-Records von E-Mail-Providern außerhalb Deutschlands",
-            "percentageOfIpV6ExcludingErrors": "Percentage of domains supporting IPv6 (excluding request errors)",
+            "percentageOfIpV6ExcludingErrors": "Prozentzahl an Domains, die IPv6 unterstützen (Request-Errors ausgenommen)",
             "soaAvgMinimumInS": "Durchschnittlicher SOA \"Minimum\"-Wert in Sekunden",
             "soaAvgRefreshInS": "Durchschnittlicher SOA \"Refresh\"-Wert in Sekunden",
-          "percentageOfSoaOutsideOfGermany": "Prozentzahl an Nameservern von Providern außerhalb Deutschlands"
+            "percentageOfSoaOutsideOfGermany": "Prozentzahl an Nameservern von Providern außerhalb Deutschlands",
+            "percentageOfMxCheckedUsingLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record (geprüft)",
+            "percentageOfADiffIgnoringErrs": "Prozentzahl geänderter A-Records (Request-Errors ausgenommen)",
+            "percentageOfMxDiffIgnoringErrs": "Prozentzahl geänderter MX-Records (Request-Errors ausgenommen)"
         },
         "chart": {
             "mxTop10": {
@@ -118,7 +121,7 @@
                 "title": "Anzahl an MX-Records gruppiert nach Stadt des Providers (Top 10)"
             },
             "soaNameserversCountWhereNoErr": {
-                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain (Request-Error ausgenommen)",
+                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain (Request-Errors ausgenommen)",
                 "record": "Anzahl an Nameservern"
             },
             "topTenSoaCountries": {
@@ -131,6 +134,14 @@
             },
             "topTenSoaCities": {
                 "title": "Anzahl an SOA-Nameservern gruppiert nach Stadt des Providers (Top 10)"
+            },
+            "groupedMxCheckedCount": {
+                "title": "Gruppierte Anzahl (geprüfter) MX-Records pro Domain (Request-Errors ausgenommen)",
+                "record": "Anzahl an MX-Records"
+            },
+            "groupedACheckedCount": {
+                "title": "Gruppierte Anzahl (geprüfter) A-Records pro Domain (Request-Errors ausgenommen)",
+                "record": "Anzahl an A-Records"
             }
         }
     }

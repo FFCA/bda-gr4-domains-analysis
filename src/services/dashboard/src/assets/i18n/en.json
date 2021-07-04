@@ -72,7 +72,10 @@
             "percentageOfIpV6ExcludingErrors": "Percentage of domains supporting IPv6 (excluding request errors)",
             "soaAvgMinimumInS": "Average SOA \"Minimum\" value in seconds",
             "soaAvgRefreshInS": "Average SOA \"Refresh\" value in seconds",
-            "percentageOfSoaOutsideOfGermany": "Percentage of nameservers from providers head-quartered outside of Germany"
+            "percentageOfSoaOutsideOfGermany": "Percentage of nameservers from providers head-quartered outside of Germany",
+            "percentageOfMxCheckedUsingLocalhost": "Percentage of domains with \"localhost\" as MX-record (updated)",
+            "percentageOfADiffIgnoringErrs": "Percentage of changed A-records (excluding request errors)",
+            "percentageOfMxDiffIgnoringErrs": "Percentage of changed MX-records (excluding request errors)"
         },
         "chart": {
             "mxTop10": {
@@ -131,6 +134,14 @@
             },
             "topTenSoaCities": {
                 "title": "Number of SOA nameservers grouped by provider cities (Top 10)"
+            },
+            "groupedMxCheckedCount": {
+                "title": "Grouped number of (checked) MX-records per domain",
+                "record": "Number of MX-records"
+            },
+            "groupedACheckedCount": {
+                "title": "Grouped number of (checked) A-records per domain",
+                "record": "Number of A-records"
             }
         }
     }

@@ -25,5 +25,10 @@ export enum DomainAnalysisFunctionName {
     SOA_TOP_TEN_CITIES = 'top_10_soa_cities',
     SOA_TOP_TEN_ASN = 'top_10_soa_asn',
     SOA_TOP_TEN_COUNTRIES = 'top_10_soa_countries',
-    SOA_OUTSIDE_GER = "percentage_of_soa_providers_outside_of_germany"
+    SOA_OUTSIDE_GER = 'percentage_of_soa_providers_outside_of_germany',
+    PERCENTAGE_OF_MX_CHECKED_LOCALHOST = 'percentage_of_mx_checked_has_localhost',
+    PERCENTAGE_OF_A_DIFF_IGNORING_ERRS = 'percentage_of_diff_a_records_ignoring_errs',
+    PERCENTAGE_OF_MX_DIFF_IGNORING_ERRS = 'percentage_of_diff_mx_records_ignoring_errs',
+    A_CHECKED_COUNT_GROUPED = 'a_checked_count_grouped',
+    MX_CHECKED_COUNT_GROUPED = 'mx_checked_count_grouped',
 }

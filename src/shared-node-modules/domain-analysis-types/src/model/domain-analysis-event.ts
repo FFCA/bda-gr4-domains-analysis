@@ -13,4 +13,5 @@ export enum DomainAnalysisEvent {
     IP_V6_INFORMATION = 'watch_ip_v6_information',
     SOA = 'watch_soa',
     SOA_TOP_TEN = 'watch_soa_top_ten',
+    DOMAIN_RECORDS_CHECKED = 'watch_domain_records_checked',
 }

@@ -72,6 +72,16 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.SOA_OUTSIDE_GER,
         ],
     ],
+    [
+        DomainAnalysisEvent.DOMAIN_RECORDS_CHECKED,
+        [
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_CHECKED_LOCALHOST,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_A_DIFF_IGNORING_ERRS,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_DIFF_IGNORING_ERRS,
+            DomainAnalysisFunctionName.A_CHECKED_COUNT_GROUPED,
+            DomainAnalysisFunctionName.MX_CHECKED_COUNT_GROUPED,
+        ],
+    ],
 ]);
 
 /**
