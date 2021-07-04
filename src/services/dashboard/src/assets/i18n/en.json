@@ -55,7 +55,9 @@
             "mxGeo": "Mail servers"
         },
         "tabExplanation": {
-            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
+            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum.",
+            "checked": "Based on the imported data, this section presents the top 10 most common MX and A records. It should be noted that the representations are not based on the existing datasets, but on an updated version.",
+            "redirect": "Based on the imported data, the frequencies of HTTP status codes and redirects are displayed graphically in this area. In addition, the KPI's provide an overview of all existing redirects and with the status code 200. Furthermore, the top 10 most frequently redirected domains are displayed."
         },
         "kpi": {
             "totalDomains": "Total number of parsed domains",

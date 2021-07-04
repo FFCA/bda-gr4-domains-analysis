@@ -55,7 +55,9 @@
             "mxGeo": "Mailserver"
         },
         "tabExplanation": {
-            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum."
+            "descriptive": "Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum.",
+            "checked": "Basierend auf den importierten Daten werden in diesem Abschnitt die Top 10 der häufigsten MX- und A-Records dargestellt. Es ist zu beachten, dass die Darstellungen nicht auf die bestehenden Records basieren, sondern auf eine aktualisierte Version beruhen.",
+            "redirect": "Basierend auf den importierten Daten werden in diesem Abschnitt die Häufigkeiten von HTTP-Statuscodes und Weiterleitungen grafisch dargestellt. Zusätzlich geben die KPI's einen Überblick über alle vorhandenen Weiterleitungen und mit dem Statuscode 200. Darüber hinaus werden die Top 10 der am häufigsten weitergeleiteten Domains angezeigt."
         },
         "kpi": {
             "totalDomains": "Anzahl eingelesener Domains",
