@@ -111,8 +111,10 @@ export const initializeSockets = async (httpServer: Server): Promise<void> => {
  * Initializes the Database event listeners.
  */
 export const initializeNotificationListeners = async (): Promise<void> => {
+    const events = getAllEvents();
+    require('events').EventEmitter.defaultMaxListeners = events.length;
     await Promise.all(
-        getAllEvents().map(async (event) => {
+        events.map(async (event) => {
             await Db.registerNotificationListener(event, () =>
                 patientlyEmitAfterTimeout(event)
             );
