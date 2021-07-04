@@ -51,20 +51,37 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.PERCENTAGE_MX_PROVIDERS_OUTSIDE_OF_GER,
         ],
     ],
+    [
+        DomainAnalysisEvent.IP_V6_INFORMATION,
+        [DomainAnalysisFunctionName.PERCENTAGE_HAS_IP_V6],
+    ],
+    [
+        DomainAnalysisEvent.SOA,
+        [
+            DomainAnalysisFunctionName.AVG_SOA_MINIMUM,
+            DomainAnalysisFunctionName.AVG_SOA_REFRESH,
+            DomainAnalysisFunctionName.SOA_NAMESERVERS_COUNT_WHERE_NO_ERR,
+        ],
+    ],
 ]);
 
 /**
  * @param event DB Event the functions for are to be returned.
  * @return DB functions for the given event.
  */
-export const getDbFunctionsByEvent = (event: DomainAnalysisEvent): DomainAnalysisFunctionName[] => {
+export const getDbFunctionsByEvent = (
+    event: DomainAnalysisEvent
+): DomainAnalysisFunctionName[] => {
     return eventQueryMap.get(event)!;
 };
 
 /**
  * Returns all DB functions as map with the respective DB event as key.
  */
-export const getDbFunctions = (): Map<DomainAnalysisEvent, DomainAnalysisFunctionName[]> => {
+export const getDbFunctions = (): Map<
+    DomainAnalysisEvent,
+    DomainAnalysisFunctionName[]
+> => {
     return eventQueryMap;
 };
 

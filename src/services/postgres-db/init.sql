@@ -182,6 +182,40 @@ SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
 FROM domain_mx_record_geolite2;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION percentage_has_ip_v6()
+    RETURNS TABLE
+        (
+            percentage FLOAT
+        )
+AS
+$$
+SELECT ROUND((SUM(CASE WHEN ipv6_available THEN 1 ELSE 0 END)::numeric /
+              COUNT(ipv6_available)), 4) AS percentage
+FROM ip_v6_information;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION avg_soa_minimum()
+    RETURNS TABLE
+        (
+            avg FLOAT
+        )
+AS
+$$
+SELECT AVG(minimum)
+FROM soa;
+$$ LANGUAGE sql;
+
+CREATE FUNCTION avg_soa_refresh()
+    RETURNS TABLE
+        (
+            avg FLOAT
+        )
+AS
+$$
+SELECT AVG(minimum)
+FROM soa;
+$$ LANGUAGE sql;
+
 -- for Charts:
 
 CREATE FUNCTION top_10_mx_global()
@@ -325,6 +359,19 @@ ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
 
+CREATE FUNCTION soa_nameservers_count_where_no_err()
+    RETURNS TABLE(
+        count INTEGER,
+        nameservers_cont INTEGER
+    )
+AS
+$$
+SELECT COUNT(nameservers_count) count, nameservers_count
+FROM soa
+WHERE nameservers_error = 0
+GROUP BY nameservers_count;
+$$ LANGUAGE sql;
+
 -- Creation of notification functions:
 
 CREATE FUNCTION notify_domain() RETURNS trigger AS
@@ -399,6 +446,23 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE FUNCTION notify_ip_v6_information() RETURNS trigger AS
+$$
+DECLARE
+BEGIN
+    NOTIFY watch_notify_ip_v6_information;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION notify_soa() RETURNS trigger AS
+    $$
+DECLARE
+BEGIN
+    NOTIFY watch_soa;
+RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
 
 -- Creation of triggers:
 
@@ -465,3 +529,19 @@ CREATE TRIGGER domain_mx_record_geolite2_trigger
     ON domain_mx_record_geolite2
     FOR EACH ROW
 EXECUTE PROCEDURE notify_domain_mx_record_geolite2();
+
+CREATE TRIGGER ip_v6_information_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON ip_v6_information
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_ip_v6_information();
+
+CREATE TRIGGER soa_trigger
+    AFTER INSERT OR
+        UPDATE OR
+        DELETE
+    ON soa
+    FOR EACH ROW
+EXECUTE PROCEDURE notify_soa();

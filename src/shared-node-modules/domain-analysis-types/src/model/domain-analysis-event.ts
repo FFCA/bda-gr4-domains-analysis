@@ -10,4 +10,6 @@ export enum DomainAnalysisEvent {
     DOMAIN_ENHANCED_BASED_ON_EXISTING = 'watch_domain_enhanced_based_on_existing_data',
     DOMAIN_REDIRECTION = 'watch_domain_redirection',
     DOMAIN_MX_GEO = 'watch_domain_mx_record_geolite2',
+    IP_V6_INFORMATION = 'watch_ip_v6_information',
+    SOA = 'watch_soa',
 }
