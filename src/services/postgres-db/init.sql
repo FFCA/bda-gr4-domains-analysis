@@ -450,7 +450,7 @@ CREATE FUNCTION notify_ip_v6_information() RETURNS trigger AS
 $$
 DECLARE
 BEGIN
-    NOTIFY watch_notify_ip_v6_information;
+    NOTIFY watch_ip_v6_information;
     RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
