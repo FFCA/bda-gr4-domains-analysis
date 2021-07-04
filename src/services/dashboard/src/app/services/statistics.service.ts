@@ -29,8 +29,8 @@ export class StatisticsService {
     private tab00Descriptive!: DisplayedTab;
     private tab01Checked!: DisplayedTab;
     private tab02Redirect!: DisplayedTab;
-    // tab 03
-    private tab04MxGeo!: DisplayedTab;
+    private tab03MxGeo!: DisplayedTab;
+    private tab04ipv6Soa!: DisplayedTab;
 
     // Objects for each chart to be displayed:
     private mxCountGlobal!: DomainAnalysisChart;
@@ -44,6 +44,7 @@ export class StatisticsService {
     private topTenMxAsn!: DomainAnalysisChart;
     private topTenMxCities!: DomainAnalysisChart;
     private topTenMxCountries!: DomainAnalysisChart;
+    private soaNameserversCountWhereNoErr!: DomainAnalysisChart;
 
     // Objects for each KPI to be displayed
     private domainCount!: DomainAnalysisKpi;
@@ -51,6 +52,9 @@ export class StatisticsService {
     private percentageOfRedirections!: DomainAnalysisKpi;
     private percentageOfRedirections200!: DomainAnalysisKpi;
     private percentageOfMxOutsideOfGermany!: DomainAnalysisKpi;
+    private percentageOfIpV6!: DomainAnalysisKpi;
+    private avgSoaMinimum!: DomainAnalysisKpi;
+    private avgSoaRefresh!: DomainAnalysisKpi;
 
     /**
      * Socket for asynchronous communication.
@@ -124,6 +128,21 @@ export class StatisticsService {
             (data: any) => this.onPercentageOfMxOutsideOfGermanyTriggered(data)
         );
 
+        this.socket.on(
+            DomainAnalysisFunctionName.PERCENTAGE_HAS_IP_V6,
+            (data: any) => this.onPercentageOfIpV6Triggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.AVG_SOA_MINIMUM,
+            (data: any) => this.onAvgSoaMinimumTriggered(data)
+        );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.AVG_SOA_REFRESH,
+            (data: any) => this.onAvgSoaRefreshTriggered(data)
+        );
+
         // Charts:
 
         this.socket.on(
@@ -179,6 +198,11 @@ export class StatisticsService {
             DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
             (data: any) => this.onTopTenMxCountriesTriggered(data)
         );
+
+        this.socket.on(
+            DomainAnalysisFunctionName.SOA_NAMESERVERS_COUNT_WHERE_NO_ERR,
+            (data: any) => this.onSoaNameserversCountWhereNoErrTriggered(data)
+        );
     }
 
     /**
@@ -224,19 +248,26 @@ export class StatisticsService {
             tabExplanationKey: 'dashboard.tabExplanation.redirect',
         };
 
-        this.tab04MxGeo = {
+        this.tab03MxGeo = {
             kpis: [],
             charts: [],
             tabKey: 'dashboard.tab.mxGeo',
             tabExplanationKey: 'dashboard.tabExplanation.mxGeo',
         };
 
+        this.tab04ipv6Soa = {
+            kpis: [],
+            charts: [],
+            tabKey: 'dashboard.tab.ipv6soa',
+            tabExplanationKey: 'dashboard.tabExplanation.ipv6soa',
+        };
+
         this.displayedTabs = [
             this.tab00Descriptive,
             this.tab01Checked,
             this.tab02Redirect,
-            // t03
-            this.tab04MxGeo,
+            this.tab03MxGeo,
+            this.tab04ipv6Soa,
         ];
     }
 
@@ -250,11 +281,6 @@ export class StatisticsService {
             translationKey: 'dashboard.kpi.percentageOfMxLocalhost',
             isPercentage: true,
         };
-        this.tab00Descriptive.kpis = [
-            this.domainCount,
-            this.percentageOfMxLocalhost,
-        ];
-        // this.tab01Checked.kpis = [];
 
         this.percentageOfRedirections = {
             translationKey: 'dashboard.kpi.percentageOfRedirections',
@@ -271,12 +297,34 @@ export class StatisticsService {
             isPercentage: true,
         };
 
+        this.percentageOfIpV6 = {
+            translationKey: 'dashboard.kpi.percentageOfIpV6ExcludingErrors',
+            isPercentage: true,
+        };
+
+        this.avgSoaMinimum = { translationKey: 'dashboard.kpi.soaAvgMinimumInS' };
+
+        this.avgSoaRefresh = { translationKey: 'dashboard.kpi.soaAvgRefreshInS' };
+
+        this.tab00Descriptive.kpis = [
+            this.domainCount,
+            this.percentageOfMxLocalhost,
+        ];
+
+        // this.tab01Checked.kpis = [];
+
         this.tab02Redirect.kpis = [
             this.percentageOfRedirections,
             this.percentageOfRedirections200,
         ];
 
-        this.tab04MxGeo.kpis = [this.percentageOfMxOutsideOfGermany];
+        this.tab03MxGeo.kpis = [this.percentageOfMxOutsideOfGermany];
+
+        this.tab04ipv6Soa.kpis = [
+            this.percentageOfIpV6,
+            this.avgSoaMinimum,
+            this.avgSoaRefresh,
+        ];
     }
 
     /**
@@ -309,16 +357,26 @@ export class StatisticsService {
             this.topTenRedirectedTo,
         ];
 
-        // tab 03
-
         this.initTopTenMxAsn();
         this.initTopTenMxCities();
         this.initTopTenMxCountries();
-        this.tab04MxGeo.charts = [
+        this.tab03MxGeo.charts = [
             this.topTenMxAsn,
             this.topTenMxCities,
             this.topTenMxCountries,
         ];
+
+        this.initTopTenMxAsn();
+        this.initTopTenMxCities();
+        this.initTopTenMxCountries();
+        this.tab03MxGeo.charts = [
+            this.topTenMxAsn,
+            this.topTenMxCities,
+            this.topTenMxCountries,
+        ];
+
+        this.initSoaNameserversCountWhereNoErr();
+        this.tab04ipv6Soa.charts = [this.soaNameserversCountWhereNoErr];
     }
 
     // Functions called on KPI changes, implemented using the following schema:
@@ -342,6 +400,18 @@ export class StatisticsService {
 
     private onPercentageOfMxOutsideOfGermanyTriggered(data: any): void {
         this.percentageOfMxOutsideOfGermany.value = data[0].percentage;
+    }
+
+    private onPercentageOfIpV6Triggered(data: any): void {
+        this.percentageOfIpV6.value = data[0].percentage;
+    }
+
+    private onAvgSoaMinimumTriggered(data: any): void {
+        this.avgSoaMinimum.value = data[0].avg;
+    }
+
+    private onAvgSoaRefreshTriggered(data: any): void {
+        this.avgSoaRefresh.value = data[0].avg;
     }
 
     // Initialization functions and functions called in case of chart data changes.
@@ -665,9 +735,42 @@ export class StatisticsService {
     }
 
     private onTopTenMxCountriesTriggered(data: any): void {
-        console.log(data);
         this.topTenMxCountries.data = [{ data: data.map((d: any) => d.count) }];
         this.topTenMxCountries.labels = data.map((d: any) => d.iso_code);
         this.topTenMxCountries.hasData = data.length;
+    }
+
+    // soaNameserversCountWhereNoErr
+
+    private initSoaNameserversCountWhereNoErr(): void {
+        const chart = this.topTenMxCountries;
+        this.soaNameserversCountWhereNoErr = {
+            titleKey: 'dashboard.chart.soaNameserversCountWhereNoErr.title',
+            data: chart?.data ?? [],
+            labels: chart?.labels ?? [],
+            hasData: !!chart?.data?.length,
+            size: chart?.size,
+            type: 'bar',
+            showLabels: false,
+            options: DomainAnalysisChart.defaultOptionsWithLabels(
+                this.translate.instant(
+                    'dashboard.chart.soaNameserversCountWhereNoErr.record'
+                ),
+                this.translate.instant('dashboard.general.number')
+            ),
+        };
+    }
+
+    private onSoaNameserversCountWhereNoErrTriggered(data: any): void {
+        data = data.sort((a: any, b: any) => b.count - a.count);
+        this.soaNameserversCountWhereNoErr.data = [
+            { data: data.map((d: any) => d.count) },
+        ];
+        this.soaNameserversCountWhereNoErr.labels = data.map((d: any) => {
+            return `${this.translate.instant(
+                'dashboard.dataLabel.nameservers'
+            )}: ${d.nameservers_cont}`;
+        });
+        this.soaNameserversCountWhereNoErr.hasData = data.length;
     }
 }

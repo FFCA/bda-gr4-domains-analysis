@@ -33,7 +33,8 @@
     },
     "dashboard": {
         "dataLabel": {
-            "records": "Records"
+            "records": "Records",
+            "nameservers": "Nameserver"
         },
         "general": {
             "nthKpi": "Kennzahl {{ n }}",
@@ -67,7 +68,10 @@
             "percentageOfMxLocalhost": "Prozentzahl an Domains mit \"localhost\" als MX-Record",
             "percentageOfRedirections": "Prozentzahl an Weiterleitungen (Null-Werte ausgeschlossen)",
             "percentageOfRedirections200": "Prozentzahl an Weiterleitungen mit Statuscode 200 (Null-Werte ausgeschlossen)",
-            "percentageOfMxOutsideOfGermany": "Prozentzahl an MX-Records von E-Mail-Providern außerhalb Deutschlands"
+            "percentageOfMxOutsideOfGermany": "Prozentzahl an MX-Records von E-Mail-Providern außerhalb Deutschlands",
+            "percentageOfIpV6ExcludingErrors": "Percentage of domains supporting IPv6 (excluding request errors)",
+            "soaAvgMinimumInS": "Durchschnittlicher SOA \"Minimum\"-Wert in Sekunden",
+            "soaAvgRefreshInS": "Durchschnittlicher SOA \"Refresh\"-Wert in Sekunden"
         },
         "chart": {
             "mxTop10": {
@@ -85,11 +89,11 @@
                 "title": "Meistverbreitete (geprüfte) A-Records (Top 10)"
             },
             "groupedMxCount": {
-                "title": "Gruppierte Anzahl an MX-Records",
+                "title": "Gruppierte Anzahl an MX-Records pro Domain",
                 "record": "Anzahl an MX-Records"
             },
             "groupedACount": {
-                "title": "Gruppierte Anzahl an A-Records",
+                "title": "Gruppierte Anzahl an A-Records pro Domain",
                 "record": "Anzahl an A-Records"
             },
             "domainAccessCodes": {
@@ -111,6 +115,10 @@
             },
             "topTenMxCities": {
                 "title": "Anzahl an MX-Records gruppiert nach Stadt des Providers (Top 10)"
+            },
+            "soaNameserversCountWhereNoErr": {
+                "title": "Gruppierte Anzahl an SOA Nameservern pro Domain",
+                "record": "Anzahl an Nameservern"
             }
         }
     }
