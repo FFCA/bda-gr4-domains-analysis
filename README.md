@@ -85,7 +85,7 @@ presented below some time before).
 #### Called with file path
 
 ```shell
-bash setup.sh path/to/your/downloaded/file/data.csv
+bash setup.sh absoulte/path/to/your/downloaded/file/data.csv
 ```
 
 In this case, after checking whether the file (its name is not important) exists and whether it is a `.csv` file, it
@@ -100,7 +100,7 @@ anywhere else:
 
 ```shell
 bash path/to/your/repo/setup.sh 
-bash path/to/your/repo/setup.sh path/to/your/downloaded/file/data.csv
+bash path/to/your/repo/setup.sh absolute/path/to/your/downloaded/file/data.csv
 ```
 
 ### Manual verification and execution of commands
