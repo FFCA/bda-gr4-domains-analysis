@@ -106,7 +106,7 @@
                 "title": "Domains redirected to (Top 10)"
             },
             "topTenMxCountries": {
-                "title": "Number of Mx-records grouped by provider countries (Top 10)",
+                "title": "Number of MX-records grouped by provider countries (Top 10)",
                 "record": "Country"
             },
             "topTenMxAsn": {
@@ -114,7 +114,7 @@
                 "record": "Provider"
             },
             "topTenMxCities": {
-                "title": "Number of Mx-records grouped by provider cities (Top 10)"
+                "title": "Number of MX-records grouped by provider cities (Top 10)"
             },
             "soaNameserversCountWhereNoErr": {
                 "title": "Grouped number of SOA nameservers per domain (excluding request errors)",
