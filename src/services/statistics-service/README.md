@@ -16,7 +16,7 @@ Also, make sure you have the [Postgres DB](../../services/postgres-db/README.md)
 Hint: For this purpose, you can also map the port of the database in the project's
 docker-compose (`bda-gr-4-domains-analysis/src/services`).
 
-In order to load all dependencies, run (in this directory):
+Then, install the types package as described [here](../../shared-node-modules/domain-analysis-types/README.md). In order to load all other dependencies, run (in this directory):
 
 ```sh
 npm install
