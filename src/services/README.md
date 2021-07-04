@@ -22,6 +22,6 @@ Also, docker-compose manages the mounted volumes, i.e.:
     - [Notebooks](./pyspark/notebooks)
     - [Notebook README](./pyspark/README.ipynb)
 
-## Simple diagram visualizing the architecture
+## Figure visualizing the architecture
 
-![Service architecture](../../architecture.svg)
+![Service architecture](../../project-architecture.svg)

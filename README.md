@@ -178,5 +178,8 @@ Once everything is running, you can access:
 
 Learn more about the containers and how they are interacting [here](./src/services/README.md).
 
-![Service architecture](architecture.svg)
+
+## Simple figure visualizing the architecture
+
+![Service architecture](project-architecture.svg)
 
