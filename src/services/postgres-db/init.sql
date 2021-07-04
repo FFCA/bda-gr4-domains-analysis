@@ -201,7 +201,7 @@ CREATE FUNCTION avg_soa_minimum()
         )
 AS
 $$
-SELECT AVG(minimum)
+SELECT ROUND(AVG(minimum))
 FROM soa;
 $$ LANGUAGE sql;
 
@@ -212,7 +212,7 @@ CREATE FUNCTION avg_soa_refresh()
         )
 AS
 $$
-SELECT AVG(minimum)
+SELECT ROUND(AVG(refresh))
 FROM soa;
 $$ LANGUAGE sql;
 
