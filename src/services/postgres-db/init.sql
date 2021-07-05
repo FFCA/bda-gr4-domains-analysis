@@ -444,9 +444,8 @@ CREATE FUNCTION top_10_soa_asn()
         )
     AS
 $$
-SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization, iso_code
+SELECT count, autonomous_system_organization, iso_code
 FROM soa_top_ten
-GROUP BY autonomous_system_organization, iso_code
 ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
