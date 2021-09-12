@@ -7,26 +7,6 @@ CREATE TABLE domain
     a_record         VARCHAR(255)[] NULL
 );
 
-CREATE TABLE domain_enhanced_based_on_existing_data
-(
-    top_level_domain  VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
-    a_record_count    INTEGER NOT NULL,
-    mx_record_count   INTEGER NOT NULL,
-    mx_uses_localhost BOOLEAN NOT NULL
-);
-
-CREATE TABLE a_record_count_global
-(
-    a_record VARCHAR(255) PRIMARY KEY,
-    count    INTEGER NOT NULL
-);
-
-CREATE TABLE mx_record_count_global
-(
-    mx_record VARCHAR(255) PRIMARY KEY,
-    count     INTEGER NOT NULL
-);
-
 CREATE TABLE exception_message
 (
     id        INTEGER PRIMARY KEY,
@@ -141,8 +121,8 @@ CREATE FUNCTION percentage_of_mx_localhost()
             )
 AS
 $$
-SELECT ROUND((SUM(CASE WHEN mx_uses_localhost THEN 1 ELSE 0 END)::numeric / COUNT(top_level_domain)), 4) AS percentage
-FROM domain_enhanced_based_on_existing_data;
+SELECT ROUND((SUM(CASE WHEN 'localhost'=ANY(mx_record) THEN 1 ELSE 0 END)::numeric / COUNT(*)), 4) AS percentage
+FROM domain
 $$ LANGUAGE sql;
 
 CREATE FUNCTION percentage_of_redirections()
@@ -266,22 +246,34 @@ $$ LANGUAGE sql;
 -- for Charts:
 
 CREATE FUNCTION top_10_mx_global()
-    RETURNS SETOF mx_record_count_global
+    RETURNS TABLE
+        (
+            mx_record   VARCHAR(255),
+            count       INTEGER
+        )
 AS
 $$
-BEGIN
-    RETURN QUERY SELECT * FROM mx_record_count_global ORDER BY count DESC LIMIT 10;
-END;
-$$ LANGUAGE plpgsql;
+SELECT mx_record, count(*)
+FROM (SELECT UNNEST(mx_record) AS mx_record FROM domain) mx
+GROUP BY mx_record
+ORDER BY count DESC
+LIMIT 10
+$$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_a_global()
-    RETURNS SETOF a_record_count_global
+    RETURNS TABLE
+        (
+            a_record    VARCHAR(255),
+            count       INTEGER
+        )
 AS
 $$
-BEGIN
-    RETURN QUERY SELECT * FROM a_record_count_global ORDER BY count DESC LIMIT 10;
-END;
-$$ LANGUAGE plpgsql;
+SELECT a_record, count(*)
+FROM (SELECT UNNEST(a_record) AS a_record FROM domain) a
+GROUP BY a_record
+ORDER BY count DESC
+LIMIT 10
+$$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_mx_checked_global()
     RETURNS SETOF mx_record_checked_count_global
@@ -309,9 +301,10 @@ CREATE FUNCTION mx_count_grouped()
             )
 AS
 $$
-SELECT COUNT(mx_record_count), mx_record_count
-FROM domain_enhanced_based_on_existing_data
+SELECT COUNT(*), COALESCE(CARDINALITY(mx_record), 0) mx_record_count
+FROM domain
 GROUP BY mx_record_count
+ORDER BY mx_record_count
 $$ LANGUAGE sql;
 
 CREATE FUNCTION a_count_grouped()
@@ -322,9 +315,10 @@ CREATE FUNCTION a_count_grouped()
             )
 AS
 $$
-SELECT COUNT(a_record_count), a_record_count
-FROM domain_enhanced_based_on_existing_data
+SELECT COUNT(*), COALESCE(CARDINALITY(a_record), 0) a_record_count
+FROM domain
 GROUP BY a_record_count
+ORDER BY a_record_count
 $$ LANGUAGE sql;
 
 CREATE FUNCTION domain_access_status_codes()
@@ -615,22 +609,6 @@ CREATE TRIGGER domain_trigger
     FOR EACH ROW
 EXECUTE PROCEDURE notify_domain();
 
-CREATE TRIGGER a_global_count_trigger
-    AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON a_record_count_global
-    FOR EACH ROW
-EXECUTE PROCEDURE notify_a_count_global();
-
-CREATE TRIGGER mx_global_count_trigger
-    AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON mx_record_count_global
-    FOR EACH ROW
-EXECUTE PROCEDURE notify_mx_count_global();
-
 CREATE TRIGGER a_checked_global_count_trigger
     AFTER INSERT OR
         UPDATE OR
@@ -646,14 +624,6 @@ CREATE TRIGGER mx_checked_global_count_trigger
     ON mx_record_checked_count_global
     FOR EACH ROW
 EXECUTE PROCEDURE notify_mx_checked_count_global();
-
-CREATE TRIGGER domain_enhanced_based_on_existing_data_trigger
-    AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON domain_enhanced_based_on_existing_data
-    FOR EACH ROW
-EXECUTE PROCEDURE notify_domain_enhanced_based_on_existing_data();
 
 CREATE TRIGGER domain_redirection_trigger
     AFTER INSERT OR

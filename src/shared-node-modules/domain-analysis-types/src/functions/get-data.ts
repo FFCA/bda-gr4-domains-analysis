@@ -8,14 +8,16 @@ const eventQueryMap = new Map<
     DomainAnalysisEvent,
     DomainAnalysisFunctionName[]
 >([
-    [DomainAnalysisEvent.DOMAIN, [DomainAnalysisFunctionName.DOMAIN_COUNT]],
     [
-        DomainAnalysisEvent.A_COUNT_GLOBAL,
-        [DomainAnalysisFunctionName.TOP_10_A_GLOBAL],
-    ],
-    [
-        DomainAnalysisEvent.MX_COUNT_GLOBAL,
-        [DomainAnalysisFunctionName.TOP_10_MX_GLOBAL],
+        DomainAnalysisEvent.DOMAIN,
+        [
+            DomainAnalysisFunctionName.DOMAIN_COUNT,
+            DomainAnalysisFunctionName.TOP_10_A_GLOBAL,
+            DomainAnalysisFunctionName.TOP_10_MX_GLOBAL,
+            DomainAnalysisFunctionName.MX_COUNT_GROUPED,
+            DomainAnalysisFunctionName.A_COUNT_GROUPED,
+            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_LOCALHOST,
+        ],
     ],
     [
         DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL,
@@ -24,14 +26,6 @@ const eventQueryMap = new Map<
     [
         DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL,
         [DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL],
-    ],
-    [
-        DomainAnalysisEvent.DOMAIN_ENHANCED_BASED_ON_EXISTING,
-        [
-            DomainAnalysisFunctionName.MX_COUNT_GROUPED,
-            DomainAnalysisFunctionName.A_COUNT_GROUPED,
-            DomainAnalysisFunctionName.PERCENTAGE_OF_MX_LOCALHOST,
-        ],
     ],
     [
         DomainAnalysisEvent.DOMAIN_REDIRECTION,
