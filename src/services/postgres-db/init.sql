@@ -62,15 +62,15 @@ CREATE TABLE soa
 
 CREATE TABLE domain_mx_record_geolite2
 (
-    top_level_domain               VARCHAR(255) NOT NULL,
     mx_record_checked              VARCHAR(255) NOT NULL,
-    mx_record_ip                   VARCHAR(255) NULL,
+    mx_record_ip                   VARCHAR(255) NOT NULL,
     iso_code                       VARCHAR(255) NULL,
+    autonomous_system_organization VARCHAR(255) NULL,
     city                           VARCHAR(255) NULL,
     postal                         VARCHAR(255) NULL,
     latitude                       VARCHAR(255) NULL,
     longitude                      VARCHAR(255) NULL,
-    autonomous_system_organization VARCHAR(255) NULL
+    PRIMARY KEY(mx_record_checked, mx_record_ip)
 );
 
 CREATE TABLE soa_top_ten
@@ -158,7 +158,12 @@ AS
 $$
 SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
               COUNT(iso_code)), 4) AS percentage
-FROM domain_mx_record_geolite2;
+FROM (
+    SELECT iso_code
+    FROM domain_records_checked d
+        INNER JOIN domain_mx_record_geolite2 mx
+            ON mx.mx_record_checked = ANY (d.mx_record_checked)
+    ) x;
 $$ LANGUAGE sql;
 
 CREATE FUNCTION percentage_of_soa_providers_outside_of_germany()
@@ -363,7 +368,12 @@ CREATE FUNCTION top_10_mx_asn()
 AS
 $$
 SELECT COUNT(autonomous_system_organization) AS count, autonomous_system_organization, iso_code
-FROM domain_mx_record_geolite2
+FROM (
+    SELECT autonomous_system_organization, iso_code
+    FROM domain_records_checked d
+           INNER JOIN domain_mx_record_geolite2 mx
+                      ON mx.mx_record_checked = ANY (d.mx_record_checked)
+    ) x
 GROUP BY autonomous_system_organization, iso_code
 ORDER BY count DESC
 LIMIT 10;
@@ -379,7 +389,12 @@ CREATE FUNCTION top_10_mx_cities()
 AS
 $$
 SELECT COUNT(city) count, city, iso_code
-FROM domain_mx_record_geolite2
+FROM (
+    SELECT city, iso_code
+    FROM domain_records_checked d
+        INNER JOIN domain_mx_record_geolite2 mx
+            ON mx.mx_record_checked = ANY (d.mx_record_checked)
+    ) x
 GROUP BY city, iso_code
 ORDER BY count DESC
 LIMIT 10;
@@ -394,7 +409,12 @@ CREATE FUNCTION top_10_mx_countries()
 AS
 $$
 SELECT COUNT(iso_code) count, iso_code
-FROM domain_mx_record_geolite2
+FROM (
+    SELECT iso_code
+    FROM domain_records_checked d
+        INNER JOIN domain_mx_record_geolite2 mx
+            ON mx.mx_record_checked = ANY (d.mx_record_checked)
+    ) x
 GROUP BY iso_code
 ORDER BY count DESC
 LIMIT 10;
