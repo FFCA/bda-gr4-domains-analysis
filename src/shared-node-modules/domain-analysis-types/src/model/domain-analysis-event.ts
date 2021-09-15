@@ -3,8 +3,6 @@
  */
 export enum DomainAnalysisEvent {
     DOMAIN = 'watch_domain',
-    A_CHECKED_COUNT_GLOBAL = 'watch_a_checked_count_global',
-    MX_CHECKED_COUNT_GLOBAL = 'watch_mx_checked_count_global',
     DOMAIN_REDIRECTION = 'watch_domain_redirection',
     DOMAIN_MX_GEO = 'watch_domain_mx_record_geolite2',
     IP_V6_INFORMATION = 'watch_ip_v6_information',

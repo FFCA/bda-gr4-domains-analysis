@@ -20,14 +20,6 @@ const eventQueryMap = new Map<
         ],
     ],
     [
-        DomainAnalysisEvent.A_CHECKED_COUNT_GLOBAL,
-        [DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL],
-    ],
-    [
-        DomainAnalysisEvent.MX_CHECKED_COUNT_GLOBAL,
-        [DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL],
-    ],
-    [
         DomainAnalysisEvent.DOMAIN_REDIRECTION,
         [
             DomainAnalysisFunctionName.DOMAIN_ACCESS_STATUS_CODES,
@@ -74,6 +66,8 @@ const eventQueryMap = new Map<
             DomainAnalysisFunctionName.PERCENTAGE_OF_MX_DIFF_IGNORING_ERRS,
             DomainAnalysisFunctionName.A_CHECKED_COUNT_GROUPED,
             DomainAnalysisFunctionName.MX_CHECKED_COUNT_GROUPED,
+            DomainAnalysisFunctionName.TOP_10_A_CHECKED_GLOBAL,
+            DomainAnalysisFunctionName.TOP_10_MX_CHECKED_GLOBAL
         ],
     ],
 ]);

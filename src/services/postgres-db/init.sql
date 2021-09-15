@@ -36,18 +36,6 @@ CREATE TABLE domain_redirection
     status_code      INTEGER      NULL
 );
 
-CREATE TABLE a_record_checked_count_global
-(
-    a_record_checked VARCHAR(255) PRIMARY KEY,
-    count            INTEGER NOT NULL
-);
-
-CREATE TABLE mx_record_checked_count_global
-(
-    mx_record_checked VARCHAR(255) PRIMARY KEY,
-    count             INTEGER NOT NULL
-);
-
 CREATE TABLE soa
 (
     top_level_domain        VARCHAR(255) PRIMARY KEY REFERENCES domain (top_level_domain),
@@ -281,22 +269,34 @@ LIMIT 10
 $$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_mx_checked_global()
-    RETURNS SETOF mx_record_checked_count_global
-AS
+    RETURNS TABLE
+        (
+            mx_record_checked   VARCHAR(255),
+            count               INTEGER
+        )
+    AS
 $$
-BEGIN
-    RETURN QUERY SELECT * FROM mx_record_checked_count_global ORDER BY count DESC LIMIT 10;
-END;
-$$ LANGUAGE plpgsql;
+SELECT mx_record_checked, count(*)
+FROM (SELECT UNNEST(mx_record_checked) AS mx_record_checked FROM domain_records_checked) mx
+GROUP BY mx_record_checked
+ORDER BY count DESC
+LIMIT 10
+$$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_a_checked_global()
-    RETURNS SETOF a_record_checked_count_global
+    RETURNS TABLE
+        (
+            a_record_checked    VARCHAR(255),
+            count               INTEGER
+        )
 AS
 $$
-BEGIN
-    RETURN QUERY SELECT * FROM a_record_checked_count_global ORDER BY count DESC LIMIT 10;
-END;
-$$ LANGUAGE plpgsql;
+SELECT a_record_checked, count(*)
+FROM (SELECT UNNEST(a_record_checked) AS a_record_checked FROM domain_records_checked) a
+GROUP BY a_record_checked
+ORDER BY count DESC
+LIMIT 10
+$$ LANGUAGE sql;
 
 CREATE FUNCTION mx_count_grouped()
     RETURNS TABLE
@@ -522,51 +522,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION notify_a_count_global() RETURNS trigger AS
-$$
-DECLARE
-BEGIN
-    NOTIFY watch_a_count_global;
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION notify_mx_count_global() RETURNS trigger AS
-$$
-DECLARE
-BEGIN
-    NOTIFY watch_mx_count_global;
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION notify_mx_checked_count_global() RETURNS trigger AS
-$$
-DECLARE
-BEGIN
-    NOTIFY watch_mx_checked_count_global;
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION notify_a_checked_count_global() RETURNS trigger AS
-$$
-DECLARE
-BEGIN
-    NOTIFY watch_a_checked_count_global;
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE FUNCTION notify_domain_enhanced_based_on_existing_data() RETURNS trigger AS
-$$
-DECLARE
-BEGIN
-    NOTIFY watch_domain_enhanced_based_on_existing_data;
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
 CREATE FUNCTION notify_domain_redirection() RETURNS trigger AS
 $$
 DECLARE
@@ -630,22 +585,6 @@ CREATE TRIGGER domain_trigger
     ON domain
     FOR EACH ROW
 EXECUTE PROCEDURE notify_domain();
-
-CREATE TRIGGER a_checked_global_count_trigger
-    AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON a_record_checked_count_global
-    FOR EACH ROW
-EXECUTE PROCEDURE notify_a_checked_count_global();
-
-CREATE TRIGGER mx_checked_global_count_trigger
-    AFTER INSERT OR
-        UPDATE OR
-        DELETE
-    ON mx_record_checked_count_global
-    FOR EACH ROW
-EXECUTE PROCEDURE notify_mx_checked_count_global();
 
 CREATE TRIGGER domain_redirection_trigger
     AFTER INSERT OR
