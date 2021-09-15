@@ -240,12 +240,12 @@ export class StatisticsService {
         );
 
         this.socket.on(
-            DomainAnalysisFunctionName.TOP_10_MX_CITIES,
+            DomainAnalysisFunctionName.SOA_TOP_TEN_CITIES,
             (data: any) => this.onTopTenSoaCitiesTriggered(data)
         );
 
         this.socket.on(
-            DomainAnalysisFunctionName.TOP_10_MX_COUNTRIES,
+            DomainAnalysisFunctionName.SOA_TOP_TEN_COUNTRIES,
             (data: any) => this.onTopTenSoaCountriesTriggered(data)
         );
 
