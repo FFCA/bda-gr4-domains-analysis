@@ -9,6 +9,6 @@ export enum DomainAnalysisEvent {
     DOMAIN_MX_GEO = 'watch_domain_mx_record_geolite2',
     IP_V6_INFORMATION = 'watch_ip_v6_information',
     SOA = 'watch_soa',
-    SOA_TOP_TEN = 'watch_soa_top_ten',
+    SOA_NAMESERVER_DETAILS = 'watch_soa_nameserver_details',
     DOMAIN_RECORDS_CHECKED = 'watch_domain_records_checked',
 }

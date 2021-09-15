@@ -73,17 +73,17 @@ CREATE TABLE domain_mx_record_geolite2
     PRIMARY KEY(mx_record_checked, mx_record_ip)
 );
 
-CREATE TABLE soa_top_ten
+CREATE TABLE soa_nameserver_details
 (
-    soa_name                       VARCHAR(255) NULL,
-    count                          INTEGER NOT NULL,
-    ipv4                           VARCHAR(255) NULL,
+    soa_name                       VARCHAR(255) NOT NULL,
+    ipv4                           VARCHAR(255) NOT NULL,
     iso_code                       VARCHAR(255) NULL,
     city                           VARCHAR(255) NULL,
     postal                         VARCHAR(255) NULL,
     latitude                       VARCHAR(255) NULL,
     longitude                      VARCHAR(255) NULL,
-    autonomous_system_organization VARCHAR(255) NULL
+    autonomous_system_organization VARCHAR(255) NULL,
+    PRIMARY KEY(soa_name, ipv4)
 );
 
 -- Insertion of pre-defined values (caught errors):
@@ -175,7 +175,7 @@ CREATE FUNCTION percentage_of_soa_providers_outside_of_germany()
 $$
 SELECT ROUND((SUM(CASE WHEN iso_code != 'DE' THEN 1 ELSE 0 END)::numeric /
               COUNT(iso_code)), 4) AS percentage
-FROM soa_top_ten;
+FROM soa_nameserver_details;
 $$ LANGUAGE sql;
 
 CREATE FUNCTION percentage_has_ip_v6()
@@ -442,7 +442,7 @@ CREATE FUNCTION top_10_soa_countries()
     AS
 $$
 SELECT COUNT(iso_code) count, iso_code
-FROM soa_top_ten
+FROM soa_nameserver_details
 GROUP BY iso_code
 ORDER BY count DESC
 LIMIT 10;
@@ -457,8 +457,10 @@ CREATE FUNCTION top_10_soa_asn()
         )
     AS
 $$
-SELECT count, autonomous_system_organization, iso_code
-FROM soa_top_ten
+
+SELECT COUNT(*), autonomous_system_organization, iso_code
+FROM soa INNER JOIN soa_nameserver_details snd ON snd.soa_name = soa.soa_name
+GROUP BY autonomous_system_organization, iso_code
 ORDER BY count DESC
 LIMIT 10;
 $$ LANGUAGE sql;
@@ -473,7 +475,7 @@ CREATE FUNCTION top_10_soa_cities()
     AS
 $$
 SELECT COUNT(city) count, city, iso_code
-FROM soa_top_ten
+FROM soa_nameserver_details
 GROUP BY city, iso_code
 ORDER BY count DESC
 LIMIT 10;
@@ -601,11 +603,11 @@ RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION notify_soa_top_ten() RETURNS trigger AS
+CREATE FUNCTION notify_soa_nameserver_details() RETURNS trigger AS
     $$
 DECLARE
 BEGIN
-    NOTIFY watch_soa_top_ten;
+    NOTIFY watch_soa_nameserver_details;
 RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
@@ -677,13 +679,13 @@ ON soa
     FOR EACH ROW
 EXECUTE PROCEDURE notify_soa();
 
-CREATE TRIGGER soa_top_ten_trigger
+CREATE TRIGGER soa_nameserver_details_trigger
     AFTER INSERT OR
 UPDATE OR
 DELETE
-ON soa_top_ten
+ON soa_nameserver_details
     FOR EACH ROW
-EXECUTE PROCEDURE notify_soa_top_ten();
+EXECUTE PROCEDURE notify_soa_nameserver_details();
 
 CREATE TRIGGER domain_records_checked_trigger
     AFTER INSERT OR

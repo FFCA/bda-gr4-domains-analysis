@@ -58,7 +58,7 @@ const eventQueryMap = new Map<
         ],
     ],
     [
-        DomainAnalysisEvent.SOA_TOP_TEN,
+        DomainAnalysisEvent.SOA_NAMESERVER_DETAILS,
         [
             DomainAnalysisFunctionName.SOA_TOP_TEN_CITIES,
             DomainAnalysisFunctionName.SOA_TOP_TEN_ASN,
