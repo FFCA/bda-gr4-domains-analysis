@@ -430,8 +430,8 @@ $$
 SELECT COUNT(nameservers_count) count, nameservers_count
 FROM soa
 WHERE nameservers_error = 0
-ORDER BY count DESC
-GROUP BY nameservers_count;
+GROUP BY nameservers_count
+ORDER BY count DESC;
 $$ LANGUAGE sql;
 
 CREATE FUNCTION top_10_soa_countries()
