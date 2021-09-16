@@ -430,6 +430,7 @@ $$
 SELECT COUNT(nameservers_count) count, nameservers_count
 FROM soa
 WHERE nameservers_error = 0
+ORDER BY count DESC
 GROUP BY nameservers_count;
 $$ LANGUAGE sql;
 
