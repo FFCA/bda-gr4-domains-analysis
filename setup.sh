@@ -63,7 +63,7 @@ fi
 asnDb="GeoLite2-ASN.mmdb"
 
 # check for asn mmdb
-if [ -e $pysparkdir$cityDb ]; then
+if [ -e $pysparkdir$asnDb ]; then
   echo "[GeoLite2 ASN] Existing" $pysparkdir$asnDb "will be used!"
 else
   echo "[GeoLite2 ASN] Failed to find required" $pysparkdir$asnDb"!"
